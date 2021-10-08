@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.login.loginController">
+   <children>
+      <Button fx:id="loginBtn" layoutX="456.0" layoutY="560.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="113.0" text="Login">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <TextField alignment="CENTER" layoutX="332.0" layoutY="415.0" prefHeight="48.0" prefWidth="361.0" promptText="Username">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextField>
+      <PasswordField alignment="CENTER" layoutX="332.0" layoutY="489.0" prefHeight="25.0" prefWidth="361.0" promptText="Password">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </PasswordField>
+      <ImageView fitHeight="292.0" fitWidth="260.0" layoutX="382.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/1.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="387.0" layoutY="43.0" text="BILLING SYSTEM">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

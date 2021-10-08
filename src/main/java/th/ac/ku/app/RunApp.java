@@ -1,13 +1,13 @@
-package th.ac.ku.WashingOfficeApplication;
+package th.ac.ku.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WashingOfficeApplication {
+public class RunApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WashingOfficeApplication.class, args);
+		SpringApplication.run(RunApp.class, args);
 	}
 
 }
