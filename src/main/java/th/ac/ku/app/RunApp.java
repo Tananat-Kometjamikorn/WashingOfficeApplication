@@ -1,13 +1,25 @@
 package th.ac.ku.app;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RunApp {
+public class RunApp extends Application {
+	@Override
+	public void start(Stage primaryStage) throws Exception{
+		Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
+		primaryStage.setScene(new Scene(root, 1024, 720));
+		primaryStage.show();
+	}
+
 
 	public static void main(String[] args) {
-		SpringApplication.run(RunApp.class, args);
+		launch(args);
 	}
 
 }

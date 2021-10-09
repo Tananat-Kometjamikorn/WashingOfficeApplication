@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.login.loginController">
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.login.LoginController">
    <children>
-      <Button fx:id="loginBtn" layoutX="456.0" layoutY="560.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="113.0" text="Login">
+      <Button fx:id="loginBtn" layoutX="456.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleLoginBtnOnAction" prefHeight="67.0" prefWidth="113.0" text="Login">
          <font>
             <Font size="22.0" />
          </font>

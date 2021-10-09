@@ -40,6 +40,11 @@
                         <Font size="22.0" />
                      </font>
                   </Button>
+                  <Button fx:id="logoutBtn" layoutX="913.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" prefHeight="39.0" prefWidth="97.0" text="LOGOUT">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
                </children></AnchorPane>
       </content>
     </Tab>
