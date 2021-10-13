@@ -1,0 +1,21 @@
+.buttonGreen {
+    -fx-background-color: #228B22;
+    -fx-background-radius: 23px;
+    -fx-text-fill: black;
+}
+.buttonGreen:hover {
+     -fx-background-color: white;
+     -fx-background-radius: 23px;
+     -fx-text-fill: #228B22;
+     -fx-border-color: #228B22;
+     -fx-border-radius: 20px;
+     -fx-border-width: 5px;
+}
+.buttonGreen:pressed {
+     -fx-background-color: #C2C5C8;
+     -fx-background-radius: 23px;
+     -fx-text-fill: #228B22;
+     -fx-border-color: #228B22;
+     -fx-border-radius: 20px;
+     -fx-border-width: 4px;
+}

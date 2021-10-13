@@ -19,7 +19,6 @@ public class LoginController {
     @FXML
     public void handleLoginBtnOnAction(ActionEvent event) throws IOException {
 
-        if()
 
 //        Button b = (Button) event.getSource();
 //        Stage stage = (Stage) b.getScene().getWindow();
