@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.orderInfo.OrderInfoController">
    <children>
       <Label layoutX="137.0" layoutY="87.0" text="OrderID">
          <font>
@@ -28,71 +28,47 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="149.0" layoutY="257.0" text="Cloth Type">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
       <Label layoutX="140.0" layoutY="218.0" text="Phone Number">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <ChoiceBox layoutX="309.0" layoutY="333.0" prefHeight="25.0" prefWidth="94.0" />
-      <Button layoutX="541.0" layoutY="14.0" mnemonicParsing="false" text="CLOSE">
+      <ChoiceBox fx:id="statusChoiceBox" layoutX="309.0" layoutY="333.0" prefHeight="25.0" prefWidth="94.0" />
+      <Button fx:id="closeBtn" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleCloseBtnOnAction" text="CLOSE">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="169.0" layoutY="400.0" mnemonicParsing="false" text="CHANGE">
+      <Button fx:id="changeBtn" layoutX="169.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleChangeBtnOnAction" text="CHANGE">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="309.0" layoutY="85.0" text="OrderID">
+      <Label fx:id="orderIdLabel" layoutX="309.0" layoutY="85.0" text="OrderID">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="310.0" layoutY="117.0" text="CustomerName">
+      <Label fx:id="customerNameLabel" layoutX="310.0" layoutY="117.0" text="CustomerName">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="311.0" layoutY="182.0" text="Staff Name">
+      <Label fx:id="staffNameLabel" layoutX="311.0" layoutY="182.0" text="Staff Name">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="311.0" layoutY="147.0" text="Create Date">
+      <Label fx:id="createDateLabel" layoutX="311.0" layoutY="147.0" text="Create Date">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="274.0" layoutY="257.0" text="Cloth Type">
+      <Label fx:id="phoneNumLabel" layoutX="312.0" layoutY="216.0" text="Phone Number">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="312.0" layoutY="216.0" text="Phone Number">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="410.0" layoutY="257.0" text="Cloth Type">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="146.0" layoutY="287.0" text="Cloth Quan">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="265.0" layoutY="289.0" text="Cloth Quan">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="407.0" layoutY="287.0" text="Cloth Quan">
+      <Label layoutX="138.0" layoutY="257.0" text="Cloth Quantity">
          <font>
             <Font size="18.0" />
          </font>
@@ -102,10 +78,15 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Button layoutX="405.0" layoutY="400.0" mnemonicParsing="false" text="CREATE BILL">
+      <Button fx:id="createBillBtn" layoutX="392.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleCreateBillBtnOnAction" text="CREATE BILL">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
+      <Label fx:id="clothQuantityLabel" layoutX="310.0" layoutY="257.0" text="Cloth Quan">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

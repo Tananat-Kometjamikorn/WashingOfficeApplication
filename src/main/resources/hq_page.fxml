@@ -23,22 +23,17 @@
                         <TableColumn prefWidth="142.0" text="Date" />
                     </columns>
                   </TableView>
-                  <Button fx:id="infoBtn" layoutX="205.0" layoutY="607.0" mnemonicParsing="false" text="SHOW INFO">
+                  <Button fx:id="infoBtn" layoutX="205.0" layoutY="607.0" mnemonicParsing="false" onAction="#handleShowInfoBtnOnAction" text="SHOW INFO / EDIT">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="editBtn" layoutX="608.0" layoutY="608.0" mnemonicParsing="false" text="EDIT">
+                  <Button fx:id="delBtn" layoutX="719.0" layoutY="607.0" mnemonicParsing="false" text="DELETE">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="delBtn" layoutX="719.0" layoutY="608.0" mnemonicParsing="false" text="DELETE">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="371.0" layoutY="607.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="206.0" text="SHOW BILL INFO">
+                  <Button fx:id="showBillInfoBtn" layoutX="465.0" layoutY="607.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="206.0" text="SHOW BILL INFO">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -51,31 +46,51 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab closable="false" text="SETTING">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+      <Tab closable="false" text="CLOSED ORDER">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <PasswordField alignment="CENTER" layoutX="347.0" layoutY="232.0" promptText="CURRENT PASSWORD">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </PasswordField>
-                  <PasswordField alignment="CENTER" layoutX="347.0" layoutY="362.0" promptText="CONFIRM PASSWORD">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </PasswordField>
-                  <PasswordField alignment="CENTER" layoutX="347.0" layoutY="298.0" promptText="NEW PASSWORD">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </PasswordField>
-                  <Button layoutX="361.0" layoutY="449.0" mnemonicParsing="false" text="ACCEPT">
+                  <TableView fx:id="orderTable1" editable="true" layoutX="148.0" layoutY="55.0" prefHeight="529.0" prefWidth="616.0">
+                     <columns>
+                        <TableColumn prefWidth="266.0" text="OrderID" />
+                        <TableColumn prefWidth="206.0" text="Customer Name" />
+                        <TableColumn prefWidth="142.0" text="Close Date" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="showClosedInfoBtn" layoutX="381.0" layoutY="602.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" text="SHOW INFO">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button layoutX="512.0" layoutY="449.0" mnemonicParsing="false" text="CLEAR">
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab closable="false" text="SETTING">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <PasswordField fx:id="currentPasswordField" alignment="CENTER" layoutX="347.0" layoutY="232.0" promptText="CURRENT PASSWORD">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </PasswordField>
+                  <PasswordField fx:id="confirmPasswordField" alignment="CENTER" layoutX="347.0" layoutY="362.0" promptText="CONFIRM PASSWORD">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </PasswordField>
+                  <PasswordField fx:id="newPasswordField" alignment="CENTER" layoutX="347.0" layoutY="298.0" promptText="NEW PASSWORD">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="changePasswordBtn" layoutX="361.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleChangePasswordBtnOnAction" text="ACCEPT">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="clearPasswordFieldBtn" layoutX="512.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleClearPasswordFieldBtnOnAction" text="CLEAR">
                      <font>
                         <Font size="22.0" />
                      </font>

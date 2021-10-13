@@ -8,6 +8,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -17,7 +19,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="orderTable" editable="true" layoutX="166.0" layoutY="56.0" prefHeight="529.0" prefWidth="728.0">
+                  <TableView fx:id="orderTable" editable="true" layoutX="154.0" layoutY="56.0" prefHeight="529.0" prefWidth="740.0">
                     <columns>
                       <TableColumn prefWidth="266.0" text="OrderID" />
                       <TableColumn prefWidth="206.0" text="Customer Name" />
@@ -25,22 +27,17 @@
                         <TableColumn prefWidth="113.0" text="Status" />
                     </columns>
                   </TableView>
-                  <Button fx:id="infoBtn" layoutX="261.0" layoutY="607.0" mnemonicParsing="false" text="SHOW INFO">
+                  <Button fx:id="infoBtn" layoutX="261.0" layoutY="607.0" mnemonicParsing="false" onAction="#handleShowInfoBtnOnAction" text="SHOW INFO / EDIT">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="editBtn" layoutX="493.0" layoutY="607.0" mnemonicParsing="false" text="EDIT">
+                  <Button fx:id="delBtn" layoutX="642.0" layoutY="607.0" mnemonicParsing="false" onAction="#handleDeleteBtnOnAction" text="DELETE">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="delBtn" layoutX="642.0" layoutY="607.0" mnemonicParsing="false" text="DELETE">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="logoutBtn" layoutX="913.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" prefHeight="39.0" prefWidth="97.0" text="LOGOUT">
+                  <Button fx:id="logoutBtn" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="913.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" prefHeight="39.0" prefWidth="97.0" text="LOGOUT">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -52,32 +49,26 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="557.0" prefWidth="1024.0">
                <children>
-                  <TextField alignment="CENTER" layoutX="378.0" layoutY="504.0" prefHeight="48.0" prefWidth="273.0" promptText="Quantity">
+                  <ImageView fitHeight="283.0" fitWidth="286.0" layoutX="738.0" layoutY="6.0">
+                     <image>
+                        <Image url="@../../../../../../../../Meme/Oat.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="clothQuantityField" alignment="CENTER" layoutX="378.0" layoutY="363.0" prefHeight="0.0" prefWidth="273.0" promptText="Quantity">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </TextField>
-                  <TextField alignment="CENTER" layoutX="376.0" layoutY="435.0" prefHeight="48.0" prefWidth="273.0" promptText="Quantity">
+                  <TextField fx:id="customerPhoneField" alignment="CENTER" layoutX="377.0" layoutY="221.0" prefHeight="48.0" prefWidth="273.0" promptText="Customer Phone Number">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </TextField>
-                  <TextField alignment="CENTER" layoutX="378.0" layoutY="363.0" prefHeight="0.0" prefWidth="273.0" promptText="Quantity">
+                  <TextField fx:id="customerNameField" alignment="CENTER" layoutX="377.0" layoutY="147.0" promptText="Customer Name">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </TextField>
-                  <TextField alignment="CENTER" layoutX="377.0" layoutY="221.0" prefHeight="48.0" prefWidth="273.0" promptText="Customer Phone Number">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </TextField>
-                  <TextField alignment="CENTER" layoutX="377.0" layoutY="147.0" promptText="Customer Name">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="230.0" layoutY="528.0" text="CLOTH INFO" />
                   <Label layoutX="428.0" layoutY="96.0" text="CUSTOMER INFO">
                      <font>
                         <Font size="22.0" />
@@ -88,18 +79,19 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Label layoutX="230.0" layoutY="379.0" text="CLOTH INFO" />
-                  <Label layoutX="237.0" layoutY="450.0" text="CLOTH INFO" />
-                  <Button layoutX="573.0" layoutY="587.0" mnemonicParsing="false" text="OK">
+                  <Label layoutX="230.0" layoutY="379.0" text="CLOTH QUANTITY" />
+                  <Button fx:id="addOrderBtn" layoutX="573.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleAddOrderBtnOnAction" text="OK">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button layoutX="360.0" layoutY="587.0" mnemonicParsing="false" text="CLEAR">
+                  <Button fx:id="clearOrderFieldBtn" layoutX="360.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleClearOrderFieldBtnOnAction" text="CLEAR">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
+                  <Label layoutX="182.0" layoutY="235.0" text="Customer Phone Number" />
+                  <Label layoutX="243.0" layoutY="161.0" text="Customer Name" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -114,7 +106,7 @@
                         <TableColumn prefWidth="142.0" text="Close Date" />
                      </columns>
                   </TableView>
-                  <Button fx:id="infoBtn1" layoutX="381.0" layoutY="602.0" mnemonicParsing="false" text="SHOW INFO">
+                  <Button fx:id="showClosedInfoBtn" layoutX="381.0" layoutY="602.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" text="SHOW INFO">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -127,32 +119,32 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <PasswordField alignment="CENTER" layoutX="347.0" layoutY="232.0" promptText="CURRENT PASSWORD">
+                  <PasswordField fx:id="currentPasswordField" alignment="CENTER" layoutX="347.0" layoutY="232.0" promptText="CURRENT PASSWORD">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField alignment="CENTER" layoutX="347.0" layoutY="362.0" promptText="CONFIRM PASSWORD">
+                  <PasswordField fx:id="confirmPasswordField" alignment="CENTER" layoutX="347.0" layoutY="362.0" promptText="CONFIRM PASSWORD">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField alignment="CENTER" layoutX="347.0" layoutY="298.0" promptText="NEW PASSWORD">
+                  <PasswordField fx:id="newPasswordField" alignment="CENTER" layoutX="347.0" layoutY="298.0" promptText="NEW PASSWORD">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </PasswordField>
-                  <Button layoutX="361.0" layoutY="449.0" mnemonicParsing="false" text="ACCEPT">
+                  <Button fx:id="changePasswordBtn" layoutX="503.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleChangePasswordBtnOnAction" text="Change">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button layoutX="512.0" layoutY="449.0" mnemonicParsing="false" text="CLEAR">
+                  <Button fx:id="clearPasswordFieldBtn" layoutX="361.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleClearPasswordFieldBtnOnAction" text="CLEAR">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Label layoutX="427.0" layoutY="151.0" text="CHANGE PASSWORD" />
+                  <Label layoutX="413.0" layoutY="162.0" text="CHANGE PASSWORD" />
                </children>
             </AnchorPane>
         </content>

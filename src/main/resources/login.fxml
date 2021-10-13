@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.login.LoginController">
    <children>
       <Button fx:id="loginBtn" layoutX="456.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleLoginBtnOnAction" prefHeight="67.0" prefWidth="113.0" text="Login">
@@ -17,12 +16,12 @@
             <Font size="22.0" />
          </font>
       </Button>
-      <TextField alignment="CENTER" layoutX="332.0" layoutY="415.0" prefHeight="48.0" prefWidth="361.0" promptText="Username">
+      <TextField fx:id="usernameField" alignment="CENTER" layoutX="332.0" layoutY="415.0" prefHeight="48.0" prefWidth="361.0" promptText="Username">
          <font>
             <Font size="22.0" />
          </font>
       </TextField>
-      <PasswordField alignment="CENTER" layoutX="332.0" layoutY="489.0" prefHeight="25.0" prefWidth="361.0" promptText="Password">
+      <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="332.0" layoutY="489.0" prefHeight="25.0" prefWidth="361.0" promptText="Password">
          <font>
             <Font size="22.0" />
          </font>
