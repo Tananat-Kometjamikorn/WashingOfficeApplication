@@ -1,22 +1,22 @@
 package th.ac.ku.app.models;
 
-public class Order {
+public class OrderInfo {
     private String orderID;
     private String customerName;
     private String orderDate;
     private String staffName;
     private String customerPhone;
     private Cloth cloth;
-    private Bill bill;
+    private OrderBill orderBill;
 
-    public Order(String orderID, String customerName, String orderDate, String staffName, String customerPhone, Cloth cloth, Bill bill) {
+    public OrderInfo(String orderID, String customerName, String orderDate, String staffName, String customerPhone, Cloth cloth, OrderBill orderBill) {
         this.orderID = orderID;
         this.customerName = customerName;
         this.orderDate = orderDate;
         this.staffName = staffName;
         this.customerPhone = customerPhone;
         this.cloth = cloth;
-        this.bill = bill;
+        this.orderBill = orderBill;
     }
 
 }
