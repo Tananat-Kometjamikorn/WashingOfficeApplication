@@ -1,12 +1,12 @@
 package th.ac.ku.app.models;
 
-public class Bill {
+public class OrderBill {
     private String orderID;
-    private double cost;
+    private int cost;
     private String customer_name;
     private String billDate;
 
-    public Bill(String orderID, double cost, String customer_name, String billDate) {
+    public OrderBill(String orderID, int cost, String customer_name, String billDate) {
         this.orderID = orderID;
         this.cost = cost;
         this.customer_name = customer_name;

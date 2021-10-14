@@ -1,5 +1,7 @@
 package th.ac.ku.app.controller.branch;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
@@ -14,12 +19,32 @@ import th.ac.ku.app.controller.orderInfo.OrderInfoController;
 import java.io.IOException;
 
 public class BranchPageController {
+
     @FXML private Button logoutBtn, infoBtn, delBtn, clearOrderFieldBtn, addOrderBtn, showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
     @FXML private TextField customerNameField, customerPhoneField, clothQuantityField,
                             currentPasswordField, newPasswordField, confirmPasswordField;
+    @FXML private TableView orderTable;
+    @FXML private TableColumn orderIdCol, customerNameCol, dateCol, statusCol, closedOrderIdCol, closedCustomerNameCol, quantityCol;
 
 
     //Main Page
+
+    @FXML private void initialize(){
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run(){
+                showOrderList();
+                showClosedOrderList();
+            }
+        });
+    }
+
+    public void showOrderList(){
+        orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("orderDate"));;
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
 
     @FXML
     public void handleLogoutBtnOnAction(ActionEvent event) throws IOException {
@@ -67,6 +92,12 @@ public class BranchPageController {
     }
 
     //Closed Order Page
+
+    public void showClosedOrderList(){
+        closedOrderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        closedCustomerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("clothQuantity"));;
+    }
 
     @FXML
     public void handleShowClosedInfoBtnOnAction(ActionEvent event) throws IOException {

@@ -18,9 +18,9 @@
                <children>
                   <TableView fx:id="orderTable" layoutX="76.0" layoutY="29.0" prefHeight="472.0" prefWidth="815.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
                     <columns>
-                      <TableColumn prefWidth="251.0" text="OrderID" />
-                      <TableColumn prefWidth="328.0" text="Customer Name" />
-                        <TableColumn prefWidth="235.0" text="Date" />
+                      <TableColumn fx:id="orderIdCol" prefWidth="251.0" text="OrderID" />
+                      <TableColumn fx:id="customerNameCol" prefWidth="328.0" text="Customer Name" />
+                        <TableColumn fx:id="dateCol" prefWidth="235.0" text="Date" />
                     </columns>
                   </TableView>
                   <Button fx:id="infoBtn" layoutX="234.0" layoutY="518.0" mnemonicParsing="false" onAction="#handleShowInfoBtnOnAction" prefHeight="39.0" prefWidth="229.0" style="-fx-background-color: #9DFA94;" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO / EDIT">
@@ -45,11 +45,11 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="orderTable1" editable="true" layoutX="65.0" layoutY="26.0" prefHeight="478.0" prefWidth="820.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
+                  <TableView fx:id="quantityCol" editable="true" layoutX="65.0" layoutY="26.0" prefHeight="478.0" prefWidth="820.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
                      <columns>
-                        <TableColumn prefWidth="266.0" text="OrderID" />
-                        <TableColumn prefWidth="264.0" text="Customer Name" />
-                        <TableColumn prefWidth="249.0" text="Close Date" />
+                        <TableColumn fx:id="closedOrderIdCol" prefWidth="266.0" text="OrderID" />
+                        <TableColumn fx:id="closedCustomerNameCol" prefWidth="264.0" text="Customer Name" />
+                        <TableColumn fx:id="quantityCol" prefWidth="249.0" text="Quantiy" />
                      </columns>
                   </TableView>
                   <Button fx:id="showClosedInfoBtn" layoutX="406.0" layoutY="523.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" style="-fx-background-color: #9DFA94;" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO">

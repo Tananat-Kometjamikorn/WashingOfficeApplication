@@ -1,11 +1,15 @@
 package th.ac.ku.app.controller.hq;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import th.ac.ku.app.controller.login.LoginController;
@@ -16,8 +20,26 @@ import java.io.IOException;
 public class HqPageController {
     @FXML private Button logoutBtn, infoBtn, showBillInfoBtn, delBtn, showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
     @FXML private TextField currentPasswordField, newPasswordField, confirmPasswordField;
+    @FXML private TableView orderTable, closedOrderTable;
+    @FXML private TableColumn orderIdCol, customerNameCol, dateCol, closedOrderIdCol, closedCustomerNameCol, quantityCol;;
 
     //Main Page
+
+    @FXML private void initialize(){
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run(){
+                showOrderList();
+                showClosedOrderList();
+            }
+        });
+    }
+
+    public void showOrderList(){
+        orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("orderDate"));;
+    }
 
     @FXML
     public void handleLogoutBtnOnAction(ActionEvent event) throws IOException {
@@ -44,6 +66,12 @@ public class HqPageController {
     }
 
     //Closed Order Page
+
+    public void showClosedOrderList(){
+        closedOrderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        closedCustomerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("clothQuantity"));;
+    }
 
     @FXML
     public void handleShowClosedInfoBtnOnAction(ActionEvent event) throws IOException {
