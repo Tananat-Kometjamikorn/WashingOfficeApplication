@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.login.LoginController">
+<AnchorPane maxHeight="720.0" maxWidth="1024.0" minHeight="720.0" minWidth="1024.0" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.login.LoginController">
    <children>
-      <ImageView fitHeight="720.0" fitWidth="1206.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="724.0" fitWidth="504.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="520.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@image/washing-machine.jpg" />
+            <Image url="image/login_bg.png" />
          </image>
+         <viewport>
+            <Rectangle2D height="720.0" width="504.0" />
+         </viewport>
       </ImageView>
-      <Button fx:id="loginBtn" layoutX="748.0" layoutY="399.0" mnemonicParsing="false" onAction="#handleLoginBtnOnAction" prefHeight="56.0" prefWidth="105.0" style="-fx-background-color: #8FEF8D;" text="Login">
+      <Button fx:id="loginBtn" layoutX="750.0" layoutY="480.0" mnemonicParsing="false" onAction="#handleLoginBtnOnAction" prefHeight="56.0" prefWidth="105.0" style="-fx-background-color: #8FEF8D;" text="Login">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <TextField fx:id="usernameField" alignment="CENTER" layoutX="620.0" layoutY="210.0" prefHeight="48.0" prefWidth="361.0" promptText="Username">
+      <TextField fx:id="usernameField" alignment="CENTER" layoutX="620.0" layoutY="220.0" maxHeight="40.0" maxWidth="360.0" minHeight="40.0" minWidth="360.0" prefHeight="40.0" prefWidth="360.0" promptText="Username" AnchorPane.bottomAnchor="460.0" AnchorPane.leftAnchor="620.0" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="220.0">
          <font>
             <Font size="22.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="620.0" layoutY="313.0" prefHeight="25.0" prefWidth="361.0" promptText="Password">
+      <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="620.0" layoutY="320.0" maxHeight="40.0" maxWidth="360.0" minHeight="40.0" minWidth="360.0" prefHeight="40.0" prefWidth="360.0" promptText="Password" AnchorPane.bottomAnchor="360.0" AnchorPane.leftAnchor="620.0" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="320.0">
          <font>
             <Font size="22.0" />
          </font>
       </PasswordField>
-      <Label alignment="CENTER" layoutX="551.0" layoutY="115.0" text="WASHING BILLING SYSTEM" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="569.0" layoutY="115.0" text="WASHING BILLING SYSTEM">
          <font>
-            <Font name="Comic Sans MS Bold" size="34.0" />
+            <Font name="Comic Sans MS Bold" size="30.0" />
          </font>
       </Label>
+      <RadioButton fx:id="branchBtn" layoutX="660.0" layoutY="410.0" mnemonicParsing="false" text="Branch" />
+      <RadioButton fx:id="headQuarterBtn" layoutX="840.0" layoutY="410.0" mnemonicParsing="false" text="HeadQuarter" />
    </children>
 </AnchorPane>
