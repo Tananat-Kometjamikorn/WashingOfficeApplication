@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 import org.springframework.stereotype.Component;
 import th.ac.ku.app.controller.branch.BranchPageController;
 import th.ac.ku.app.controller.hq.HqPageController;
+import th.ac.ku.app.controller.alert.Confirmation;
 
 import java.io.IOException;
 
@@ -55,13 +56,14 @@ public class LoginController{
             stage.show();
             }
     }
-    private void AlertBox(){
-        alert = new Alert(Alert.AlertType.ERROR);
-        alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle("ERROR");
-        alert.setHeaderText(null);
-        alert.setContentText("kuy");
-        alert.showAndWait();
-    }
+//    private void AlertBox(){
+//        alert = new Alert(Alert.AlertType.ERROR);
+//        alert.initStyle(StageStyle.UTILITY);
+//        alert.setTitle("ERROR");
+//        alert.setHeaderText(null);
+//        alert.setContentText("kuy");
+//        alert.showAndWait();
+//    }
+    // ใช้ confirmation แทนได้มั้งจะได้ไม่รก
 
 }

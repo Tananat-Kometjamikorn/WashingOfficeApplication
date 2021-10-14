@@ -6,7 +6,7 @@ public class Cloth {
     private OrderInfo order_id;
 
 
-    public Cloth(String status, String clothesType, String clothQuantity, String problem) {
+    public Cloth(String status, String clothQuantity) {
         this.status = status;
         this.clothQuantity = clothQuantity;
     }

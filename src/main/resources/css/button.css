@@ -1,21 +1,84 @@
 .buttonGreen {
-    -fx-background-color: #228B22;
+    -fx-background-color: #8DF583;
     -fx-background-radius: 23px;
     -fx-text-fill: black;
 }
 .buttonGreen:hover {
      -fx-background-color: white;
      -fx-background-radius: 23px;
-     -fx-text-fill: #228B22;
-     -fx-border-color: #228B22;
+     -fx-text-fill: #0A7600;
+     -fx-border-color: #0A7600;
      -fx-border-radius: 20px;
-     -fx-border-width: 5px;
+     -fx-border-width: 3px;
 }
 .buttonGreen:pressed {
      -fx-background-color: #C2C5C8;
      -fx-background-radius: 23px;
-     -fx-text-fill: #228B22;
-     -fx-border-color: #228B22;
+     -fx-text-fill: #0A7600;
+     -fx-border-color: #0A7600;
      -fx-border-radius: 20px;
-     -fx-border-width: 4px;
+     -fx-border-width: 2px;
+}
+.buttonRed {
+    -fx-background-color: #F96868;
+    -fx-background-radius: 23px;
+    -fx-text-fill: black;
+}
+.buttonRed:hover {
+     -fx-background-color: white;
+     -fx-background-radius: 23px;
+     -fx-text-fill: #B01C1C;
+     -fx-border-color: #B01C1C;
+     -fx-border-radius: 20px;
+     -fx-border-width: 3px;
+}
+.buttonRed:pressed {
+     -fx-background-color: #C2C5C8;
+     -fx-background-radius: 23px;
+     -fx-text-fill: #B01C1C;
+     -fx-border-color: #B01C1C;
+     -fx-border-radius: 20px;
+     -fx-border-width: 2px;
+}
+.buttonBlue {
+    -fx-background-color: #60B4F8;
+    -fx-background-radius: 23px;
+    -fx-text-fill: black;
+}
+.buttonBlue:hover {
+     -fx-background-color: white;
+     -fx-background-radius: 23px;
+     -fx-text-fill: #084D84;
+     -fx-border-color: #084D84;
+     -fx-border-radius: 20px;
+     -fx-border-width: 3px;
+}
+.buttonBlue:pressed {
+     -fx-background-color: #C2C5C8;
+     -fx-background-radius: 23px;
+     -fx-text-fill: #084D84;
+     -fx-border-color: #084D84;
+     -fx-border-radius: 20px;
+     -fx-border-width: 2px;
+}
+.buttonS {
+    -fx-background-color: #FEB87D;
+    -fx-background-radius: 23px;
+    -fx-text-fill: black;
+}
+.buttonS:hover {
+     -fx-background-color: white;
+     -fx-background-radius: 23px;
+     -fx-text-fill: #BF5B08;
+     -fx-border-color: #BF5B08;
+     -fx-border-radius: 20px;
+     -fx-border-width: 3px;
+}
+.buttonS:pressed {
+     -fx-background-color: #C2C5C8;
+     -fx-background-radius: 23px;
+     -fx-text-fill: #BF5B08;
+     -fx-border-color: #BF5B08;
+     -fx-border-radius: 20px;
+     -fx-border-width: 2px;
 }
