@@ -45,11 +45,11 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="quantityCol" editable="true" layoutX="65.0" layoutY="26.0" prefHeight="478.0" prefWidth="820.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
+                  <TableView fx:id="closedOrderTable" editable="true" layoutX="65.0" layoutY="26.0" prefHeight="478.0" prefWidth="820.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
                      <columns>
                         <TableColumn fx:id="closedOrderIdCol" prefWidth="266.0" text="OrderID" />
                         <TableColumn fx:id="closedCustomerNameCol" prefWidth="264.0" text="Customer Name" />
-                        <TableColumn fx:id="quantityCol" prefWidth="249.0" text="Quantiy" />
+                        <TableColumn fx:id="quantityCol" prefWidth="249.0" text="Quantity" />
                      </columns>
                   </TableView>
                   <Button fx:id="showClosedInfoBtn" layoutX="406.0" layoutY="523.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" style="-fx-background-color: #9DFA94;" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO">

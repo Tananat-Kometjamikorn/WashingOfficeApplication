@@ -1,7 +1,6 @@
 package th.ac.ku.app.controller.branch;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,14 @@ public class BranchPageController {
     @FXML private TextField customerNameField, customerPhoneField, clothQuantityField,
                             currentPasswordField, newPasswordField, confirmPasswordField;
     @FXML private TableView orderTable;
-    @FXML private TableColumn orderIdCol, customerNameCol, dateCol, statusCol, closedOrderIdCol, closedCustomerNameCol, quantityCol;
+    @FXML private TableColumn<Object, Integer> orderIdCol;
+    @FXML private TableColumn<Object, String > customerNameCol;
+    @FXML private TableColumn<Object, String > dateCol;
+    @FXML private TableColumn<Object, String > statusCol;
+    @FXML private TableView closedOrderTable;
+    @FXML private TableColumn<Object, String > closedOrderIdCol;
+    @FXML private TableColumn<Object, String > closedCustomerNameCol;
+    @FXML private TableColumn<Object, Integer> quantityCol;
 
 
     //Main Page
