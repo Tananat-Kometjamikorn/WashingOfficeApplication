@@ -6,14 +6,14 @@ import th.ac.ku.app.models.UserHeadQuarter;
 import java.util.HashMap;
 import java.util.List;
 
-public class AccountManger {
+public class AccountManager {
     private HashMap<String, UserBranch> branchHashMap = new HashMap<>();
     private HashMap<String, UserHeadQuarter> headQuarterHashMap = new HashMap<>();
 
     private UserBranch currentBranch;
     private UserHeadQuarter currentHeadQuarter;
 
-    public AccountManger(){
+    public AccountManager(){
         currentBranch = null;
         currentHeadQuarter = null;
     }
@@ -30,7 +30,7 @@ public class AccountManger {
                     throw new IllegalArgumentException(e.getMessage());
                 }
             }
-            if(currentBranch==null) throw new IllegalArgumentException("We don't have this username");
+            if(currentBranch==null) throw new IllegalArgumentException("We don't have this account");
         }
         else {
             for(UserHeadQuarter headQuarter : headQuarterHashMap.values()){

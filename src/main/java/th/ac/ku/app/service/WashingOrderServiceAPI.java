@@ -24,10 +24,16 @@ public class WashingOrderServiceAPI {
     }
 
     public UserBranch getUserBranch(String username) {
-        String url = "http://localhost:8090/branch/{username}";
+        String url = "http://localhost:8090/branch/" + username;
         ResponseEntity<UserBranch> responseEntity = restTemplate.getForEntity(url, UserBranch.class);
         return responseEntity.getBody();
     }
+
+    public void create(UserBranch userBranch) {
+        String url = "http://localhost:8090/username/";
+        restTemplate.postForObject(url, userBranch, UserHeadQuarter.class);
+    }
+
 
     public void updateUserBranch(UserBranch userBranch) {
         String url = "http://localhost:8090/branch/" + userBranch.getUserName();
