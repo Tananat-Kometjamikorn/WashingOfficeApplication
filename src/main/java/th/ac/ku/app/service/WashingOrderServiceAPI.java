@@ -54,7 +54,7 @@ public class WashingOrderServiceAPI {
     }
 
     public void updateCloth(Cloth cloth) {
-        String url = "http://localhost:8090/cloth/" + cloth.getOrderID;
+        String url = "http://localhost:8090/cloth/" + cloth.getOrderID();
         restTemplate.put(url, cloth, Cloth.class);
     }
 //----------------------------------------------------------------------------------------------------------------------
