@@ -8,84 +8,84 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.orderInfo.OrderInfoController">
    <children>
-      <Label layoutX="137.0" layoutY="87.0" text="OrderID">
+      <Label layoutX="137.0" layoutY="87.0" text="OrderID" textFill="#0017cf">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
-      <Label layoutX="139.0" layoutY="117.0" text="CustomerName">
+      <Label layoutX="139.0" layoutY="117.0" text="CustomerName" textFill="#0017cf">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
       <Label layoutX="156.0" layoutY="329.0" text="Status">
          <font>
-            <Font size="22.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
-      <Label layoutX="139.0" layoutY="184.0" text="Staff Name">
+      <Label layoutX="139.0" layoutY="184.0" text="Staff Name" textFill="#0017cf">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
-      <Label layoutX="139.0" layoutY="149.0" text="Create Date">
+      <Label layoutX="139.0" layoutY="149.0" text="Create Date" textFill="#0017cf">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
-      <Label layoutX="140.0" layoutY="218.0" text="Phone Number">
+      <Label layoutX="140.0" layoutY="218.0" text="Phone Number" textFill="#0017cf">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
-      <ChoiceBox fx:id="statusChoiceBox" layoutX="309.0" layoutY="333.0" prefHeight="25.0" prefWidth="94.0" />
-      <Button fx:id="closeBtn" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleCloseBtnOnAction" text="CLOSE">
+      <ChoiceBox fx:id="statusChoiceBox" layoutX="301.0" layoutY="329.0" prefHeight="35.0" prefWidth="123.0" styleClass="buttonS" stylesheets="@css/button.css" />
+      <Button fx:id="closeBtn" layoutX="526.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleCloseBtnOnAction" styleClass="buttonBlue" stylesheets="@css/button.css" text="CLOSE">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="changeBtn" layoutX="169.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleChangeBtnOnAction" text="CHANGE">
+      <Button fx:id="changeBtn" layoutX="132.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleChangeBtnOnAction" styleClass="buttonRed" stylesheets="@css/button.css" text="CHANGE">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Button>
       <Label fx:id="orderIdLabel" layoutX="309.0" layoutY="85.0" text="OrderID">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
       <Label fx:id="customerNameLabel" layoutX="310.0" layoutY="117.0" text="CustomerName">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
       <Label fx:id="staffNameLabel" layoutX="311.0" layoutY="182.0" text="Staff Name">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
       <Label fx:id="createDateLabel" layoutX="311.0" layoutY="147.0" text="Create Date">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
       <Label fx:id="phoneNumLabel" layoutX="312.0" layoutY="216.0" text="Phone Number">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="138.0" layoutY="257.0" text="Cloth Quantity">
+      <Label layoutX="138.0" layoutY="257.0" text="Cloth Quantity" textFill="#0017cf">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="169.0" layoutY="30.0" text="ORDER INFORMATION">
+      <Label layoutX="125.0" layoutY="23.0" text="ORDER INFORMATION">
          <font>
-            <Font size="28.0" />
+            <Font name="Comic Sans MS" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="createBillBtn" layoutX="392.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleCreateBillBtnOnAction" text="CREATE BILL">
+      <Button fx:id="createBillBtn" layoutX="345.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleCreateBillBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="CREATE BILL">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Button>
       <Label fx:id="clothQuantityLabel" layoutX="310.0" layoutY="257.0" text="Cloth Quan">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
    </children>
