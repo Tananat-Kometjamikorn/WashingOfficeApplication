@@ -6,8 +6,12 @@ import java.util.Set;
 public class UserHeadQuarter extends User {
 
     private Set<OrderBill> orderBills = new HashSet<>();
-    public UserHeadQuarter(String userName, String password, String name) {
-        super(userName, password, name);
+
+    public Set<OrderBill> getOrderBills() {
+        return orderBills;
     }
 
+    public void setOrderBills(Set<OrderBill> orderBills) {
+        this.orderBills = orderBills;
+    }
 }

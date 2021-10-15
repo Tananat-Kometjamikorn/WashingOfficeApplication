@@ -22,7 +22,7 @@ public class AccountManger {
         if (role.equals("branch")){
             for(UserBranch branch : branchHashMap.values()){
                 try{
-                    if(branch.entryCheck(username,password)){
+                    if(branch.checkAccountLogin(username,password)){
                         currentBranch = branch;
                         return; }
                 }
@@ -35,7 +35,7 @@ public class AccountManger {
         else {
             for(UserHeadQuarter headQuarter : headQuarterHashMap.values()){
                 try{
-                    if(headQuarter.entryCheck(username,password)){
+                    if(headQuarter.checkAccountLogin(username,password)){
                         currentHeadQuarter = headQuarter;
                         return; }
                 }

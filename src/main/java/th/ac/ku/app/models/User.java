@@ -5,10 +5,9 @@ public class User {
     private String password;
     private String name;
 
-    public User(String userName, String password, String name) {
-        this.userName = userName;
-        this.password = password;
-        this.name = name;
+
+    public boolean checkAccountLogin(String userName , String password){
+        return this.userName.equals(userName) && this.password.equals(password);
     }
 
     public int changePassword(String currentPassword, String newPassword, String confirmNewPassword) {
