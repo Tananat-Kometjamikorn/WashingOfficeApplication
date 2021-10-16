@@ -68,7 +68,7 @@ public class LoginController {
                 BranchPageController branch = loader.getController();
                 stage.show();
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                System.out.println("branch error");
             }
         }
         else if (this.roleToggleGroup.getSelectedToggle().equals(this.headQuarterBtn)) {

@@ -19,6 +19,7 @@ public class AccountManager {
     }
 
     public void checkAccount(String username, String password, String role){
+
         if (role.equals("branch")){
             for(UserBranch branch : branchHashMap.values()){
                 try{

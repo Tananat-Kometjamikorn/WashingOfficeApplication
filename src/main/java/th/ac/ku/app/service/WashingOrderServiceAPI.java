@@ -65,13 +65,13 @@ public class WashingOrderServiceAPI {
     }
 //----------------------------------------------------------------------------------------------------------------------
     public List<UserHeadQuarter> getAllHeadQuarter(){
-        String url = "http://localhost:8090/cloth";
+        String url = "http://localhost:8090/headQuarter";
         ResponseEntity<UserHeadQuarter[]> responseEntity = restTemplate.getForEntity(url, UserHeadQuarter[].class);
         UserHeadQuarter[] userHeadQuarters = responseEntity.getBody();
         return Arrays.asList(userHeadQuarters);
     }
     public UserHeadQuarter getUserHeadQuarter(String username) {
-        String url = "http://localhost:8090/cloth/{username}";
+        String url = "http://localhost:8090/headQuarter/{username}";
         ResponseEntity<UserHeadQuarter> responseEntity = restTemplate.getForEntity(url, UserHeadQuarter.class);
         return responseEntity.getBody();
     }
@@ -82,7 +82,7 @@ public class WashingOrderServiceAPI {
     }
 
     public void updateUserHeadQuarter(UserHeadQuarter userHeadQuarter) {
-        String url = "http://localhost:8090/userHeadQuarter/" + userHeadQuarter.getUserName();
+        String url = "http://localhost:8090/headQuarter/" + userHeadQuarter.getUserName();
         restTemplate.put(url, userHeadQuarter, UserHeadQuarter.class);
     }
 //----------------------------------------------------------------------------------------------------------------------
