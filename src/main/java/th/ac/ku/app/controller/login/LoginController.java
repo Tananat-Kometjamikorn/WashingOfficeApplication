@@ -21,14 +21,10 @@ import java.io.IOException;
 @Component
 public class LoginController {
 
-    @FXML
-    private Button loginBtn;
-    @FXML
-    private TextField usernameField;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private RadioButton branchBtn, headQuarterBtn;
+    @FXML private Button loginBtn;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private RadioButton branchBtn, headQuarterBtn;
 
     private Alert alert;
     private ToggleGroup roleToggleGroup;
@@ -54,38 +50,42 @@ public class LoginController {
     public void handleLoginBtnOnAction(ActionEvent event) throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        System.out.printf("%s , %s\n",username,password);
 
-        if (this.roleToggleGroup.getSelectedToggle().equals(this.branchBtn)) {
-            Button b = (Button) event.getSource();
-            Stage stage = (Stage) b.getScene().getWindow();
-            try {
-                accountManager.checkAccount(username, password, "branch");
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/branch_page.fxml")
-                );
-                stage.setScene(new Scene(loader.load(), 1024, 720));
-                BranchPageController branch = loader.getController();
-                stage.show();
-            } catch (IllegalArgumentException e) {
-                System.out.println("branch error");
+        if(username.equals("") || password.equals("")){
+            System.out.println("fill all?");
+        }else{
+            if (this.roleToggleGroup.getSelectedToggle().equals(this.branchBtn)) {
+                Button b = (Button) event.getSource();
+                Stage stage = (Stage) b.getScene().getWindow();
+                try {
+                    accountManager.checkAccount(username, password, "branch");
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/branch_page.fxml")
+                    );
+                    stage.setScene(new Scene(loader.load(), 1024, 720));
+                    BranchPageController branch = loader.getController();
+                    stage.show();
+                } catch (IllegalArgumentException e) {
+                    System.out.println("branch error");
+                }
+            }
+            else if (this.roleToggleGroup.getSelectedToggle().equals(this.headQuarterBtn)) {
+                Button b = (Button) event.getSource();
+                Stage stage = (Stage) b.getScene().getWindow();
+                try {
+                    accountManager.checkAccount(username, password, "headquarter");
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/hq_page.fxml")
+                    );
+                    stage.setScene(new Scene(loader.load(), 1024, 720));
+                    HqPageController hq = loader.getController();
+                    stage.show();
+                } catch (IllegalArgumentException e) {
+                    System.out.println("hq error");
+                }
             }
         }
-        else if (this.roleToggleGroup.getSelectedToggle().equals(this.headQuarterBtn)) {
-            Button b = (Button) event.getSource();
-            Stage stage = (Stage) b.getScene().getWindow();
-            try {
-                accountManager.checkAccount(username, password, "headquarter");
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/hq_page.fxml")
-                );
-                stage.setScene(new Scene(loader.load(), 1024, 720));
-                HqPageController hq = loader.getController();
-                stage.show();
-            } catch (IllegalArgumentException e) {
-                System.out.println("hq error");
-            }
-        }
+
     }
 }
 //    private void AlertBox(){

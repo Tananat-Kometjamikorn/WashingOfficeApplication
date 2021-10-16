@@ -1,13 +1,13 @@
 package th.ac.ku.app.models;
 
 public class User {
-    private String userName;
+    private String username;
     private String password;
     private String name;
 
 
-    public boolean checkAccountLogin(String userName , String password){
-        return this.userName.equals(userName) && this.password.equals(password);
+    public boolean checkAccountLogin(String username , String password) {
+        return this.username.equals(username) && this.password.equals(password);
     }
 
     public int changePassword(String currentPassword, String newPassword, String confirmNewPassword) {
@@ -25,12 +25,12 @@ public class User {
         }
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

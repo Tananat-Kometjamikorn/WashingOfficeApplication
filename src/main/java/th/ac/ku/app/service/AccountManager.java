@@ -38,19 +38,22 @@ public class AccountManager {
                 try{
                     if(headQuarter.checkAccountLogin(username,password)){
                         currentHeadQuarter = headQuarter;
-                        return; }
+                        return;
+                    }
                 }
                 catch (IllegalArgumentException e){
                     throw new IllegalArgumentException(e.getMessage());
                 }
             }
-            if(currentHeadQuarter==null) throw new IllegalArgumentException("We don't have this account");
+            if(currentHeadQuarter==null) {
+                throw new IllegalArgumentException("We don't have this account");
+            }
         }
     }
     public HashMap<String, UserBranch> branchListToMap(List<UserBranch> list){
         branchHashMap.clear();
         for (UserBranch b : list){
-            branchHashMap.put(b.getUserName(), b);
+            branchHashMap.put(b.getUsername(), b);
         }
         return branchHashMap;
     }
@@ -74,7 +77,7 @@ public class AccountManager {
     public HashMap<String, UserHeadQuarter> headQuarterListToMap(List<UserHeadQuarter> list){
         headQuarterHashMap.clear();
         for (UserHeadQuarter h : list){
-            headQuarterHashMap.put(h.getUserName(), h);
+            headQuarterHashMap.put(h.getUsername(), h);
         }
         return headQuarterHashMap;
     }

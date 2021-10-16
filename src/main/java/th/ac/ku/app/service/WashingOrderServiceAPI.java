@@ -36,7 +36,7 @@ public class WashingOrderServiceAPI {
 
 
     public void updateUserBranch(UserBranch userBranch) {
-        String url = "http://localhost:8090/branch/" + userBranch.getUserName();
+        String url = "http://localhost:8090/branch/" + userBranch.getUsername();
         restTemplate.put(url, userBranch, UserBranch.class);
     }
 
@@ -82,7 +82,7 @@ public class WashingOrderServiceAPI {
     }
 
     public void updateUserHeadQuarter(UserHeadQuarter userHeadQuarter) {
-        String url = "http://localhost:8090/headQuarter/" + userHeadQuarter.getUserName();
+        String url = "http://localhost:8090/headQuarter/" + userHeadQuarter.getUsername();
         restTemplate.put(url, userHeadQuarter, UserHeadQuarter.class);
     }
 //----------------------------------------------------------------------------------------------------------------------
