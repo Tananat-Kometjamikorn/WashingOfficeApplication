@@ -64,9 +64,11 @@ public class LoginController {
                     );
                     stage.setScene(new Scene(loader.load(), 1024, 720));
                     BranchPageController branch = loader.getController();
+                    branch.setAccountManager(accountManager);
+                    branch.setServiceAPI(serviceAPI);
                     stage.show();
                 } catch (IllegalArgumentException e) {
-                    System.out.println("branch error");
+                    System.out.println(e.getMessage());
                 }
             }
             else if (this.roleToggleGroup.getSelectedToggle().equals(this.headQuarterBtn)) {
@@ -79,9 +81,11 @@ public class LoginController {
                     );
                     stage.setScene(new Scene(loader.load(), 1024, 720));
                     HqPageController hq = loader.getController();
+                    hq.setAccountManager(accountManager);
+                    hq.setServiceAPI(serviceAPI);
                     stage.show();
                 } catch (IllegalArgumentException e) {
-                    System.out.println("hq error");
+                    System.out.println(e.getMessage());
                 }
             }
         }

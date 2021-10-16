@@ -14,6 +14,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
+import th.ac.ku.app.service.AccountManager;
+import th.ac.ku.app.service.WashingOrderServiceAPI;
 
 import java.io.IOException;
 
@@ -21,7 +23,10 @@ public class HqPageController {
     @FXML private Button logoutBtn, infoBtn, showBillInfoBtn, delBtn, showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
     @FXML private TextField currentPasswordField, newPasswordField, confirmPasswordField;
     @FXML private TableView orderTable, closedOrderTable;
-    @FXML private TableColumn orderIdCol, customerNameCol, dateCol, closedOrderIdCol, closedCustomerNameCol, quantityCol;;
+    @FXML private TableColumn orderIdCol, customerNameCol, dateCol, closedOrderIdCol, closedCustomerNameCol, quantityCol;
+
+    private AccountManager accountManager;
+    private WashingOrderServiceAPI serviceAPI;
 
     //Main Page
 
@@ -98,5 +103,22 @@ public class HqPageController {
         currentPasswordField.clear();
         newPasswordField.clear();
         confirmPasswordField.clear();
+    }
+
+    //getter and setter
+    public AccountManager getAccountManager() {
+        return accountManager;
+    }
+
+    public void setAccountManager(AccountManager accountManager) {
+        this.accountManager = accountManager;
+    }
+
+    public WashingOrderServiceAPI getServiceAPI() {
+        return serviceAPI;
+    }
+
+    public void setServiceAPI(WashingOrderServiceAPI serviceAPI) {
+        this.serviceAPI = serviceAPI;
     }
 }

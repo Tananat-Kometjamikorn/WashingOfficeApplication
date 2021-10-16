@@ -5,23 +5,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
+import th.ac.ku.app.service.AccountManager;
+import th.ac.ku.app.service.WashingOrderServiceAPI;
 
 import java.io.IOException;
 
 public class BranchPageController {
 
-    @FXML private Button logoutBtn, infoBtn, delBtn, clearOrderFieldBtn, addOrderBtn, showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
-    @FXML private TextField customerNameField, customerPhoneField, clothQuantityField,
-                            currentPasswordField, newPasswordField, confirmPasswordField;
+    @FXML private Button logoutBtn, infoBtn, delBtn, clearOrderFieldBtn, addOrderBtn,
+                            showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
+    @FXML private TextField customerNameField, customerPhoneField, clothQuantityField;
+    @FXML private PasswordField currentPasswordField, newPasswordField, confirmPasswordField;
     @FXML private TableView orderTable;
     @FXML private TableColumn<Object, Integer> orderIdCol;
     @FXML private TableColumn<Object, String > customerNameCol;
@@ -31,14 +31,19 @@ public class BranchPageController {
     @FXML private TableColumn<Object, String > closedOrderIdCol;
     @FXML private TableColumn<Object, String > closedCustomerNameCol;
     @FXML private TableColumn<Object, Integer> quantityCol;
+    @FXML private Label branchNameLabel;
+
+    private AccountManager accountManager;
+    private WashingOrderServiceAPI serviceAPI;
 
 
-    //Main Page
+//Main Page
 
     @FXML private void initialize(){
         Platform.runLater(new Runnable(){
             @Override
             public void run(){
+                branchNameLabel.setText(accountManager.getCurrentBranch().getName());
                 showOrderList();
                 showClosedOrderList();
             }
@@ -123,6 +128,10 @@ public class BranchPageController {
     @FXML
     public void handleChangePasswordBtnOnAction(ActionEvent event) throws IOException {
 
+        String currentPasswd = currentPasswordField.getText();
+        String newPasswd = newPasswordField.getText();
+        String confirmNewPasswd = confirmPasswordField.getText();
+
     }
 
     @FXML
@@ -132,6 +141,20 @@ public class BranchPageController {
         confirmPasswordField.clear();
     }
 
+    //getter and setter
+    public AccountManager getAccountManager() {
+        return accountManager;
+    }
 
+    public void setAccountManager(AccountManager accountManager) {
+        this.accountManager = accountManager;
+    }
 
+    public WashingOrderServiceAPI getServiceAPI() {
+        return serviceAPI;
+    }
+
+    public void setServiceAPI(WashingOrderServiceAPI serviceAPI) {
+        this.serviceAPI = serviceAPI;
+    }
 }
