@@ -4,20 +4,10 @@ public class OrderInfo {
     private int orderID;
     private String customerName;
     private String orderDate;
-    private String staffName;
+    private String branchName;
     private String customerPhone;
     private Cloth cloth;
     private OrderBill orderBill;
-
-    public OrderInfo(int orderID, String customerName, String orderDate, String staffName, String customerPhone, Cloth cloth, OrderBill orderBill) {
-        this.orderID = orderID;
-        this.customerName = customerName;
-        this.orderDate = orderDate;
-        this.staffName = staffName;
-        this.customerPhone = customerPhone;
-        this.cloth = cloth;
-        this.orderBill = orderBill;
-    }
 
     public int getOrderID() {
         return orderID;
@@ -43,12 +33,12 @@ public class OrderInfo {
         this.orderDate = orderDate;
     }
 
-    public String getStaffName() {
-        return staffName;
+    public String getBranchName() {
+        return branchName;
     }
 
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
     }
 
     public String getCustomerPhone() {

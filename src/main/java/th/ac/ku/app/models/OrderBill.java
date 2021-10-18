@@ -3,14 +3,14 @@ package th.ac.ku.app.models;
 public class OrderBill {
     private int orderID;
     private int cost;
-    private String customer_name;
-    private String billDate;
+    private String customerName;
+    private String orderDate;
 
-    public OrderBill(int orderID, int cost, String customer_name, String billDate) {
+    public OrderBill(int orderID, int cost, String customerName, String orderDate) {
         this.orderID = orderID;
         this.cost = cost;
-        this.customer_name = customer_name;
-        this.billDate = billDate;
+        this.customerName = customerName;
+        this.orderDate = orderDate;
     }
 
     public int getOrderID() {
@@ -29,19 +29,19 @@ public class OrderBill {
         this.cost = cost;
     }
 
-    public String getCustomer_name() {
-        return customer_name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCustomer_name(String customer_name) {
-        this.customer_name = customer_name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getBillDate() {
-        return billDate;
+    public String getOrderDate() {
+        return orderDate;
     }
 
-    public void setBillDate(String billDate) {
-        this.billDate = billDate;
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 }

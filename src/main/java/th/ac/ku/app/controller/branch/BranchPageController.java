@@ -11,10 +11,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
+import th.ac.ku.app.models.Cloth;
+import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class BranchPageController {
 
@@ -35,7 +39,7 @@ public class BranchPageController {
 
     private AccountManager accountManager;
     private WashingOrderServiceAPI serviceAPI;
-
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 //Main Page
 
@@ -90,6 +94,9 @@ public class BranchPageController {
 
     @FXML
     public void handleClearOrderFieldBtnOnAction(ActionEvent event) throws IOException {
+
+
+
         customerNameField.clear();
         customerPhoneField.clear();
         clothQuantityField.clear();
@@ -97,6 +104,24 @@ public class BranchPageController {
 
     @FXML
     public void handleAddOrderBtnOnAction(ActionEvent event) throws IOException {
+
+        String customerName = customerNameField.getText();
+        String customerPhone = customerPhoneField.getText();
+        int quantity = Integer.parseInt(clothQuantityField.getText());
+        String date =  LocalDateTime.now().format(formatter);
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setOrderDate(date);
+        orderInfo.setCustomerName(customerName);
+        orderInfo.setCustomerPhone(customerPhone);
+        orderInfo.setBranchName(accountManager.getCurrentBranch().getName());
+        Cloth cloth = new Cloth();
+        cloth.setClothQuantity(quantity);
+        cloth.setStatus("Preparing");
+        serviceAPI.create(orderInfo);
+        serviceAPI.create(cloth);
+
+
+
         currentPasswordField.clear();
         newPasswordField.clear();
         confirmPasswordField.clear();
@@ -128,14 +153,28 @@ public class BranchPageController {
     @FXML
     public void handleChangePasswordBtnOnAction(ActionEvent event) throws IOException {
 
-        String currentPasswd = currentPasswordField.getText();
-        String newPasswd = newPasswordField.getText();
-        String confirmNewPasswd = confirmPasswordField.getText();
-
+        if(!currentPasswordField.getText().isEmpty()&&!newPasswordField.getText().isEmpty()&&!confirmPasswordField.getText().isEmpty()) {
+            String currentPasswd = currentPasswordField.getText();
+            String newPasswd = newPasswordField.getText();
+            String confirmNewPasswd = confirmPasswordField.getText();
+            if (accountManager.getCurrentBranch() != null) {
+                if (accountManager.getCurrentBranch().getPassword().equals(currentPasswd)) {
+                    if (newPasswd.equals(confirmNewPasswd)) {
+                        accountManager.getCurrentBranch().setPassword(newPasswd);
+                        serviceAPI.updateUserBranch(accountManager.getCurrentBranch());
+                        clearSettingPage();
+                    }
+                }
+            }
+        }
     }
 
     @FXML
     public void handleClearPasswordFieldBtnOnAction(ActionEvent event) throws IOException {
+        clearSettingPage();
+    }
+
+    private void clearSettingPage(){
         currentPasswordField.clear();
         newPasswordField.clear();
         confirmPasswordField.clear();
