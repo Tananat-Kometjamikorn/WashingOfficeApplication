@@ -1,9 +1,10 @@
 package th.ac.ku.app.models;
 
 public class Cloth {
+    private OrderInfo orderInfo;
     private String status;
     private int clothQuantity;
-    private int orderID;
+    private int orderId;
 
     public String getStatus() {
         return status;
@@ -21,11 +22,19 @@ public class Cloth {
         this.clothQuantity = clothQuantity;
     }
 
-    public int getOrderID() {
-        return orderID;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public OrderInfo getOrderInfo() {
+        return orderInfo;
+    }
+
+    public void setOrderInfo(OrderInfo orderInfo) {
+        this.orderInfo = orderInfo;
     }
 }

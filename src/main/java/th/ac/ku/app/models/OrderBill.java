@@ -1,24 +1,18 @@
 package th.ac.ku.app.models;
 
 public class OrderBill {
-    private int orderID;
+    private OrderInfo orderInfo;
+    private int orderId;
     private int cost;
     private String customerName;
     private String orderDate;
-
-    public OrderBill(int orderID, int cost, String customerName, String orderDate) {
-        this.orderID = orderID;
-        this.cost = cost;
-        this.customerName = customerName;
-        this.orderDate = orderDate;
+    
+    public int getOrderId() {
+        return orderId;
     }
 
-    public int getOrderID() {
-        return orderID;
-    }
-
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getCost() {
@@ -43,5 +37,13 @@ public class OrderBill {
 
     public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public OrderInfo getOrderInfo() {
+        return orderInfo;
+    }
+
+    public void setOrderInfo(OrderInfo orderInfo) {
+        this.orderInfo = orderInfo;
     }
 }

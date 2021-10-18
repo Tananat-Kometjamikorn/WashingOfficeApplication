@@ -109,18 +109,23 @@ public class BranchPageController {
         String customerPhone = customerPhoneField.getText();
         int quantity = Integer.parseInt(clothQuantityField.getText());
         String date =  LocalDateTime.now().format(formatter);
+
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setOrderDate(date);
         orderInfo.setCustomerName(customerName);
         orderInfo.setCustomerPhone(customerPhone);
         orderInfo.setBranchName(accountManager.getCurrentBranch().getName());
+
+
         Cloth cloth = new Cloth();
         cloth.setClothQuantity(quantity);
         cloth.setStatus("Preparing");
+
+//        orderInfo.setCloth(cloth);
+//        cloth.setOrderInfo(orderInfo);
+
         serviceAPI.create(orderInfo);
         serviceAPI.create(cloth);
-
-
 
         currentPasswordField.clear();
         newPasswordField.clear();
