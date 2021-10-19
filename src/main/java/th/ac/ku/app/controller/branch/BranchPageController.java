@@ -116,16 +116,16 @@ public class BranchPageController {
         orderInfo.setCustomerPhone(customerPhone);
         orderInfo.setBranchName(accountManager.getCurrentBranch().getName());
 
-
         Cloth cloth = new Cloth();
         cloth.setClothQuantity(quantity);
         cloth.setStatus("Preparing");
 
-//        orderInfo.setCloth(cloth);
+        orderInfo.setCloth(cloth);
 //        cloth.setOrderInfo(orderInfo);
 
-        serviceAPI.create(orderInfo);
         serviceAPI.create(cloth);
+        serviceAPI.create(orderInfo);
+
 
         currentPasswordField.clear();
         newPasswordField.clear();

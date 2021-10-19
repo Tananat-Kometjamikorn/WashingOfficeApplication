@@ -1,7 +1,7 @@
 package th.ac.ku.app.models;
 
 public class Cloth {
-    private OrderInfo orderInfo;
+//    private OrderInfo orderInfo;
     private String status;
     private int clothQuantity;
     private int orderId;
@@ -30,11 +30,11 @@ public class Cloth {
         this.orderId = orderId;
     }
 
-    public OrderInfo getOrderInfo() {
-        return orderInfo;
-    }
-
-    public void setOrderInfo(OrderInfo orderInfo) {
-        this.orderInfo = orderInfo;
-    }
+//    public OrderInfo getOrderInfo() {
+//        return orderInfo;
+//    }
+//
+//    public void setOrderInfo(OrderInfo orderInfo) {
+//        this.orderInfo = orderInfo;
+//    }
 }

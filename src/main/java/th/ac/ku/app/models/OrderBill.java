@@ -1,7 +1,7 @@
 package th.ac.ku.app.models;
 
 public class OrderBill {
-    private OrderInfo orderInfo;
+//    private OrderInfo orderInfo;
     private int orderId;
     private int cost;
     private String customerName;
@@ -39,11 +39,11 @@ public class OrderBill {
         this.orderDate = orderDate;
     }
 
-    public OrderInfo getOrderInfo() {
-        return orderInfo;
-    }
-
-    public void setOrderInfo(OrderInfo orderInfo) {
-        this.orderInfo = orderInfo;
-    }
+//    public OrderInfo getOrderInfo() {
+//        return orderInfo;
+//    }
+//
+//    public void setOrderInfo(OrderInfo orderInfo) {
+//        this.orderInfo = orderInfo;
+//    }
 }

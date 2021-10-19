@@ -29,10 +29,10 @@ public class WashingOrderServiceAPI {
         return responseEntity.getBody();
     }
 
-    public void create(UserBranch userBranch) {
-        String url = "http://localhost:8090/username/";
-        restTemplate.postForObject(url, userBranch, UserHeadQuarter.class);
-    }
+//    public void create(UserBranch userBranch) {
+//        String url = "http://localhost:8090/username/";
+//        restTemplate.postForObject(url, userBranch, UserHeadQuarter.class);
+//    }
 
 
     public void updateUserBranch(UserBranch userBranch) {
@@ -55,7 +55,7 @@ public class WashingOrderServiceAPI {
     }
 
     public void create(Cloth cloth) {
-        String url = "http://localhost:8090/cloth/";
+        String url = "http://localhost:8090/cloth";
         restTemplate.postForObject(url, cloth, Cloth.class);
     }
 
@@ -76,10 +76,10 @@ public class WashingOrderServiceAPI {
         return responseEntity.getBody();
     }
 
-    public void create(UserHeadQuarter userHeadQuarter) {
-        String url = "http://localhost:8090/username/";
-        restTemplate.postForObject(url, userHeadQuarter, UserHeadQuarter.class);
-    }
+//    public void create(UserHeadQuarter userHeadQuarter) {
+//        String url = "http://localhost:8090/username/";
+//        restTemplate.postForObject(url, userHeadQuarter, UserHeadQuarter.class);
+//    }
 
     public void updateUserHeadQuarter(UserHeadQuarter userHeadQuarter) {
         String url = "http://localhost:8090/headQuarter/" + userHeadQuarter.getUsername();
