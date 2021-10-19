@@ -123,7 +123,7 @@ public class BranchPageController {
         orderInfo.setCloth(cloth);
 //        cloth.setOrderInfo(orderInfo);
 
-        serviceAPI.create(cloth);
+//        serviceAPI.create(cloth);
         serviceAPI.create(orderInfo);
 
 
