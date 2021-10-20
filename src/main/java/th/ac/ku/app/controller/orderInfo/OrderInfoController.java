@@ -19,7 +19,7 @@ public class OrderInfoController {
     @FXML private Label orderIdLabel, customerNameLabel, createDateLabel, staffNameLabel, phoneNumLabel, clothQuantityLabel;
     @FXML private ChoiceBox statusChoiceBox;
 
-    private ObservableList<String> statusTypeList = FXCollections.observableArrayList("ส่งไปนู้น", "ส่งกลับมา", "มารับดิวะ", "ยังไม่มารับอีก");
+    private ObservableList<String> statusTypeList = FXCollections.observableArrayList("Sending to hq", "Sending to branch", "Ready to pickup", "No contact response", "Closed");
     private OrderInfo selectedOrder;
 
     @FXML private void initialize(){
@@ -39,14 +39,18 @@ public class OrderInfoController {
     }
 
     public void setOrderStatus(){
-        if(selectedOrder.getCloth().getStatus().equals("")){
-            statusChoiceBox.setValue("ส่งกลับมา");
-        }else if(selectedOrder.getCloth().getStatus().equals("")){
-            statusChoiceBox.setValue("ส่งกลับมา");
-        }else if(selectedOrder.getCloth().getStatus().equals("")){
-            statusChoiceBox.setValue("ส่งกลับมา");
-        }else if(selectedOrder.getCloth().getStatus().equals("")){
-            statusChoiceBox.setValue("ส่งกลับมา");
+        if(selectedOrder.getCloth().getStatus().equals("Sending to hq")){
+            statusChoiceBox.setValue("Sending to hq");
+        }else if(selectedOrder.getCloth().getStatus().equals("Sending to branch")){
+            statusChoiceBox.setValue("Sending to branch");
+        }else if(selectedOrder.getCloth().getStatus().equals("Ready to pickup")){
+            statusChoiceBox.setValue("Ready to pickup");
+        }else if(selectedOrder.getCloth().getStatus().equals("No contact response")){
+            statusChoiceBox.setValue("No contact response");
+        }else if(selectedOrder.getCloth().getStatus().equals("Closed")){
+            statusChoiceBox.setValue("Closed");
+        }else{
+            statusChoiceBox.setValue("");
         }
     }
 

@@ -19,10 +19,10 @@
                <children>
                   <TableView fx:id="orderTable" editable="true" layoutX="69.0" layoutY="70.0" prefHeight="481.0" prefWidth="849.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
                     <columns>
-                      <TableColumn fx:id="orderIdCol" prefWidth="274.0" text="OrderID" />
-                      <TableColumn fx:id="customerNameCol" prefWidth="263.0" text="Customer Name" />
-                        <TableColumn fx:id="dateCol" prefWidth="208.0" text="Date" />
-                        <TableColumn fx:id="statusCol" prefWidth="95.0" text="Status" />
+                      <TableColumn fx:id="orderIdCol" prefWidth="112.0" text="OrderID" />
+                      <TableColumn fx:id="customerNameCol" prefWidth="339.0" text="Customer Name" />
+                        <TableColumn fx:id="dateCol" prefWidth="206.0" text="Date" />
+                        <TableColumn fx:id="statusCol" prefWidth="191.0" text="Status" />
                     </columns>
                   </TableView>
                   <Button fx:id="infoBtn" layoutX="278.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleShowInfoBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO / EDIT">

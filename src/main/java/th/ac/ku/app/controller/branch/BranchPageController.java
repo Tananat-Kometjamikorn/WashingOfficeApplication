@@ -59,12 +59,15 @@ public class BranchPageController {
                         selectedOrderInfo((OrderInfo) newValue);
                     }
                 });
+                orderIdCol.setResizable(false);
+                customerNameCol.setResizable(false);
+                dateCol.setResizable(false);
+                statusCol.setResizable(false);
                 showOrderList();
                 showClosedOrderList();
             }
         });
     }
-
     public void showOrderList(){
         orderTable.setItems(getOrderInfoObservableList());
         orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
@@ -134,7 +137,7 @@ public class BranchPageController {
 
         Cloth cloth = new Cloth();
         cloth.setClothQuantity(quantity);
-        cloth.setStatus("Preparing");
+        cloth.setStatus("Sending to hq");
 
         orderInfo.setCloth(cloth);
 //        cloth.setOrderInfo(orderInfo);
