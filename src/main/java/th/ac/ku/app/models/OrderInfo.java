@@ -1,7 +1,7 @@
 package th.ac.ku.app.models;
 
 public class OrderInfo {
-    private int orderID;
+    private int orderId;
     private String customerName;
     private String orderDate;
     private String branchName;
@@ -9,12 +9,12 @@ public class OrderInfo {
     private Cloth cloth;
     private OrderBill orderBill;
 
-    public int getOrderID() {
-        return orderID;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public String getCustomerName() {
@@ -63,5 +63,18 @@ public class OrderInfo {
 
     public void setOrderBill(OrderBill orderBill) {
         this.orderBill = orderBill;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderInfo{" +
+                "orderId=" + orderId +
+                ", customerName='" + customerName + '\'' +
+                ", orderDate='" + orderDate + '\'' +
+                ", branchName='" + branchName + '\'' +
+                ", customerPhone='" + customerPhone + '\'' +
+                ", cloth=" + cloth.getAllInfo() +
+                ", orderBill=" + orderBill +
+                '}';
     }
 }

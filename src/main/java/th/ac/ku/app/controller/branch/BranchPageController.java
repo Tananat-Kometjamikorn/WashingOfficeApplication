@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.springframework.core.annotation.Order;
 import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
 import th.ac.ku.app.models.Cloth;
@@ -21,6 +22,8 @@ import th.ac.ku.app.service.WashingOrderServiceAPI;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BranchPageController {
 
@@ -49,7 +52,6 @@ public class BranchPageController {
         Platform.runLater(new Runnable(){
             @Override
             public void run(){
-                orderTable.setItems(getOrderInfoObservableList());
                 branchNameLabel.setText(accountManager.getCurrentBranch().getName());
                 showOrderList();
                 showClosedOrderList();
@@ -58,10 +60,11 @@ public class BranchPageController {
     }
 
     public void showOrderList(){
+        orderTable.setItems(getOrderInfoObservableList());
         orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("cloth"));
     }
 
     @FXML
@@ -131,6 +134,8 @@ public class BranchPageController {
         currentPasswordField.clear();
         newPasswordField.clear();
         confirmPasswordField.clear();
+
+        showOrderList();
     }
 
     //Closed Order Page

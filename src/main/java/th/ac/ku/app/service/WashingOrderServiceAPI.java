@@ -48,8 +48,8 @@ public class WashingOrderServiceAPI {
         return Arrays.asList(cloths);
     }
 
-    public Cloth getCloth(int orderID) {
-        String url = "http://localhost:8090/cloth/{orderID}";
+    public Cloth getCloth(int orderId) {
+        String url = "http://localhost:8090/cloth/{orderId}";
         ResponseEntity<Cloth> responseEntity = restTemplate.getForEntity(url, Cloth.class);
         return responseEntity.getBody();
     }
@@ -92,8 +92,8 @@ public class WashingOrderServiceAPI {
         OrderBill[] orderBills = responseEntity.getBody();
         return Arrays.asList(orderBills);
     }
-    public OrderBill getOrderBill(int orderID) {
-        String url = "http://localhost:8090/orderbill/"+orderID;
+    public OrderBill getOrderBill(int orderId) {
+        String url = "http://localhost:8090/orderbill/"+orderId;
         ResponseEntity<OrderBill> responseEntity = restTemplate.getForEntity(url, OrderBill.class);
         return responseEntity.getBody();
     }
@@ -109,8 +109,8 @@ public class WashingOrderServiceAPI {
         OrderInfo[] userOrderInfos = responseEntity.getBody();
         return Arrays.asList(userOrderInfos);
 }
-    public OrderInfo getOrderInfo(int orderID) {
-        String url = "http://localhost:8090/orderinfo/"+orderID;
+    public OrderInfo getOrderInfo(int orderId) {
+        String url = "http://localhost:8090/orderinfo/"+orderId;
         ResponseEntity<OrderInfo> responseEntity = restTemplate.getForEntity(url, OrderInfo.class);
         return responseEntity.getBody();
     }
@@ -119,8 +119,8 @@ public class WashingOrderServiceAPI {
         String url = "http://localhost:8090/orderinfo/";
         restTemplate.postForObject(url, orderInfo, OrderInfo.class);
     }
-    public void delete(int orderID){
-        String url = "http://localhost:8090/orderinfo/"+orderID;
+    public void delete(int orderId){
+        String url = "http://localhost:8090/orderinfo/"+ orderId;
         restTemplate.delete(url);
     }
 }

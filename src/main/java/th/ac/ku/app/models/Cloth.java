@@ -37,4 +37,14 @@ public class Cloth {
 //    public void setOrderInfo(OrderInfo orderInfo) {
 //        this.orderInfo = orderInfo;
 //    }
+    @Override
+    public String toString() {
+    return status;
+}
+
+    public String getAllInfo() {
+        return "status='" + status + '\'' +
+                ", clothQuantity=" + clothQuantity +
+                ", orderId=" + orderId;
+    }
 }
