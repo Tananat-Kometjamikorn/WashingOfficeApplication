@@ -1,6 +1,8 @@
 package th.ac.ku.app.controller.branch;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,10 +29,10 @@ public class BranchPageController {
     @FXML private TextField customerNameField, customerPhoneField, clothQuantityField;
     @FXML private PasswordField currentPasswordField, newPasswordField, confirmPasswordField;
     @FXML private TableView orderTable;
-    @FXML private TableColumn<Object, Integer> orderIdCol;
-    @FXML private TableColumn<Object, String > customerNameCol;
-    @FXML private TableColumn<Object, String > dateCol;
-    @FXML private TableColumn<Object, String > statusCol;
+    @FXML private TableColumn<OrderInfo, Integer> orderIdCol;
+    @FXML private TableColumn<OrderInfo, String > customerNameCol;
+    @FXML private TableColumn<OrderInfo, String > dateCol;
+    @FXML private TableColumn<OrderInfo, String > statusCol;
     @FXML private TableView closedOrderTable;
     @FXML private TableColumn<Object, String > closedOrderIdCol;
     @FXML private TableColumn<Object, String > closedCustomerNameCol;
@@ -39,7 +41,7 @@ public class BranchPageController {
 
     private AccountManager accountManager;
     private WashingOrderServiceAPI serviceAPI;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 //Main Page
 
@@ -47,6 +49,7 @@ public class BranchPageController {
         Platform.runLater(new Runnable(){
             @Override
             public void run(){
+                orderTable.setItems(getOrderInfoObservableList());
                 branchNameLabel.setText(accountManager.getCurrentBranch().getName());
                 showOrderList();
                 showClosedOrderList();
@@ -57,7 +60,7 @@ public class BranchPageController {
     public void showOrderList(){
         orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("orderDate"));;
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 
@@ -94,8 +97,6 @@ public class BranchPageController {
 
     @FXML
     public void handleClearOrderFieldBtnOnAction(ActionEvent event) throws IOException {
-
-
 
         customerNameField.clear();
         customerPhoneField.clear();
@@ -137,7 +138,7 @@ public class BranchPageController {
     public void showClosedOrderList(){
         closedOrderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         closedCustomerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("clothQuantity"));;
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("clothQuantity"));
     }
 
     @FXML
@@ -183,6 +184,12 @@ public class BranchPageController {
         currentPasswordField.clear();
         newPasswordField.clear();
         confirmPasswordField.clear();
+    }
+
+    //get order detail
+    private ObservableList<OrderInfo> getOrderInfoObservableList(){
+        ObservableList<OrderInfo> orderInfoObservableList = FXCollections.observableArrayList(serviceAPI.getAllOrderInfo());
+        return orderInfoObservableList;
     }
 
     //getter and setter
