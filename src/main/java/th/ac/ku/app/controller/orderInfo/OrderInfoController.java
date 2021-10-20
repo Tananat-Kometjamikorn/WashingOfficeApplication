@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import th.ac.ku.app.models.OrderInfo;
 
 import java.io.IOException;
 
@@ -18,22 +19,35 @@ public class OrderInfoController {
     @FXML private Label orderIdLabel, customerNameLabel, createDateLabel, staffNameLabel, phoneNumLabel, clothQuantityLabel;
     @FXML private ChoiceBox statusChoiceBox;
 
-    private ObservableList<String> statusTypeList = FXCollections.observableArrayList("ส่งไปนู้น", "ส่งกลับมา", "ส่งกลับมา", "อะไรไม่รู้");
+    private ObservableList<String> statusTypeList = FXCollections.observableArrayList("ส่งไปนู้น", "ส่งกลับมา", "มารับดิวะ", "ยังไม่มารับอีก");
+    private OrderInfo selectedOrder;
 
     @FXML private void initialize(){
         Platform.runLater(new Runnable(){
             @Override
             public void run(){
+                statusChoiceBox.setItems(statusTypeList);
+                orderIdLabel.setText(Integer.toString(selectedOrder.getOrderId()));
+                customerNameLabel.setText(selectedOrder.getCustomerName());
+                createDateLabel.setText(selectedOrder.getOrderDate());
+                staffNameLabel.setText(selectedOrder.getBranchName());
+                phoneNumLabel.setText(selectedOrder.getCustomerPhone());
+                clothQuantityLabel.setText(Integer.toString(selectedOrder.getCloth().getClothQuantity()));
+                setOrderStatus();
             }
         });
-        statusChoiceBox.setItems(statusTypeList);
-        orderIdLabel.setText("1");
-        customerNameLabel.setText("2");
-        createDateLabel.setText("3");
-        staffNameLabel.setText("4");
-        phoneNumLabel.setText("5");
-        clothQuantityLabel.setText("6");
+    }
 
+    public void setOrderStatus(){
+        if(selectedOrder.getCloth().getStatus().equals("")){
+            statusChoiceBox.setValue("ส่งกลับมา");
+        }else if(selectedOrder.getCloth().getStatus().equals("")){
+            statusChoiceBox.setValue("ส่งกลับมา");
+        }else if(selectedOrder.getCloth().getStatus().equals("")){
+            statusChoiceBox.setValue("ส่งกลับมา");
+        }else if(selectedOrder.getCloth().getStatus().equals("")){
+            statusChoiceBox.setValue("ส่งกลับมา");
+        }
     }
 
     public void setDisable(){
@@ -56,5 +70,9 @@ public class OrderInfoController {
 
     @FXML
     public void handleCreateBillBtnOnAction(ActionEvent event) throws IOException {
+    }
+
+    public void setSelectedOrder(OrderInfo selectedOrder) {
+        this.selectedOrder = selectedOrder;
     }
 }

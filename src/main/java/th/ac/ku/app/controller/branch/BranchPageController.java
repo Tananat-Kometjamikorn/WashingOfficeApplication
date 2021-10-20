@@ -1,5 +1,6 @@
 package th.ac.ku.app.controller.branch;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,7 +46,7 @@ public class BranchPageController {
     private AccountManager accountManager;
     private WashingOrderServiceAPI serviceAPI;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
+    private OrderInfo selectedOrder;
 //Main Page
 
     @FXML private void initialize(){
@@ -53,6 +54,11 @@ public class BranchPageController {
             @Override
             public void run(){
                 branchNameLabel.setText(accountManager.getCurrentBranch().getName());
+                orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        selectedOrderInfo((OrderInfo) newValue);
+                    }
+                });
                 showOrderList();
                 showClosedOrderList();
             }
@@ -88,8 +94,14 @@ public class BranchPageController {
                 (getClass().getResource("/order_info.fxml"));
         popup.setScene(new Scene(loader.load(), 640, 480));
         OrderInfoController orderInfo = loader.getController();
+        orderInfo.setSelectedOrder(selectedOrder);
         popup.showAndWait();
     }
+
+    private void selectedOrderInfo(OrderInfo orderInfo){
+        selectedOrder = orderInfo;
+    }
+
 
     @FXML
     public void handleDeleteBtnOnAction(ActionEvent event) throws IOException {
