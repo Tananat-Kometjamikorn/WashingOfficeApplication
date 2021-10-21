@@ -1,6 +1,5 @@
 package th.ac.ku.app.controller.branch;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.springframework.core.annotation.Order;
+
 import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
 import th.ac.ku.app.models.Cloth;
@@ -23,6 +22,8 @@ import th.ac.ku.app.service.WashingOrderServiceAPI;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BranchPageController {
 
@@ -56,8 +57,8 @@ public class BranchPageController {
                 branchNameLabel2.setText(accountManager.getCurrentBranch().getName());
                 branchNameLabel3.setText(accountManager.getCurrentBranch().getName());
                 branchNameLabel4.setText(accountManager.getCurrentBranch().getName());
-                orderTable.setPlaceholder(new Label("No order at this time"));
-                closedOrderTable.setPlaceholder(new Label("No closed order at this time"));
+                orderTable.setPlaceholder(new Label("Not have order at this time"));
+                closedOrderTable.setPlaceholder(new Label("Not have closed order at this time"));
                 orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         selectedOrderInfo((OrderInfo) newValue);
@@ -215,7 +216,14 @@ public class BranchPageController {
 
     //get order detail
     private ObservableList<OrderInfo> getOrderInfoObservableList(){
-        ObservableList<OrderInfo> orderInfoObservableList = FXCollections.observableArrayList(serviceAPI.getAllOrderInfo());
+        List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
+        List<OrderInfo> notCleaningSuccess = new ArrayList<>();
+        for (OrderInfo i : allOrderInfo){
+            if (i.getCloth().getStatus() != "closed"){
+                notCleaningSuccess.add(i);
+            }
+        }
+        ObservableList<OrderInfo> orderInfoObservableList = FXCollections.observableArrayList(notCleaningSuccess);
         return orderInfoObservableList;
     }
 

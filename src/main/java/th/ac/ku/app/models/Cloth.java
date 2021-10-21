@@ -30,13 +30,6 @@ public class Cloth {
         this.orderId = orderId;
     }
 
-//    public OrderInfo getOrderInfo() {
-//        return orderInfo;
-//    }
-//
-//    public void setOrderInfo(OrderInfo orderInfo) {
-//        this.orderInfo = orderInfo;
-//    }
     @Override
     public String toString() {
     return status;

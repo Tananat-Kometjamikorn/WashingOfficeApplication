@@ -10,6 +10,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import th.ac.ku.app.models.OrderInfo;
+import th.ac.ku.app.service.AccountManager;
+import th.ac.ku.app.service.WashingOrderServiceAPI;
 
 import java.io.IOException;
 
@@ -17,24 +19,23 @@ public class OrderInfoController {
 
     @FXML private Button closeBtn, changeBtn, createBillBtn;
     @FXML private Label orderIdLabel, customerNameLabel, createDateLabel, staffNameLabel, phoneNumLabel, clothQuantityLabel;
-    @FXML private ChoiceBox statusChoiceBox;
+    @FXML private ChoiceBox<String> statusChoiceBox;
 
     private ObservableList<String> statusTypeList = FXCollections.observableArrayList("Sending to hq", "Sending to branch", "Ready to pickup", "No contact response", "Closed");
     private OrderInfo selectedOrder;
+    private WashingOrderServiceAPI serviceAPI;
+    private AccountManager accountManager;
 
     @FXML private void initialize(){
-        Platform.runLater(new Runnable(){
-            @Override
-            public void run(){
-                statusChoiceBox.setItems(statusTypeList);
-                orderIdLabel.setText(Integer.toString(selectedOrder.getOrderId()));
-                customerNameLabel.setText(selectedOrder.getCustomerName());
-                createDateLabel.setText(selectedOrder.getOrderDate());
-                staffNameLabel.setText(selectedOrder.getBranchName());
-                phoneNumLabel.setText(selectedOrder.getCustomerPhone());
-                clothQuantityLabel.setText(Integer.toString(selectedOrder.getCloth().getClothQuantity()));
-                setOrderStatus();
-            }
+        Platform.runLater(() -> {
+            statusChoiceBox.setItems(statusTypeList);
+            orderIdLabel.setText(Integer.toString(selectedOrder.getOrderId()));
+            customerNameLabel.setText(selectedOrder.getCustomerName());
+            createDateLabel.setText(selectedOrder.getOrderDate());
+            staffNameLabel.setText(selectedOrder.getBranchName());
+            phoneNumLabel.setText(selectedOrder.getCustomerPhone());
+            clothQuantityLabel.setText(Integer.toString(selectedOrder.getCloth().getClothQuantity()));
+            setOrderStatus();
         });
     }
 
@@ -74,9 +75,21 @@ public class OrderInfoController {
 
     @FXML
     public void handleCreateBillBtnOnAction(ActionEvent event) throws IOException {
+        selectedOrder.getCloth().setStatus("sending back to branch");
+        serviceAPI.update(selectedOrder.getOrderId(),selectedOrder);
+        //pdfwriter
     }
 
+    //setter service
     public void setSelectedOrder(OrderInfo selectedOrder) {
         this.selectedOrder = selectedOrder;
+    }
+
+    public void setServiceAPI(WashingOrderServiceAPI serviceAPI) {
+        this.serviceAPI = serviceAPI;
+    }
+
+    public void setAccountManager(AccountManager accountManager) {
+        this.accountManager = accountManager;
     }
 }

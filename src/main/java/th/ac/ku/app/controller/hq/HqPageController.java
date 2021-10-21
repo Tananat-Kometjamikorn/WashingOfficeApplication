@@ -1,6 +1,8 @@
 package th.ac.ku.app.controller.hq;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,20 +13,30 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
+import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HqPageController {
     @FXML private Button logoutBtn, infoBtn, showBillInfoBtn, delBtn, showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
     @FXML private TextField currentPasswordField, newPasswordField, confirmPasswordField;
-    @FXML private TableView orderTable, closedOrderTable;
-    @FXML private TableColumn orderIdCol, customerNameCol, dateCol, closedOrderIdCol, closedCustomerNameCol, quantityCol;
+    @FXML private TableView<OrderInfo> orderTable;
+    @FXML private TableView<OrderInfo> closedOrderTable;
+    @FXML private TableColumn<Object, Object> orderIdCol;
+    @FXML private TableColumn<Object, Object> customerNameCol;
+    @FXML private TableColumn<Object, Object> dateCol;
+    @FXML private TableColumn<Object, Object> closedOrderIdCol;
+    @FXML private TableColumn<Object, Object> closedCustomerNameCol;
+    @FXML private TableColumn<Object, Object> quantityCol;
     @FXML private Label hqNameLabel1,hqNameLabel2,hqNameLabel3;
 
     private AccountManager accountManager;
     private WashingOrderServiceAPI serviceAPI;
+    private OrderInfo selectedOrder;
 
     //Main Page
 
@@ -37,11 +49,21 @@ public class HqPageController {
                 hqNameLabel3.setText(accountManager.getCurrentHeadQuarter().getName());
                 showOrderList();
                 showClosedOrderList();
+                orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        selectedOrderInfo(newValue);
+                    }
+                });
             }
         });
     }
+    private void selectedOrderInfo(OrderInfo orderInfo){
+        selectedOrder = orderInfo;
+    }
 
     public void showOrderList(){
+        orderTable.setPlaceholder(new Label("Not have order at this time"));
+        orderTable.setItems(getOrderInfoObservableList());
         orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("orderDate"));;
@@ -68,6 +90,9 @@ public class HqPageController {
                 (getClass().getResource("/order_info.fxml"));
         popup.setScene(new Scene(loader.load(), 640, 480));
         OrderInfoController orderInfo = loader.getController();
+        orderInfo.setServiceAPI(serviceAPI);
+        orderInfo.setAccountManager(accountManager);
+        orderInfo.setSelectedOrder(selectedOrder);
         popup.showAndWait();
     }
 
@@ -137,5 +162,28 @@ public class HqPageController {
 
     public void setServiceAPI(WashingOrderServiceAPI serviceAPI) {
         this.serviceAPI = serviceAPI;
+    }
+
+    //get order info
+    private ObservableList<OrderInfo> getOrderInfoObservableList(){
+        List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
+        List<OrderInfo> notCleaningSuccess = new ArrayList<>();
+        for (OrderInfo i : allOrderInfo){
+            if (!i.getCloth().getStatus().equals("closed")){
+                notCleaningSuccess.add(i);
+            }
+        }
+        return FXCollections.observableArrayList(notCleaningSuccess);
+    }
+    //get closed order info
+    private ObservableList<OrderInfo> getClosedOrderInfoObservableList(){
+        List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
+        List<OrderInfo> cleaningSuccess = new ArrayList<>();
+        for (OrderInfo i : allOrderInfo){
+            if (i.getCloth().getStatus().equals("closed")){
+                cleaningSuccess.add(i);
+            }
+        }
+        return FXCollections.observableArrayList(cleaningSuccess);
     }
 }

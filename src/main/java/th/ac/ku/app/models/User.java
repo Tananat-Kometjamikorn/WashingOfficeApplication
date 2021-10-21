@@ -10,21 +10,6 @@ public class User {
         return this.username.equals(username) && this.password.equals(password);
     }
 
-//    public int checkChangePassword(String currentPassword, String newPassword, String confirmNewPassword) {
-//        if (currentPassword.equals(this.password)) {
-//            if (newPassword.equals(confirmNewPassword)) {
-//                this.password = newPassword;
-//                return 0;
-//            }
-//            else{
-//                return 1;
-//            }
-//        }
-//        else{
-//            return 2;
-//        }
-//    }
-
     public String getUsername() {
         return username;
     }

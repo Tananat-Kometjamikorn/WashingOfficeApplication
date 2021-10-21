@@ -29,12 +29,6 @@ public class WashingOrderServiceAPI {
         return responseEntity.getBody();
     }
 
-//    public void create(UserBranch userBranch) {
-//        String url = "http://localhost:8090/username/";
-//        restTemplate.postForObject(url, userBranch, UserHeadQuarter.class);
-//    }
-
-
     public void updateUserBranch(UserBranch userBranch) {
         String url = "http://localhost:8090/branch/" + userBranch.getUsername();
         restTemplate.put(url, userBranch, UserBranch.class);
@@ -54,15 +48,15 @@ public class WashingOrderServiceAPI {
         return responseEntity.getBody();
     }
 
-    public void create(Cloth cloth) {
-        String url = "http://localhost:8090/cloth";
-        restTemplate.postForObject(url, cloth, Cloth.class);
-    }
+//    public void create(Cloth cloth) {
+//        String url = "http://localhost:8090/cloth";
+//        restTemplate.postForObject(url, cloth, Cloth.class);
+//    }
 
-    public void updateCloth(Cloth cloth) {
-        String url = "http://localhost:8090/cloth/" + cloth.getOrderId();
-        restTemplate.put(url, cloth, Cloth.class);
-    }
+//    public void updateCloth(Cloth cloth) {
+//        String url = "http://localhost:8090/cloth/" + cloth.getOrderId();
+//        restTemplate.put(url, cloth, Cloth.class);
+//    }
 //----------------------------------------------------------------------------------------------------------------------
     public List<UserHeadQuarter> getAllHeadQuarter(){
         String url = "http://localhost:8090/headQuarter";
@@ -75,11 +69,6 @@ public class WashingOrderServiceAPI {
         ResponseEntity<UserHeadQuarter> responseEntity = restTemplate.getForEntity(url, UserHeadQuarter.class);
         return responseEntity.getBody();
     }
-
-//    public void create(UserHeadQuarter userHeadQuarter) {
-//        String url = "http://localhost:8090/username/";
-//        restTemplate.postForObject(url, userHeadQuarter, UserHeadQuarter.class);
-//    }
 
     public void updateUserHeadQuarter(UserHeadQuarter userHeadQuarter) {
         String url = "http://localhost:8090/headQuarter/" + userHeadQuarter.getUsername();
@@ -122,5 +111,9 @@ public class WashingOrderServiceAPI {
     public void delete(int orderId){
         String url = "http://localhost:8090/orderinfo/"+ orderId;
         restTemplate.delete(url);
+    }
+    public void update(int orderId, OrderInfo orderInfo){
+        String url = "http://localhost:8090/orderinfo/"+ orderId;
+        restTemplate.put(url, orderInfo, OrderInfo.class);
     }
 }
