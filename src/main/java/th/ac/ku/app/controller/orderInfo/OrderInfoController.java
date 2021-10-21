@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
@@ -17,41 +16,49 @@ import java.io.IOException;
 
 public class OrderInfoController {
 
-    @FXML private Button closeBtn, changeBtn, createBillBtn;
-    @FXML private Label orderIdLabel, customerNameLabel, createDateLabel, staffNameLabel, phoneNumLabel, clothQuantityLabel;
+    @FXML private Button changeBtn, createBillBtn;
+    @FXML private Label orderIdLabel, customerNameLabel, createDateLabel,
+            staffNameLabel, phoneNumLabel, clothQuantityLabel,statusLabel;
     @FXML private ChoiceBox<String> statusChoiceBox;
 
-    private ObservableList<String> statusTypeList = FXCollections.observableArrayList("Sending to hq", "Sending to branch", "Ready to pickup", "No contact response", "Closed");
+    private ObservableList<String> statusTypeListBranch = FXCollections.observableArrayList("Ready to pickup", "No contact response", "Closed");
+    private ObservableList<String> statusTypeListHq = FXCollections.observableArrayList("Success", "Damaged");
     private OrderInfo selectedOrder;
     private WashingOrderServiceAPI serviceAPI;
     private AccountManager accountManager;
 
     @FXML private void initialize(){
         Platform.runLater(() -> {
-            statusChoiceBox.setItems(statusTypeList);
             orderIdLabel.setText(Integer.toString(selectedOrder.getOrderId()));
             customerNameLabel.setText(selectedOrder.getCustomerName());
             createDateLabel.setText(selectedOrder.getOrderDate());
             staffNameLabel.setText(selectedOrder.getBranchName());
             phoneNumLabel.setText(selectedOrder.getCustomerPhone());
             clothQuantityLabel.setText(Integer.toString(selectedOrder.getCloth().getClothQuantity()));
+            createBillBtn.setDisable(true);
             setOrderStatus();
+            if (accountManager.getCurrentBranch() != null){
+                setStatusTypeListBranch();
+            }
+            else {
+                setStatusTypeListHq();
+            }
         });
     }
 
     public void setOrderStatus(){
         if(selectedOrder.getCloth().getStatus().equals("Sending to hq")){
-            statusChoiceBox.setValue("Sending to hq");
+            statusLabel.setText("Sending to hq");
         }else if(selectedOrder.getCloth().getStatus().equals("Sending to branch")){
-            statusChoiceBox.setValue("Sending to branch");
+            statusLabel.setText("Sending to branch");
         }else if(selectedOrder.getCloth().getStatus().equals("Ready to pickup")){
-            statusChoiceBox.setValue("Ready to pickup");
+            statusLabel.setText("Ready to pickup");
         }else if(selectedOrder.getCloth().getStatus().equals("No contact response")){
-            statusChoiceBox.setValue("No contact response");
+            statusLabel.setText("No contact response");
         }else if(selectedOrder.getCloth().getStatus().equals("Closed")){
-            statusChoiceBox.setValue("Closed");
+            statusLabel.setText("Closed");
         }else{
-            statusChoiceBox.setValue("");
+            statusLabel.setText("");
         }
     }
 
@@ -64,20 +71,30 @@ public class OrderInfoController {
     }
 
     @FXML
-    public void handleCloseBtnOnAction(){
-        Stage stage = (Stage) closeBtn.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
     public void handleChangeBtnOnAction(ActionEvent event) throws IOException {
+        selectedOrder.getCloth().setStatus(statusChoiceBox.getValue());
+        serviceAPI.update(selectedOrder.getOrderId(),selectedOrder);
+        createBillBtn.setDisable(false);
     }
 
     @FXML
     public void handleCreateBillBtnOnAction(ActionEvent event) throws IOException {
-        selectedOrder.getCloth().setStatus("sending back to branch");
-        serviceAPI.update(selectedOrder.getOrderId(),selectedOrder);
         //pdfwriter
+    }
+
+    private void setStatusTypeListBranch(){
+        if (selectedOrder.getCloth().getStatus().equals("Sending to hq")){
+            createBillBtn.setVisible(false);
+            createBillBtn.setDisable(true);
+            statusChoiceBox.setDisable(true);
+        }
+        if(selectedOrder.getCloth().getStatus().equals("Sending to branch")){
+            statusChoiceBox.setDisable(false);
+            statusChoiceBox.setItems(statusTypeListBranch);
+        }
+    }
+    private void setStatusTypeListHq(){
+        statusChoiceBox.setItems(statusTypeListHq);
     }
 
     //setter service

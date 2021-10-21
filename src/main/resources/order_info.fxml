@@ -32,13 +32,8 @@
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
-      <ChoiceBox fx:id="statusChoiceBox" layoutX="320.0" layoutY="329.0" prefHeight="35.0" prefWidth="165.0" styleClass="buttonS" stylesheets="@css/button.css" />
-      <Button fx:id="closeBtn" layoutX="526.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleCloseBtnOnAction" styleClass="buttonBlue" stylesheets="@css/button.css" text="CLOSE">
-         <font>
-            <Font name="Comic Sans MS" size="20.0" />
-         </font>
-      </Button>
-      <Button fx:id="changeBtn" layoutX="260.0" layoutY="395.0" minHeight="50.0" minWidth="120.0" mnemonicParsing="false" onAction="#handleChangeBtnOnAction" styleClass="buttonRed" stylesheets="@css/button.css" text="CHANGE">
+      <ChoiceBox fx:id="statusChoiceBox" layoutX="455.0" layoutY="327.0" prefHeight="35.0" prefWidth="165.0" styleClass="buttonS" stylesheets="@css/button.css" />
+      <Button fx:id="changeBtn" layoutX="280.0" layoutY="390.0" minHeight="50.0" minWidth="120.0" mnemonicParsing="false" onAction="#handleChangeBtnOnAction" styleClass="buttonRed" stylesheets="@css/button.css" text="CHANGE">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font>
@@ -73,17 +68,22 @@
             <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="120.0" layoutY="23.0" minHeight="40.0" minWidth="320.0" text="ORDER INFORMATION">
+      <Label layoutX="160.0" layoutY="20.0" minHeight="45.0" minWidth="350.0" text="ORDER INFORMATION">
          <font>
             <Font name="Comic Sans MS" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="createBillBtn" layoutX="468.0" layoutY="424.0" mnemonicParsing="false" onAction="#handleCreateBillBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="CREATE BILL">
+      <Button fx:id="createBillBtn" layoutX="470.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleCreateBillBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="CREATE BILL">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Button>
       <Label fx:id="clothQuantityLabel" layoutX="320.0" layoutY="280.0" minWidth="200.0" text="Cloth Quan">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="statusLabel" layoutX="276.0" layoutY="331.0" text="Status">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font>

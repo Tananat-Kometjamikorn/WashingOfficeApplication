@@ -27,16 +27,17 @@ import java.util.List;
 
 public class BranchPageController {
 
-    @FXML private Button logoutBtn, infoBtn, delBtn, clearOrderFieldBtn, addOrderBtn,
-                            showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
+    @FXML private Button logoutBtn, logoutBtn1, logoutBtn2, logoutBtn3,
+                        infoBtn, delBtn, clearOrderFieldBtn, addOrderBtn,
+                        showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
     @FXML private TextField customerNameField, customerPhoneField, clothQuantityField;
     @FXML private PasswordField currentPasswordField, newPasswordField, confirmPasswordField;
-    @FXML private TableView orderTable;
+    @FXML private TableView<OrderInfo> orderTable;
     @FXML private TableColumn<OrderInfo, Integer> orderIdCol;
     @FXML private TableColumn<OrderInfo, String > customerNameCol;
     @FXML private TableColumn<OrderInfo, String > dateCol;
     @FXML private TableColumn<OrderInfo, String > statusCol;
-    @FXML private TableView closedOrderTable;
+    @FXML private TableView<OrderInfo> closedOrderTable;
     @FXML private TableColumn<Object, String > closedOrderIdCol;
     @FXML private TableColumn<Object, String > closedCustomerNameCol;
     @FXML private TableColumn<Object, Integer> quantityCol;
@@ -50,27 +51,20 @@ public class BranchPageController {
 //Main Page-------------------------------------------------------------------------------------------------------------
 
     @FXML private void initialize(){
-        Platform.runLater(new Runnable(){
-            @Override
-            public void run(){
-                branchNameLabel1.setText(accountManager.getCurrentBranch().getName());
-                branchNameLabel2.setText(accountManager.getCurrentBranch().getName());
-                branchNameLabel3.setText(accountManager.getCurrentBranch().getName());
-                branchNameLabel4.setText(accountManager.getCurrentBranch().getName());
-                orderTable.setPlaceholder(new Label("Not have order at this time"));
-                closedOrderTable.setPlaceholder(new Label("Not have closed order at this time"));
-                orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        selectedOrderInfo((OrderInfo) newValue);
-                    }
-                });
-                orderIdCol.setResizable(false);
-                customerNameCol.setResizable(false);
-                dateCol.setResizable(false);
-                statusCol.setResizable(false);
-                showOrderList();
-                showClosedOrderList();
-            }
+        Platform.runLater(() -> {
+            branchNameLabel1.setText(accountManager.getCurrentBranch().getName());
+            branchNameLabel2.setText(accountManager.getCurrentBranch().getName());
+            branchNameLabel3.setText(accountManager.getCurrentBranch().getName());
+            branchNameLabel4.setText(accountManager.getCurrentBranch().getName());
+            orderTable.setPlaceholder(new Label("Not have order at this time"));
+            closedOrderTable.setPlaceholder(new Label("Not have closed order at this time"));
+            orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    selectedOrderInfo(newValue);
+                }
+            });
+            showOrderList();
+            showClosedOrderList();
         });
     }
     public void showOrderList(){
@@ -102,6 +96,8 @@ public class BranchPageController {
                 (getClass().getResource("/order_info.fxml"));
         popup.setScene(new Scene(loader.load(), 640, 480));
         OrderInfoController orderInfo = loader.getController();
+        orderInfo.setAccountManager(accountManager);
+        orderInfo.setServiceAPI(serviceAPI);
         orderInfo.setSelectedOrder(selectedOrder);
         popup.showAndWait();
     }
@@ -219,7 +215,7 @@ public class BranchPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> notCleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo){
-            if (i.getCloth().getStatus() != "closed"){
+            if (i.getCloth().getStatus().equals("closed")){
                 notCleaningSuccess.add(i);
             }
         }

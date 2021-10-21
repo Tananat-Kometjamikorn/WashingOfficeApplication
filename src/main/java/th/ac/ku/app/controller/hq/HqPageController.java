@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HqPageController {
-    @FXML private Button logoutBtn, infoBtn, showBillInfoBtn, delBtn, showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
+    @FXML private Button logoutBtn, logoutBtn1, logoutBtn2,
+            infoBtn, showBillInfoBtn, delBtn, showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
     @FXML private TextField currentPasswordField, newPasswordField, confirmPasswordField;
     @FXML private TableView<OrderInfo> orderTable;
     @FXML private TableView<OrderInfo> closedOrderTable;
@@ -41,20 +42,17 @@ public class HqPageController {
     //Main Page
 
     @FXML private void initialize(){
-        Platform.runLater(new Runnable(){
-            @Override
-            public void run(){
-                hqNameLabel1.setText(accountManager.getCurrentHeadQuarter().getName());
-                hqNameLabel2.setText(accountManager.getCurrentHeadQuarter().getName());
-                hqNameLabel3.setText(accountManager.getCurrentHeadQuarter().getName());
-                showOrderList();
-                showClosedOrderList();
-                orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        selectedOrderInfo(newValue);
-                    }
-                });
-            }
+        Platform.runLater(() -> {
+            hqNameLabel1.setText(accountManager.getCurrentHeadQuarter().getName());
+            hqNameLabel2.setText(accountManager.getCurrentHeadQuarter().getName());
+            hqNameLabel3.setText(accountManager.getCurrentHeadQuarter().getName());
+            showOrderList();
+            showClosedOrderList();
+            orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    selectedOrderInfo(newValue);
+                }
+            });
         });
     }
     private void selectedOrderInfo(OrderInfo orderInfo){
@@ -66,7 +64,7 @@ public class HqPageController {
         orderTable.setItems(getOrderInfoObservableList());
         orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("orderDate"));;
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
     }
 
     @FXML
@@ -101,7 +99,7 @@ public class HqPageController {
     public void showClosedOrderList(){
         closedOrderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         closedCustomerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("clothQuantity"));;
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("clothQuantity"));
     }
 
     @FXML

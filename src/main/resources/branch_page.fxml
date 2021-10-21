@@ -19,10 +19,10 @@
                <children>
                   <TableView fx:id="orderTable" editable="true" layoutX="80.0" layoutY="80.0" minHeight="480.0" minWidth="850.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
                     <columns>
-                      <TableColumn fx:id="orderIdCol" prefWidth="118.0" text="OrderID" />
-                      <TableColumn fx:id="customerNameCol" prefWidth="340.0" text="Customer Name" />
-                        <TableColumn fx:id="dateCol" prefWidth="200.0" text="Date" />
-                        <TableColumn fx:id="statusCol" prefWidth="190.0" text="Status" />
+                      <TableColumn fx:id="orderIdCol" prefWidth="118.0" resizable="false" text="OrderID" />
+                      <TableColumn fx:id="customerNameCol" prefWidth="340.0" resizable="false" text="Customer Name" />
+                        <TableColumn fx:id="dateCol" prefWidth="200.0" resizable="false" text="Date" />
+                        <TableColumn fx:id="statusCol" prefWidth="190.0" resizable="false" text="Status" />
                     </columns>
                   </TableView>
                   <Button fx:id="infoBtn" layoutX="400.0" layoutY="580.0" mnemonicParsing="false" onAction="#handleShowInfoBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO / EDIT">
@@ -180,7 +180,7 @@
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logoutBtn21" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="880.0" layoutY="15.0" minHeight="40.0" minWidth="130.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" styleClass="buttonBlue" stylesheets="@css/button.css" text="LOGOUT">
+                  <Button fx:id="logoutBtn3" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="880.0" layoutY="15.0" minHeight="40.0" minWidth="130.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" styleClass="buttonBlue" stylesheets="@css/button.css" text="LOGOUT">
                      <font>
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
