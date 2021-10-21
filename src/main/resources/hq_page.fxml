@@ -10,103 +10,113 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-tab-min-width: 294.5;" stylesheets="@css/custom-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.hq.HqPageController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-tab-min-width: 301;" stylesheets="@css/custom-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.hq.HqPageController">
   <tabs>
-    <Tab closable="false" style="-fx-font-size: 20;" text="MAIN">
+    <Tab closable="false" style="-fx-font-size: 18;" text="MAIN">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="orderTable" layoutX="41.0" layoutY="39.0" prefHeight="483.0" prefWidth="815.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
+                  <TableView fx:id="orderTable" layoutX="100.0" layoutY="80.0" minHeight="480.0" minWidth="820.0" prefHeight="480.0" prefWidth="820.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
                     <columns>
-                      <TableColumn fx:id="orderIdCol" prefWidth="251.0" text="OrderID" />
-                      <TableColumn fx:id="customerNameCol" prefWidth="328.0" text="Customer Name" />
-                        <TableColumn fx:id="dateCol" prefWidth="235.0" text="Date" />
+                      <TableColumn fx:id="orderIdCol" prefWidth="180.0" resizable="false" text="OrderID" />
+                      <TableColumn fx:id="customerNameCol" prefWidth="409.0" resizable="false" text="Customer Name" />
+                        <TableColumn fx:id="dateCol" prefWidth="230.0" resizable="false" text="Date" />
                     </columns>
                   </TableView>
-                  <Button fx:id="infoBtn" layoutX="199.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleShowInfoBtnOnAction" prefHeight="42.0" prefWidth="242.0" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO / EDIT">
+                  <Button fx:id="infoBtn" layoutX="390.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleShowInfoBtnOnAction" prefHeight="40.0" prefWidth="250.0" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO / EDIT">
                      <font>
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="delBtn" layoutX="530.0" layoutY="551.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="121.0" styleClass="buttonRed" stylesheets="@css/button.css" text="DELETE">
+                  <Button fx:id="logoutBtn" layoutX="880.0" layoutY="15.0" minHeight="40.0" minWidth="130.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" styleClass="buttonBlue" stylesheets="@css/button.css" text="LOGOUT">
                      <font>
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="logoutBtn" layoutX="884.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" prefHeight="36.0" prefWidth="126.0" styleClass="buttonBlue" stylesheets="@css/button.css" text="LOGOUT">
+                  <Label fx:id="hqNameLabel1" layoutX="30.0" layoutY="15.0" minHeight="40.0" minWidth="300.0" text="NAME">
                      <font>
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
-                  </Button>
+                  </Label>
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab closable="false" style="-fx-font-size: 20;" text="SETTING">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <PasswordField fx:id="currentPasswordField" alignment="CENTER" layoutX="334.0" layoutY="233.0" promptText="CURRENT PASSWORD">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font>
-                  </PasswordField>
-                  <PasswordField fx:id="confirmPasswordField" alignment="CENTER" layoutX="334.0" layoutY="363.0" promptText="CONFIRM PASSWORD">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font>
-                  </PasswordField>
-                  <PasswordField fx:id="newPasswordField" alignment="CENTER" layoutX="334.0" layoutY="299.0" promptText="NEW PASSWORD">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font>
-                  </PasswordField>
-                  <Button fx:id="changePasswordBtn" layoutX="347.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleChangePasswordBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="ACCEPT">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="clearPasswordFieldBtn" layoutX="512.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleClearPasswordFieldBtnOnAction" styleClass="buttonRed" stylesheets="@css/button.css" text="CLEAR">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font>
-                  </Button>
-                  <Label layoutX="316.0" layoutY="166.0" text="CHANGE PASSWORD">
-                     <font>
-                        <Font name="Comic Sans MS" size="30.0" />
-                     </font></Label>
-                  <Button fx:id="logoutBtn2" layoutX="868.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" prefHeight="42.0" prefWidth="121.0" styleClass="buttonBlue" stylesheets="@css/button.css" text="LOGOUT">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-        </content>
-      </Tab>
-      <Tab closable="false" style="-fx-font-size: 20;" text="CLOSED ORDER">
+      <Tab closable="false" style="-fx-font-size: 18;" text="CLOSED ORDER">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="closedOrderTable" editable="true" layoutX="51.0" layoutY="35.0" prefHeight="492.0" prefWidth="820.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
+                  <TableView fx:id="closedOrderTable" editable="true" layoutX="100.0" layoutY="80.0" minHeight="480.0" minWidth="820.0" prefHeight="480.0" prefWidth="820.0" style="-fx-font-size: 16;" stylesheets="@css/table.css">
                      <columns>
-                        <TableColumn fx:id="closedOrderIdCol" prefWidth="266.0" text="OrderID" />
-                        <TableColumn fx:id="closedCustomerNameCol" prefWidth="264.0" text="Customer Name" />
-                        <TableColumn fx:id="quantityCol" prefWidth="249.0" text="Quantity" />
+                        <TableColumn fx:id="closedOrderIdCol" prefWidth="180.0" resizable="false" text="OrderID" />
+                        <TableColumn fx:id="closedCustomerNameCol" prefWidth="459.0" resizable="false" text="Customer Name" />
+                        <TableColumn fx:id="quantityCol" prefWidth="180.0" resizable="false" text="Quantity" />
                      </columns>
                   </TableView>
-                  <Button fx:id="showClosedInfoBtn" layoutX="403.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" prefHeight="42.0" prefWidth="164.0" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO">
+                  <Button fx:id="showClosedInfoBtn" layoutX="430.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" prefHeight="42.0" prefWidth="170.0" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO">
                      <font>
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="logoutBtn1" layoutX="892.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" prefHeight="42.0" prefWidth="126.0" styleClass="buttonBlue" stylesheets="@css/button.css" text="LOGOUT">
+                  <Button fx:id="logoutBtn1" layoutX="880.0" layoutY="15.0" minHeight="40.0" minWidth="130.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" styleClass="buttonBlue" stylesheets="@css/button.css" text="LOGOUT">
                      <font>
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
                   </Button>
+                  <Label fx:id="hqNameLabel2" layoutX="30.0" layoutY="15.0" minHeight="40.0" minWidth="300.0" text="NAME">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </content>
+      </Tab>
+      <Tab closable="false" style="-fx-font-size: 18;" text="SETTING">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <PasswordField fx:id="currentPasswordField" alignment="CENTER" layoutX="375.0" layoutY="220.0" minHeight="45.0" minWidth="280.0" promptText="CURRENT PASSWORD">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font>
+                  </PasswordField>
+                  <PasswordField fx:id="confirmPasswordField" alignment="CENTER" layoutX="375.0" layoutY="360.0" minHeight="45.0" minWidth="280.0" promptText="CONFIRM PASSWORD">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font>
+                  </PasswordField>
+                  <PasswordField fx:id="newPasswordField" alignment="CENTER" layoutX="375.0" layoutY="290.0" minHeight="45.0" minWidth="280.0" promptText="NEW PASSWORD">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="changePasswordBtn" layoutX="375.0" layoutY="450.0" minHeight="45.0" minWidth="110.0" mnemonicParsing="false" onAction="#handleChangePasswordBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="ACCEPT">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="clearPasswordFieldBtn" layoutX="545.0" layoutY="450.0" minHeight="45.0" minWidth="110.0" mnemonicParsing="false" onAction="#handleClearPasswordFieldBtnOnAction" styleClass="buttonRed" stylesheets="@css/button.css" text="CLEAR">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="360.0" layoutY="140.0" minHeight="45.0" minWidth="310.0" text="CHANGE PASSWORD">
+                     <font>
+                        <Font name="Comic Sans MS" size="30.0" />
+                     </font></Label>
+                  <Button fx:id="logoutBtn2" layoutX="880.0" layoutY="15.0" minHeight="40.0" minWidth="130.0" mnemonicParsing="false" onAction="#handleLogoutBtnOnAction" styleClass="buttonBlue" stylesheets="@css/button.css" text="LOGOUT">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="hqNameLabel3" layoutX="30.0" layoutY="15.0" minHeight="40.0" minWidth="300.0" text="NAME">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+        </content>
       </Tab>
   </tabs>
 </TabPane>

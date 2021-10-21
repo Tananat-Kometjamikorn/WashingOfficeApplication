@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,6 +21,7 @@ public class HqPageController {
     @FXML private TextField currentPasswordField, newPasswordField, confirmPasswordField;
     @FXML private TableView orderTable, closedOrderTable;
     @FXML private TableColumn orderIdCol, customerNameCol, dateCol, closedOrderIdCol, closedCustomerNameCol, quantityCol;
+    @FXML private Label hqNameLabel1,hqNameLabel2,hqNameLabel3;
 
     private AccountManager accountManager;
     private WashingOrderServiceAPI serviceAPI;
@@ -34,6 +32,9 @@ public class HqPageController {
         Platform.runLater(new Runnable(){
             @Override
             public void run(){
+                hqNameLabel1.setText(accountManager.getCurrentHeadQuarter().getName());
+                hqNameLabel2.setText(accountManager.getCurrentHeadQuarter().getName());
+                hqNameLabel3.setText(accountManager.getCurrentHeadQuarter().getName());
                 showOrderList();
                 showClosedOrderList();
             }
@@ -95,11 +96,27 @@ public class HqPageController {
 
     @FXML
     public void handleChangePasswordBtnOnAction(ActionEvent event) throws IOException {
-
+        if(!currentPasswordField.getText().isEmpty()&&!newPasswordField.getText().isEmpty()&&!confirmPasswordField.getText().isEmpty()) {
+            String currentPasswd = currentPasswordField.getText();
+            String newPasswd = newPasswordField.getText();
+            String confirmNewPasswd = confirmPasswordField.getText();
+            if (accountManager.getCurrentHeadQuarter() != null) {
+                if (accountManager.getCurrentHeadQuarter().getPassword().equals(currentPasswd)) {
+                    if (newPasswd.equals(confirmNewPasswd)) {
+                        accountManager.getCurrentHeadQuarter().setPassword(newPasswd);
+                        serviceAPI.updateUserHeadQuarter(accountManager.getCurrentHeadQuarter());
+                        clearSettingPage();
+                    }
+                }
+            }
+        }
     }
 
     @FXML
     public void handleClearPasswordFieldBtnOnAction(ActionEvent event) throws IOException {
+        clearSettingPage();
+    }
+    private void clearSettingPage(){
         currentPasswordField.clear();
         newPasswordField.clear();
         confirmPasswordField.clear();

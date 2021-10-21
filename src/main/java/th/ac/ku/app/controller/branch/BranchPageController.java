@@ -23,8 +23,6 @@ import th.ac.ku.app.service.WashingOrderServiceAPI;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BranchPageController {
 
@@ -41,19 +39,25 @@ public class BranchPageController {
     @FXML private TableColumn<Object, String > closedOrderIdCol;
     @FXML private TableColumn<Object, String > closedCustomerNameCol;
     @FXML private TableColumn<Object, Integer> quantityCol;
-    @FXML private Label branchNameLabel;
+    @FXML private Label branchNameLabel1,branchNameLabel2,branchNameLabel3,branchNameLabel4;
 
     private AccountManager accountManager;
     private WashingOrderServiceAPI serviceAPI;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private OrderInfo selectedOrder;
-//Main Page
+
+//Main Page-------------------------------------------------------------------------------------------------------------
 
     @FXML private void initialize(){
         Platform.runLater(new Runnable(){
             @Override
             public void run(){
-                branchNameLabel.setText(accountManager.getCurrentBranch().getName());
+                branchNameLabel1.setText(accountManager.getCurrentBranch().getName());
+                branchNameLabel2.setText(accountManager.getCurrentBranch().getName());
+                branchNameLabel3.setText(accountManager.getCurrentBranch().getName());
+                branchNameLabel4.setText(accountManager.getCurrentBranch().getName());
+                orderTable.setPlaceholder(new Label("No order at this time"));
+                closedOrderTable.setPlaceholder(new Label("No closed order at this time"));
                 orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         selectedOrderInfo((OrderInfo) newValue);
@@ -108,17 +112,19 @@ public class BranchPageController {
 
     @FXML
     public void handleDeleteBtnOnAction(ActionEvent event) throws IOException {
-
+        if (selectedOrder!=null){
+            //alert
+            //if result.get == buttonType.ok
+            serviceAPI.delete(selectedOrder.getOrderId());
+            showOrderList();
+        }
     }
 
-    //Add Order Page
+    //Add Order Page----------------------------------------------------------------------------------------------------
 
     @FXML
     public void handleClearOrderFieldBtnOnAction(ActionEvent event) throws IOException {
-
-        customerNameField.clear();
-        customerPhoneField.clear();
-        clothQuantityField.clear();
+        clearAddOrderPage();
     }
 
     @FXML
@@ -140,20 +146,20 @@ public class BranchPageController {
         cloth.setStatus("Sending to hq");
 
         orderInfo.setCloth(cloth);
-//        cloth.setOrderInfo(orderInfo);
-
-//        serviceAPI.create(cloth);
         serviceAPI.create(orderInfo);
 
-
-        currentPasswordField.clear();
-        newPasswordField.clear();
-        confirmPasswordField.clear();
-
+        clearAddOrderPage();
         showOrderList();
+        //show alert and change to main page
     }
 
-    //Closed Order Page
+    private void clearAddOrderPage(){
+        customerNameField.clear();
+        customerPhoneField.clear();
+        clothQuantityField.clear();
+    }
+
+    //Closed Order Page-------------------------------------------------------------------------------------------------
 
     public void showClosedOrderList(){
         closedOrderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
@@ -174,7 +180,7 @@ public class BranchPageController {
         popup.showAndWait();
     }
 
-    //Setting Page
+    //Setting Page------------------------------------------------------------------------------------------------------
 
     @FXML
     public void handleChangePasswordBtnOnAction(ActionEvent event) throws IOException {
@@ -189,6 +195,7 @@ public class BranchPageController {
                         accountManager.getCurrentBranch().setPassword(newPasswd);
                         serviceAPI.updateUserBranch(accountManager.getCurrentBranch());
                         clearSettingPage();
+                        //alert change success
                     }
                 }
             }
