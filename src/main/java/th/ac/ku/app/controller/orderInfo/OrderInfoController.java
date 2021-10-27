@@ -1,5 +1,6 @@
 package th.ac.ku.app.controller.orderInfo;
 
+import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
+import th.ac.ku.app.service.CreateBillService;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
 
 import java.io.IOException;
@@ -78,8 +80,11 @@ public class OrderInfoController {
     }
 
     @FXML
-    public void handleCreateBillBtnOnAction(ActionEvent event) throws IOException {
-        //pdfwriter
+    public void handleCreateBillBtnOnAction(ActionEvent event) throws IOException, DocumentException {
+        CreateBillService billService = new CreateBillService();
+        billService.setSelectOrderInfo(selectedOrder);
+        billService.setAccountManager(accountManager);
+        billService.createPdf();
     }
 
     private void setStatusTypeListBranch(){

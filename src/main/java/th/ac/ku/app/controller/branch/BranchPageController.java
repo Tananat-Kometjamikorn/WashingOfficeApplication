@@ -215,7 +215,7 @@ public class BranchPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> notCleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo){
-            if (i.getCloth().getStatus().equals("closed")){
+            if (!i.getCloth().getStatus().equals("closed")){
                 notCleaningSuccess.add(i);
             }
         }
