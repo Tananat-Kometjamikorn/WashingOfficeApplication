@@ -1,125 +1,197 @@
 package th.ac.ku.app.service;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.VerticalAlignment;
 import th.ac.ku.app.models.OrderInfo;
-
-import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class CreateBillService {
+public class CreateBillService{
 
     private AccountManager accountManager;
     private OrderInfo selectOrderInfo;
-//    private final int totalCost = selectOrderInfo.getCloth().getClothQuantity() * 20;
+    Color myColor = new DeviceRgb(235, 240, 50);
+    private final String comic = "font\\COMIC.TTF";
 
-    public void createPdf() throws IOException, DocumentException {
-        String path = "D:\\"+selectOrderInfo.getOrderId()+".pdf";
-        Document document = new Document();
-        document.setPageSize(PageSize.A4);
-        PdfWriter.getInstance(document, new FileOutputStream(path));
-        document.open();
+
+    //private int totalCost = selectOrderInfo.getCloth().getClothQuantity() * 20;
+
+    public void createPdf() throws IOException{
+        String path = "pdf_bill\\"+selectOrderInfo.getOrderId()+".pdf";
+
+        PdfWriter pdfWriter = new PdfWriter(path);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        Document document = new Document(pdfDocument);
+        pdfDocument.setDefaultPageSize(PageSize.A4);
+
         addContent1(document);
+        document.add(new Paragraph("\n"));
         addContent2(document);
+        document.add(new Paragraph("\n"));
+        addContent3(document);
+        document.add(new Paragraph("\n"));
         document.close();
+        System.out.println("Pdf created");
     }
 
-    private void addContent1(Document document) throws DocumentException {
-        BaseColor myColor = BaseColor.CYAN;
+    private void addContent1(Document document) throws IOException {
+        PdfFont comic1 = PdfFontFactory.createFont(comic);
         //head content
-        float col = 280f;
+        float col = 300f;
         float[] colWidthArray = {col, col};
-        PdfPTable headTable = new PdfPTable(colWidthArray);
-        PdfPCell c1 = new PdfPCell(new Phrase("INVOICE"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        c1.setVerticalAlignment(Element.ALIGN_CENTER);
-        c1.setBackgroundColor(myColor);
-        c1.setBorder(Rectangle.NO_BORDER);
+        Table headTable = new Table(colWidthArray);
+        headTable.setBackgroundColor(myColor);
+        headTable.setFont(comic1);
+
+        Cell c1 = new Cell();
+        c1.add(new Paragraph("INVOICE"));
+        c1.setFont(comic1);
+        c1.setTextAlignment(TextAlignment.CENTER);
+        c1.setVerticalAlignment(VerticalAlignment.MIDDLE);
+        c1.setMarginTop(30f);
+        c1.setMarginBottom(30f);
+        c1.setFontSize(28f);
+        c1.setBorder(Border.NO_BORDER);
         headTable.addCell(c1);
-        PdfPCell c2 = new PdfPCell(new Phrase("Washing Office\n555 S.dfsd\nTel. 0894445747"));
-        c2.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        c2.setVerticalAlignment(Element.ALIGN_CENTER);
-        c2.setBackgroundColor(myColor);
-        c2.setBorder(Rectangle.NO_BORDER);
+
+        Cell c2 = new Cell();
+        c2.add(new Paragraph("Washing Office\n555 S.un1\nTel. 0894445747"));
+        c2.setFont(comic1);
+        c2.setTextAlignment(TextAlignment.RIGHT);
+        c2.setMarginTop(30f);
+        c2.setMarginBottom(30f);
+        c2.setMarginRight(10f);
+        c2.setBorder(Border.NO_BORDER);
         headTable.addCell(c2);
         document.add(headTable);
+    }
+    private void addContent2(Document document) throws IOException {
+        PdfFont comic1 = PdfFontFactory.createFont(comic);
         //second content
-        float[] colWidthArray2 = {80,300,100,80};
-        PdfPTable secondTable = new PdfPTable(colWidthArray2);
-        PdfPCell c3 = new PdfPCell(new Phrase("Order Information"));
-        c3.setRowspan(0);
-        c3.setColspan(4);
-        c3.setBorder(Rectangle.NO_BORDER);
-        secondTable.addCell(c3);
+        float[] colWidthArray2 = {160,90,130,160};
+        Table secondTable = new Table(colWidthArray2);
+        secondTable.setFont(comic1);
 
-        PdfPCell c4 = new PdfPCell(new Phrase("Order ID"));
-        c4.setBorder(Rectangle.NO_BORDER);
+        secondTable.addCell(new Cell(0,4)
+                .add(new Paragraph("Order Information"))
+                .setBold()
+                .setBorder(Border.NO_BORDER));
+
+        Cell c4 = new Cell();
+        c4.add(new Paragraph("Order ID"));
+        c4.setBorder(Border.NO_BORDER);
         secondTable.addCell(c4);
-        PdfPCell c5 = new PdfPCell(new Phrase(Integer.toString(selectOrderInfo.getOrderId())));
-        c5.setBorder(Rectangle.NO_BORDER);
+
+        Cell c5 = new Cell();
+        c5.add(new Paragraph(Integer.toString(selectOrderInfo.getOrderId())));
+        c5.setBorder(Border.NO_BORDER);
         secondTable.addCell(c5);
 
-        PdfPCell c6 = new PdfPCell(new Phrase("Customer Name"));
-        c6.setBorder(Rectangle.NO_BORDER);
+        Cell c6 = new Cell();
+        c6.add(new Paragraph("Customer Name"));
+        c6.setBorder(Border.NO_BORDER);
         secondTable.addCell(c6);
-        PdfPCell c7 = new PdfPCell(new Phrase(selectOrderInfo.getCustomerName()));
-        c7.setBorder(Rectangle.NO_BORDER);
+
+        Cell c7 = new Cell();
+        c7.add(new Paragraph(selectOrderInfo.getCustomerName()));
+        c7.setBorder(Border.NO_BORDER);
         secondTable.addCell(c7);
 
-        PdfPCell c8 = new PdfPCell(new Phrase("Customer Phone Number"));
-        c8.setBorder(Rectangle.NO_BORDER);
+        Cell c8 = new Cell();
+        c8.add(new Paragraph("Customer Phone Number"));
+        c8.setBorder(Border.NO_BORDER);
         secondTable.addCell(c8);
-        PdfPCell c9 = new PdfPCell(new Phrase(selectOrderInfo.getCustomerPhone()));
-        c9.setBorder(Rectangle.NO_BORDER);
+
+        Cell c9 = new Cell();
+        c9.add(new Paragraph(selectOrderInfo.getCustomerPhone()));
+        c9.setBorder(Border.NO_BORDER);
         secondTable.addCell(c9);
 
-        PdfPCell c10 = new PdfPCell(new Phrase("Place Order Date"));
-        c10.setBorder(Rectangle.NO_BORDER);
+        Cell c10 = new Cell();
+        c10.add(new Paragraph("Placed Order Date"));
+        c10.setBorder(Border.NO_BORDER);
         secondTable.addCell(c10);
-        PdfPCell c11 = new PdfPCell(new Phrase(selectOrderInfo.getOrderDate()));
-        c11.setBorder(Rectangle.NO_BORDER);
+
+        Cell c11 = new Cell();
+        c11.add(new Paragraph(selectOrderInfo.getOrderDate()));
+        c11.setBorder(Border.NO_BORDER);
         secondTable.addCell(c11);
 
         document.add(secondTable);
     }
 
-    private void addContent2(Document document) throws DocumentException {
+    private void addContent3(Document document) throws IOException {
+        PdfFont comic1 = PdfFontFactory.createFont(comic);
         float[] colwidth = {140,140,140,140};
-        PdfPTable table = new PdfPTable(colwidth);
-        PdfPCell c10 = new PdfPCell(new Phrase("Service"));
-        table.addCell(c10);
-        PdfPCell c11 = new PdfPCell(new Phrase("Unit"));
-        table.addCell(c11);
-        PdfPCell c12 = new PdfPCell(new Phrase("Price/Unit"));
-        table.addCell(c12);
-        PdfPCell c13 = new PdfPCell(new Phrase("Total"));
-        table.addCell(c13);
+        Table table = new Table(colwidth);
+        table.setFont(comic1);
+        Cell c0 = new Cell();
+        c0.add(new Paragraph("Services"));
+        c0.setBackgroundColor(myColor);
+        table.addCell(c0);
+        Cell c1 = new Cell();
+        c1.add(new Paragraph("Unit"));
+        c1.setBackgroundColor(myColor);
+        table.addCell(c1);
+        Cell c2 = new Cell();
+        c2.add(new Paragraph("Cost/Unit"));
+        c2.setBackgroundColor(myColor);
+        table.addCell(c2);
+        Cell c3 = new Cell();
+        c3.add(new Paragraph("Cost"));
+        c3.setBackgroundColor(myColor);
+        table.addCell(c3);
 
-        PdfPCell c14 = new PdfPCell(new Phrase("Washing service"));
-        table.addCell(c14);
-        PdfPCell c15 = new PdfPCell(new Phrase(Integer.toString(selectOrderInfo.getCloth().getClothQuantity())));
-        table.addCell(c15);
-        PdfPCell c16 = new PdfPCell(new Phrase("20"));
-        table.addCell(c16);
-        PdfPCell c17 = new PdfPCell(new Phrase(Integer.toString(0)));
-        table.addCell(c17);
+        Cell c4 = new Cell();
+        c4.add(new Paragraph("Washing service"));
+        table.addCell(c4);
+        Cell c5 = new Cell();
+        c5.add(new Paragraph(Integer.toString(selectOrderInfo.getCloth().getClothQuantity())));
+        table.addCell(c5);
+        Cell c6 = new Cell();
+        c6.add(new Paragraph("20"));
+        table.addCell(c6);
+        Cell c7 = new Cell();
+        c7.add(new Paragraph(Integer.toString(0)));
+        table.addCell(c7);
+
+        Cell c8 = new Cell();
+        c8.add(new Paragraph(""));
+        c8.setBorder(Border.NO_BORDER);
+        c8.setBackgroundColor(myColor);
+        table.addCell(c8);
+        Cell c9 = new Cell();
+        c9.add(new Paragraph(""));
+        c9.setBorder(Border.NO_BORDER);
+        c9.setBackgroundColor(myColor);
+        table.addCell(c9);
+        Cell c10 = new Cell();
+        c10.add(new Paragraph("Total Cost"));
+        c10.setBorder(Border.NO_BORDER);
+        c10.setBackgroundColor(myColor);
+        table.addCell(c10);
+        Cell c11 = new Cell();
+        c11.add(new Paragraph(""+0));
+        c11.setBorder(Border.NO_BORDER);
+        c11.setBackgroundColor(myColor);
+        table.addCell(c11);
 
         document.add(table);
     }
 
-
-    public AccountManager getAccountManager() {
-        return accountManager;
-    }
-
     public void setAccountManager(AccountManager accountManager) {
         this.accountManager = accountManager;
-    }
-
-    public OrderInfo getSelectOrderInfo() {
-        return selectOrderInfo;
     }
 
     public void setSelectOrderInfo(OrderInfo selectOrderInfo) {

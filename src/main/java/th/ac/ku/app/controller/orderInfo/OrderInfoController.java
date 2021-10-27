@@ -1,6 +1,5 @@
 package th.ac.ku.app.controller.orderInfo;
 
-import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,7 +79,7 @@ public class OrderInfoController {
     }
 
     @FXML
-    public void handleCreateBillBtnOnAction(ActionEvent event) throws IOException, DocumentException {
+    public void handleCreateBillBtnOnAction(ActionEvent event) throws IOException{
         CreateBillService billService = new CreateBillService();
         billService.setSelectOrderInfo(selectedOrder);
         billService.setAccountManager(accountManager);
