@@ -14,13 +14,18 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import th.ac.ku.app.models.OrderInfo;
+
+import java.io.File;
 import java.io.IOException;
 
 public class CreateBillService{
 
     private AccountManager accountManager;
     private OrderInfo selectOrderInfo;
+    private Stage stage;
     Color myColor = new DeviceRgb(235, 240, 50);
     private final String comic = "font\\COMIC.TTF";
 
@@ -30,7 +35,12 @@ public class CreateBillService{
     public void createPdf() throws IOException{
         totalCost = selectOrderInfo.getCloth().getClothQuantity() * 20;
 
-        String path = "pdf_bill\\"+selectOrderInfo.getOrderId()+".pdf";
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Bill");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        fileChooser.setInitialFileName(Integer.toString(selectOrderInfo.getOrderId()));
+        File file = fileChooser.showSaveDialog(stage);
+        String path = file.getAbsolutePath();
 
 
         PdfWriter pdfWriter = new PdfWriter(path);
@@ -199,5 +209,9 @@ public class CreateBillService{
 
     public void setSelectOrderInfo(OrderInfo selectOrderInfo) {
         this.selectOrderInfo = selectOrderInfo;
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 }

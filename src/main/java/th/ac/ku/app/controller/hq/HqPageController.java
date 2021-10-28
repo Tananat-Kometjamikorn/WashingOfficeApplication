@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
 import th.ac.ku.app.models.OrderInfo;
@@ -20,6 +21,7 @@ import th.ac.ku.app.service.WashingOrderServiceAPI;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class HqPageController {
     @FXML private Button logoutBtn, logoutBtn1, logoutBtn2,
@@ -38,6 +40,7 @@ public class HqPageController {
     private AccountManager accountManager;
     private WashingOrderServiceAPI serviceAPI;
     private OrderInfo selectedOrder;
+    private Alert alert;
 
     //Main Page
 
@@ -75,7 +78,7 @@ public class HqPageController {
                 getClass().getResource("/login.fxml")
         );
         stage.setScene(new Scene(loader.load(), 1024, 720));
-        LoginController login = loader.getController();
+        loader.getController();
         stage.show();
     }
 
@@ -119,19 +122,31 @@ public class HqPageController {
 
     @FXML
     public void handleChangePasswordBtnOnAction(ActionEvent event) throws IOException {
-        if(!currentPasswordField.getText().isEmpty()&&!newPasswordField.getText().isEmpty()&&!confirmPasswordField.getText().isEmpty()) {
-            String currentPasswd = currentPasswordField.getText();
-            String newPasswd = newPasswordField.getText();
-            String confirmNewPasswd = confirmPasswordField.getText();
-            if (accountManager.getCurrentHeadQuarter() != null) {
-                if (accountManager.getCurrentHeadQuarter().getPassword().equals(currentPasswd)) {
-                    if (newPasswd.equals(confirmNewPasswd)) {
-                        accountManager.getCurrentHeadQuarter().setPassword(newPasswd);
-                        serviceAPI.updateUserHeadQuarter(accountManager.getCurrentHeadQuarter());
-                        clearSettingPage();
+
+        if (!currentPasswordField.getText().isEmpty() &&
+                !newPasswordField.getText().isEmpty() &&
+                !confirmPasswordField.getText().isEmpty()) {
+            if (confirmationAlertBox("Confirm to change password").getResult().equals(ButtonType.OK)) {
+                String currentPasswd = currentPasswordField.getText();
+                String newPasswd = newPasswordField.getText();
+                String confirmNewPasswd = confirmPasswordField.getText();
+                if (accountManager.getCurrentHeadQuarter() != null) {
+                    if (accountManager.getCurrentHeadQuarter().getPassword().equals(currentPasswd)) {
+                        if (newPasswd.equals(confirmNewPasswd)) {
+                            accountManager.getCurrentHeadQuarter().setPassword(newPasswd);
+                            serviceAPI.updateUserHeadQuarter(accountManager.getCurrentHeadQuarter());
+                            clearSettingPage();
+                            informationAlertBox("Password changed");
+                        }
+                        else errorAlertBox("New password is not match Confirm new password");
+                    }
+                    else {
+                        errorAlertBox("Your current password is incorrect");
                     }
                 }
             }
+        } else {
+            errorAlertBox("Please fill all blank fields");
         }
     }
 
@@ -167,7 +182,7 @@ public class HqPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> notCleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo){
-            if (!i.getCloth().getStatus().equals("closed")){
+            if (!i.getCloth().getStatus().equals("Closed")){
                 notCleaningSuccess.add(i);
             }
         }
@@ -178,10 +193,53 @@ public class HqPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> cleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo){
-            if (i.getCloth().getStatus().equals("closed")){
+            if (i.getCloth().getStatus().equals("Closed")){
                 cleaningSuccess.add(i);
             }
         }
         return FXCollections.observableArrayList(cleaningSuccess);
+    }
+    //alert box
+    private Alert confirmationAlertBox(String message) {
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+        return alert;
+    }
+    private String warningAlertBox(String message){
+        alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        ButtonType buttonDelete = new ButtonType("Delete");
+        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonDelete,buttonCancel);
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == buttonDelete){
+            return "Delete";
+        }
+        return "Cancel";
+    }
+
+    private void errorAlertBox(String message) {
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("ERROR");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void informationAlertBox(String message){
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("INFORMATION");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -52,7 +53,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if(username.equals("") || password.equals("")){
-            System.out.println("fill all?");
+            notFillAllBlank();
         }else{
             if (this.roleToggleGroup.getSelectedToggle().equals(this.branchBtn)) {
                 Button b = (Button) event.getSource();
@@ -68,7 +69,7 @@ public class LoginController {
                     branch.setServiceAPI(serviceAPI);
                     stage.show();
                 } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
+                    noAccountAlertBox(e.getMessage());
                 }
             }
             else if (this.roleToggleGroup.getSelectedToggle().equals(this.headQuarterBtn)) {
@@ -85,19 +86,27 @@ public class LoginController {
                     hq.setServiceAPI(serviceAPI);
                     stage.show();
                 } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
+                    noAccountAlertBox(e.getMessage());
                 }
             }
         }
 
     }
+    //alert
+    private void noAccountAlertBox(String message){
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("ERROR");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    private void notFillAllBlank(){
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("ERROR");
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill all blank fields");
+        alert.showAndWait();
+    }
 }
-//    private void AlertBox(){
-//        alert = new Alert(Alert.AlertType.ERROR);
-//        alert.initStyle(StageStyle.UTILITY);
-//        alert.setTitle("ERROR");
-//        alert.setHeaderText(null);
-//        alert.setContentText("kuy");
-//        alert.showAndWait();
-//    }
-// ใช้ confirmation แทนได้มั้งจะได้ไม่รก

@@ -5,15 +5,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
 import th.ac.ku.app.service.CreateBillService;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class OrderInfoController {
 
@@ -29,6 +30,7 @@ public class OrderInfoController {
     private OrderInfo selectedOrder;
     private WashingOrderServiceAPI serviceAPI;
     private AccountManager accountManager;
+    private Alert alert;
 
     @FXML private void initialize(){
         Platform.runLater(() -> {
@@ -39,7 +41,7 @@ public class OrderInfoController {
             phoneNumLabel.setText(selectedOrder.getCustomerPhone());
             clothQuantityLabel.setText(Integer.toString(selectedOrder.getCloth().getClothQuantity()));
             createBillBtn.setDisable(true);
-            setOrderStatus();
+            setOrderStatusLabel();
             if (accountManager.getCurrentBranch() != null){
                 setStatusTypeListBranch();
             }
@@ -49,7 +51,7 @@ public class OrderInfoController {
         });
     }
 
-    public void setOrderStatus() {
+    public void setOrderStatusLabel() {
         if (selectedOrder.getCloth().getStatus().equals("Sending to hq")) {
             statusLabel.setText("Sending to hq");
         } else if (selectedOrder.getCloth().getStatus().equals("Success")) {
@@ -77,19 +79,24 @@ public class OrderInfoController {
 
     @FXML
     public void handleChangeBtnOnAction(ActionEvent event) throws IOException {
-        selectedOrder.getCloth().setStatus(statusChoiceBox.getValue());
-        serviceAPI.update(selectedOrder.getOrderId(),selectedOrder);
-        setOrderStatus();
-        createBillBtn.setDisable(false);
-
+        if(confirmationAlertBox("Confirm to change status?").getResult().equals(ButtonType.OK)) {
+            selectedOrder.getCloth().setStatus(statusChoiceBox.getValue());
+            serviceAPI.update(selectedOrder.getOrderId(), selectedOrder);
+            setOrderStatusLabel();
+            createBillBtn.setDisable(false);
+        }
     }
 
     @FXML
     public void handleCreateBillBtnOnAction(ActionEvent event) throws IOException{
+        Button b = (Button) event.getSource();
+        Stage stage = (Stage) b.getScene().getWindow();
         CreateBillService billService = new CreateBillService();
         billService.setSelectOrderInfo(selectedOrder);
         billService.setAccountManager(accountManager);
+        billService.setStage(stage);
         billService.createPdf();
+        informationAlertBox("Pdf created");
     }
 
     private void setStatusTypeListBranch(){
@@ -97,6 +104,7 @@ public class OrderInfoController {
             createBillBtn.setVisible(false);
             createBillBtn.setDisable(true);
             statusChoiceBox.setDisable(true);
+            changeBtn.setDisable(true);
         }
         if(selectedOrder.getCloth().getStatus().equals("Success")||
                 selectedOrder.getCloth().getStatus().equals("Damaged")){
@@ -131,5 +139,24 @@ public class OrderInfoController {
 
     public void setAccountManager(AccountManager accountManager) {
         this.accountManager = accountManager;
+    }
+    //alert box
+    private Alert confirmationAlertBox(String message) {
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+        return alert;
+    }
+
+    private void informationAlertBox(String message){
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("INFORMATION");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
