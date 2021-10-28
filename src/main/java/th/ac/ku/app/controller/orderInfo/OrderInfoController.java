@@ -48,10 +48,10 @@ public class OrderInfoController {
     }
 
     public void setOrderStatus(){
-        if(selectedOrder.getCloth().getStatus().equals("Sending to hq")){
-            statusLabel.setText("Sending to hq");
-        }else if(selectedOrder.getCloth().getStatus().equals("Sending to branch")){
-            statusLabel.setText("Sending to branch");
+        if(selectedOrder.getCloth().getStatus().equals("Success")){
+            statusLabel.setText("Success");
+        }else if(selectedOrder.getCloth().getStatus().equals("Damaged")){
+            statusLabel.setText("Damaged");
         }else if(selectedOrder.getCloth().getStatus().equals("Ready to pickup")){
             statusLabel.setText("Ready to pickup");
         }else if(selectedOrder.getCloth().getStatus().equals("No contact response")){
@@ -75,7 +75,9 @@ public class OrderInfoController {
     public void handleChangeBtnOnAction(ActionEvent event) throws IOException {
         selectedOrder.getCloth().setStatus(statusChoiceBox.getValue());
         serviceAPI.update(selectedOrder.getOrderId(),selectedOrder);
+        setOrderStatus();
         createBillBtn.setDisable(false);
+
     }
 
     @FXML

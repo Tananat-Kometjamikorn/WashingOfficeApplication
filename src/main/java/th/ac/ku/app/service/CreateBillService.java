@@ -25,10 +25,13 @@ public class CreateBillService{
     private final String comic = "font\\COMIC.TTF";
 
 
-    //private int totalCost = selectOrderInfo.getCloth().getClothQuantity() * 20;
+    private int totalCost;
 
     public void createPdf() throws IOException{
+        totalCost = selectOrderInfo.getCloth().getClothQuantity() * 20;
+
         String path = "pdf_bill\\"+selectOrderInfo.getOrderId()+".pdf";
+
 
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -163,7 +166,7 @@ public class CreateBillService{
         c6.add(new Paragraph("20"));
         table.addCell(c6);
         Cell c7 = new Cell();
-        c7.add(new Paragraph(Integer.toString(0)));
+        c7.add(new Paragraph(Integer.toString(totalCost)));
         table.addCell(c7);
 
         Cell c8 = new Cell();
@@ -182,7 +185,7 @@ public class CreateBillService{
         c10.setBackgroundColor(myColor);
         table.addCell(c10);
         Cell c11 = new Cell();
-        c11.add(new Paragraph(""+0));
+        c11.add(new Paragraph(""+totalCost));
         c11.setBorder(Border.NO_BORDER);
         c11.setBackgroundColor(myColor);
         table.addCell(c11);
