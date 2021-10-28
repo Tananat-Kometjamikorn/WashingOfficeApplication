@@ -16,7 +16,7 @@
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
-      <Label layoutX="140.0" layoutY="330.0" minWidth="140.0" text="Status" textFill="#0017cf">
+      <Label layoutX="140.0" layoutY="330.0" minWidth="85.0" prefHeight="28.0" prefWidth="85.0" text="Status" textFill="#0017cf">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
@@ -83,7 +83,7 @@
             <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="statusLabel" layoutX="276.0" layoutY="331.0" text="Status">
+      <Label fx:id="statusLabel" layoutX="231.0" layoutY="331.0" prefHeight="28.0" prefWidth="200.0" text="Status">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font>

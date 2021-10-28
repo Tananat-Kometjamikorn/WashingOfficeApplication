@@ -22,8 +22,10 @@ public class OrderInfoController {
             staffNameLabel, phoneNumLabel, clothQuantityLabel,statusLabel;
     @FXML private ChoiceBox<String> statusChoiceBox;
 
-    private ObservableList<String> statusTypeListBranch = FXCollections.observableArrayList("Ready to pickup", "No contact response", "Closed");
     private ObservableList<String> statusTypeListHq = FXCollections.observableArrayList("Success", "Damaged");
+    private ObservableList<String> statusTypeNotReady = FXCollections.observableArrayList("Ready to pickup");
+    private ObservableList<String> statusTypeCleaned = FXCollections.observableArrayList("Ready to pickup","No contact response");
+    private ObservableList<String> statusTypePicked = FXCollections.observableArrayList("Closed");
     private OrderInfo selectedOrder;
     private WashingOrderServiceAPI serviceAPI;
     private AccountManager accountManager;
@@ -47,18 +49,20 @@ public class OrderInfoController {
         });
     }
 
-    public void setOrderStatus(){
-        if(selectedOrder.getCloth().getStatus().equals("Success")){
+    public void setOrderStatus() {
+        if (selectedOrder.getCloth().getStatus().equals("Sending to hq")) {
+            statusLabel.setText("Sending to hq");
+        } else if (selectedOrder.getCloth().getStatus().equals("Success")) {
             statusLabel.setText("Success");
-        }else if(selectedOrder.getCloth().getStatus().equals("Damaged")){
+        } else if (selectedOrder.getCloth().getStatus().equals("Damaged")) {
             statusLabel.setText("Damaged");
-        }else if(selectedOrder.getCloth().getStatus().equals("Ready to pickup")){
+        } else if (selectedOrder.getCloth().getStatus().equals("Ready to pickup")) {
             statusLabel.setText("Ready to pickup");
-        }else if(selectedOrder.getCloth().getStatus().equals("No contact response")){
+        } else if (selectedOrder.getCloth().getStatus().equals("No contact response")) {
             statusLabel.setText("No contact response");
-        }else if(selectedOrder.getCloth().getStatus().equals("Closed")){
+        } else if (selectedOrder.getCloth().getStatus().equals("Closed")) {
             statusLabel.setText("Closed");
-        }else{
+        } else {
             statusLabel.setText("");
         }
     }
@@ -94,9 +98,22 @@ public class OrderInfoController {
             createBillBtn.setDisable(true);
             statusChoiceBox.setDisable(true);
         }
-        if(selectedOrder.getCloth().getStatus().equals("Sending to branch")){
+        if(selectedOrder.getCloth().getStatus().equals("Success")||
+                selectedOrder.getCloth().getStatus().equals("Damaged")){
             statusChoiceBox.setDisable(false);
-            statusChoiceBox.setItems(statusTypeListBranch);
+            statusChoiceBox.setItems(statusTypeCleaned);
+        }
+        if(selectedOrder.getCloth().getStatus().equals("No contact response")){
+            statusChoiceBox.setDisable(false);
+            createBillBtn.setVisible(false);
+            createBillBtn.setDisable(true);
+            statusChoiceBox.setItems(statusTypeNotReady);
+        }
+        if (selectedOrder.getCloth().getStatus().equals("Ready to pickup")){
+            statusChoiceBox.setDisable(false);
+            createBillBtn.setVisible(false);
+            createBillBtn.setDisable(true);
+            statusChoiceBox.setItems(statusTypePicked);
         }
     }
     private void setStatusTypeListHq(){

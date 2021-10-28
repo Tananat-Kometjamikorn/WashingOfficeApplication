@@ -13,10 +13,6 @@ public class OrderInfo {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
     public String getCustomerName() {
         return customerName;
     }
@@ -55,14 +51,6 @@ public class OrderInfo {
 
     public void setCloth(Cloth cloth) {
         this.cloth = cloth;
-    }
-
-    public OrderBill getOrderBill() {
-        return orderBill;
-    }
-
-    public void setOrderBill(OrderBill orderBill) {
-        this.orderBill = orderBill;
     }
 
     @Override

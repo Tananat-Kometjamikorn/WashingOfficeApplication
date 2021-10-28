@@ -32,7 +32,7 @@ public class Cloth {
 
     @Override
     public String toString() {
-    return status;
+        return status;
 }
 
     public String getAllInfo() {

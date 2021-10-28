@@ -27,8 +27,8 @@ import java.util.List;
 
 public class BranchPageController {
 
-    @FXML private Button logoutBtn, logoutBtn1, logoutBtn2, logoutBtn3,
-                        infoBtn, delBtn, clearOrderFieldBtn, addOrderBtn,
+    @FXML private Button logoutBtn, logoutBtn1, logoutBtn2, logoutBtn3, logoutBtn4,
+                        infoBtn, infoBtn1, delBtn, clearOrderFieldBtn, addOrderBtn, showReportBtn,
                         showClosedInfoBtn, changePasswordBtn, clearPasswordFieldBtn;
     @FXML private TextField customerNameField, customerPhoneField, clothQuantityField;
     @FXML private PasswordField currentPasswordField, newPasswordField, confirmPasswordField;
@@ -37,18 +37,21 @@ public class BranchPageController {
     @FXML private TableColumn<OrderInfo, String > customerNameCol;
     @FXML private TableColumn<OrderInfo, String > dateCol;
     @FXML private TableColumn<OrderInfo, String > statusCol;
+    @FXML private TableView<OrderInfo> orderTable2;
+    @FXML private TableColumn<OrderInfo, Integer> orderIdCol2;
+    @FXML private TableColumn<OrderInfo, String > customerNameCol2;
+    @FXML private TableColumn<OrderInfo, String > dateCol2;
+    @FXML private TableColumn<OrderInfo, String > statusCol2;
     @FXML private TableView<OrderInfo> closedOrderTable;
     @FXML private TableColumn<Object, String > closedOrderIdCol;
     @FXML private TableColumn<Object, String > closedCustomerNameCol;
     @FXML private TableColumn<Object, Integer> quantityCol;
-    @FXML private Label branchNameLabel1,branchNameLabel2,branchNameLabel3,branchNameLabel4;
+    @FXML private Label branchNameLabel1,branchNameLabel2,branchNameLabel3,branchNameLabel4,branchNameLabel5;
 
     private AccountManager accountManager;
     private WashingOrderServiceAPI serviceAPI;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private OrderInfo selectedOrder;
-
-//Main Page-------------------------------------------------------------------------------------------------------------
 
     @FXML private void initialize(){
         Platform.runLater(() -> {
@@ -56,17 +59,28 @@ public class BranchPageController {
             branchNameLabel2.setText(accountManager.getCurrentBranch().getName());
             branchNameLabel3.setText(accountManager.getCurrentBranch().getName());
             branchNameLabel4.setText(accountManager.getCurrentBranch().getName());
-            orderTable.setPlaceholder(new Label("Not have order at this time"));
+            branchNameLabel5.setText("hello, "+accountManager.getCurrentBranch().getName());
+            orderTable.setPlaceholder(new Label("Not have new order at this time"));
+            orderTable2.setPlaceholder(new Label("Not have cleaned order at this time"));
             closedOrderTable.setPlaceholder(new Label("Not have closed order at this time"));
             orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
                     selectedOrderInfo(newValue);
                 }
             });
+            orderTable2.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    selectedOrderInfo(newValue);
+                }
+            });
             showOrderList();
+            showCleanedOrderList();
             showClosedOrderList();
         });
     }
+
+//Preparing Page-------------------------------------------------------------------------------------------------------------
+
     public void showOrderList(){
         orderTable.setItems(getOrderInfoObservableList());
         orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
@@ -116,6 +130,14 @@ public class BranchPageController {
             showOrderList();
         }
     }
+    //Cleaned order page
+    public void showCleanedOrderList(){
+        orderTable2.setItems(getCleanedOrderInfoObservableList());
+        orderIdCol2.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        customerNameCol2.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        dateCol2.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
+        statusCol2.setCellValueFactory(new PropertyValueFactory<>("cloth"));
+    }
 
     //Add Order Page----------------------------------------------------------------------------------------------------
 
@@ -159,9 +181,10 @@ public class BranchPageController {
     //Closed Order Page-------------------------------------------------------------------------------------------------
 
     public void showClosedOrderList(){
+        closedOrderTable.setItems(getClosedOrderInfoObservableList());
         closedOrderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         closedCustomerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("clothQuantity"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("orderInfo"));
     }
 
     @FXML
@@ -215,12 +238,34 @@ public class BranchPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> notCleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo){
-            if (!i.getCloth().getStatus().equals("closed")){
+            if (i.getCloth().getStatus().equals("sending to hq")){
                 notCleaningSuccess.add(i);
             }
         }
         ObservableList<OrderInfo> orderInfoObservableList = FXCollections.observableArrayList(notCleaningSuccess);
         return orderInfoObservableList;
+    }
+    private ObservableList<OrderInfo> getCleanedOrderInfoObservableList(){
+        List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
+        List<OrderInfo> cleaned = new ArrayList<>();
+        for (OrderInfo i : allOrderInfo){
+            if (i.getCloth().getStatus().equals("Success") || i.getCloth().getStatus().equals("Damaged") ||
+                    i.getCloth().getStatus().equals("No contact response") || i.getCloth().getStatus().equals("Ready to pickup")){
+                cleaned.add(i);
+            }
+        }
+        ObservableList<OrderInfo> orderInfoObservableList = FXCollections.observableArrayList(cleaned);
+        return orderInfoObservableList;
+    }
+    private ObservableList<OrderInfo> getClosedOrderInfoObservableList(){
+        List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
+        List<OrderInfo> cleaningSuccess = new ArrayList<>();
+        for (OrderInfo i : allOrderInfo){
+            if (i.getCloth().getStatus().equals("Closed")){
+                cleaningSuccess.add(i);
+            }
+        }
+        return FXCollections.observableArrayList(cleaningSuccess);
     }
 
     //getter and setter
