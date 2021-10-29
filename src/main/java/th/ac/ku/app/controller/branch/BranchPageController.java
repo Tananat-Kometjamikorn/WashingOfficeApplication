@@ -153,7 +153,7 @@ public class BranchPageController {
 
 
     @FXML
-    public void handleDeleteBtnOnAction(ActionEvent event) throws IOException {
+    public void handleDeleteBtnOnAction(ActionEvent event) {
         if (selectedOrder != null) {
             if(warningAlertBox("Sure to delete select order?").equals("Delete")){
                 serviceAPI.delete(selectedOrder.getOrderId());
@@ -174,12 +174,12 @@ public class BranchPageController {
     //Add Order Page----------------------------------------------------------------------------------------------------
 
     @FXML
-    public void handleClearOrderFieldBtnOnAction(ActionEvent event) throws IOException {
+    public void handleClearOrderFieldBtnOnAction(ActionEvent event) {
         clearAddOrderPage();
     }
 
     @FXML
-    public void handleAddOrderBtnOnAction(ActionEvent event) throws IOException {
+    public void handleAddOrderBtnOnAction(ActionEvent event) {
 
         String customerName = customerNameField.getText();
         String customerPhone = customerPhoneField.getText();
@@ -240,7 +240,7 @@ public class BranchPageController {
     //Setting Page------------------------------------------------------------------------------------------------------
 
     @FXML
-    public void handleChangePasswordBtnOnAction(ActionEvent event) throws IOException {
+    public void handleChangePasswordBtnOnAction(ActionEvent event) {
 
         if (!currentPasswordField.getText().isEmpty() &&
                 !newPasswordField.getText().isEmpty() &&
@@ -270,7 +270,7 @@ public class BranchPageController {
     }
 
     @FXML
-    public void handleClearPasswordFieldBtnOnAction(ActionEvent event) throws IOException {
+    public void handleClearPasswordFieldBtnOnAction(ActionEvent event) {
         clearSettingPage();
     }
 
@@ -325,7 +325,7 @@ public class BranchPageController {
     }
 
     //alert
-    private Alert confirmationAlertBox(String message) {
+    public Alert confirmationAlertBox(String message) {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.initStyle(StageStyle.UTILITY);
@@ -334,7 +334,7 @@ public class BranchPageController {
         alert.showAndWait();
         return alert;
     }
-    private String warningAlertBox(String message){
+    public String warningAlertBox(String message){
         alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
         alert.initStyle(StageStyle.UTILITY);
@@ -350,7 +350,7 @@ public class BranchPageController {
         return "Cancel";
     }
 
-    private void errorAlertBox(String message) {
+    public void errorAlertBox(String message) {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("ERROR");
@@ -359,7 +359,7 @@ public class BranchPageController {
         alert.showAndWait();
     }
 
-    private void informationAlertBox(String message){
+    public void informationAlertBox(String message){
         alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("INFORMATION");
@@ -367,4 +367,5 @@ public class BranchPageController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

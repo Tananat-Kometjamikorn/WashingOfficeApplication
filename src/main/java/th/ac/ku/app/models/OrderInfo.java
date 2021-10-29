@@ -6,8 +6,13 @@ public class OrderInfo {
     private String orderDate;
     private String branchName;
     private String customerPhone;
-    private Cloth cloth;
     private String closedDate;
+    private Cloth cloth;
+    private OrderBill orderBill;
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 
     public String getClosedDate() {
         return closedDate;
@@ -59,6 +64,14 @@ public class OrderInfo {
 
     public void setCloth(Cloth cloth) {
         this.cloth = cloth;
+    }
+
+    public OrderBill getOrderBill() {
+        return orderBill;
+    }
+
+    public void setOrderBill(OrderBill orderBill) {
+        this.orderBill = orderBill;
     }
 
     @Override

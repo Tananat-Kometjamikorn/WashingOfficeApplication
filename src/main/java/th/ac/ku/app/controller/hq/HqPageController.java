@@ -76,14 +76,16 @@ public class HqPageController {
 
     @FXML
     public void handleLogoutBtnOnAction(ActionEvent event) throws IOException {
-        Button b = (Button) event.getSource();
-        Stage stage = (Stage) b.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/login.fxml")
-        );
-        stage.setScene(new Scene(loader.load(), 1024, 720));
-        loader.getController();
-        stage.show();
+        if(confirmationAlertBox("Confirm to logout?").getResult().equals(ButtonType.OK)) {
+            Button b = (Button) event.getSource();
+            Stage stage = (Stage) b.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/login.fxml")
+            );
+            stage.setScene(new Scene(loader.load(), 1024, 720));
+            loader.getController();
+            stage.show();
+        }
     }
 
     @FXML
@@ -126,10 +128,25 @@ public class HqPageController {
         popup.showAndWait();
     }
 
+    @FXML
+    public void handlePrintReportBtnOnAction(ActionEvent event) throws IOException {
+        Button b = (Button) event.getSource();
+        Stage stage = (Stage) b.getScene().getWindow();
+        Stage popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.setResizable(false);
+        FXMLLoader loader = new FXMLLoader
+                (getClass().getResource("/date_picker.fxml"));
+        popup.setScene(new Scene(loader.load(), 600, 400));
+        DatePickerController datePickerController = loader.getController();
+        datePickerController.setServiceAPI(serviceAPI);
+        popup.showAndWait();
+    }
+
     //Setting Page
 
     @FXML
-    public void handleChangePasswordBtnOnAction(ActionEvent event) throws IOException {
+    public void handleChangePasswordBtnOnAction(ActionEvent event) {
 
         if (!currentPasswordField.getText().isEmpty() &&
                 !newPasswordField.getText().isEmpty() &&
@@ -159,7 +176,7 @@ public class HqPageController {
     }
 
     @FXML
-    public void handleClearPasswordFieldBtnOnAction(ActionEvent event) throws IOException {
+    public void handleClearPasswordFieldBtnOnAction(ActionEvent event){
         clearSettingPage();
     }
     private void clearSettingPage(){
@@ -168,17 +185,9 @@ public class HqPageController {
         confirmPasswordField.clear();
     }
 
-    //getter and setter
-    public AccountManager getAccountManager() {
-        return accountManager;
-    }
-
+    //setter
     public void setAccountManager(AccountManager accountManager) {
         this.accountManager = accountManager;
-    }
-
-    public WashingOrderServiceAPI getServiceAPI() {
-        return serviceAPI;
     }
 
     public void setServiceAPI(WashingOrderServiceAPI serviceAPI) {
@@ -207,8 +216,9 @@ public class HqPageController {
         }
         return FXCollections.observableArrayList(cleaningSuccess);
     }
-    //alert box
-    private Alert confirmationAlertBox(String message) {
+
+    //alert
+    public Alert confirmationAlertBox(String message) {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.initStyle(StageStyle.UTILITY);
@@ -217,7 +227,7 @@ public class HqPageController {
         alert.showAndWait();
         return alert;
     }
-    private String warningAlertBox(String message){
+    public String warningAlertBox(String message){
         alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
         alert.initStyle(StageStyle.UTILITY);
@@ -233,7 +243,7 @@ public class HqPageController {
         return "Cancel";
     }
 
-    private void errorAlertBox(String message) {
+    public void errorAlertBox(String message) {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("ERROR");
@@ -242,7 +252,7 @@ public class HqPageController {
         alert.showAndWait();
     }
 
-    private void informationAlertBox(String message){
+    public void informationAlertBox(String message){
         alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("INFORMATION");
@@ -250,4 +260,5 @@ public class HqPageController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

@@ -67,7 +67,7 @@
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="showReportBtn" layoutX="641.0" layoutY="575.0" mnemonicParsing="false" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW REPORT">
+                  <Button fx:id="showReportBtn" layoutX="641.0" layoutY="575.0" mnemonicParsing="false" onAction="#handlePrintReportBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="PRINT REPORT">
                      <font>
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>

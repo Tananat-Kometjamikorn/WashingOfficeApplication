@@ -5,11 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import th.ac.ku.app.controller.branch.BranchPageController;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
 import th.ac.ku.app.service.CreateBillService;
@@ -18,6 +16,7 @@ import th.ac.ku.app.service.WashingOrderServiceAPI;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class OrderInfoController {
 
@@ -83,7 +82,7 @@ public class OrderInfoController {
     }
 
     @FXML
-    public void handleChangeBtnOnAction(ActionEvent event) throws IOException {
+    public void handleChangeBtnOnAction(ActionEvent event){
         if(confirmationAlertBox("Confirm to change status?").getResult().equals(ButtonType.OK)) {
             String currentStatus = statusChoiceBox.getValue();
             selectedOrder.getCloth().setStatus(currentStatus);
@@ -167,8 +166,9 @@ public class OrderInfoController {
     public void setAccountManager(AccountManager accountManager) {
         this.accountManager = accountManager;
     }
-    //alert box
-    private Alert confirmationAlertBox(String message) {
+
+    //alert
+    public Alert confirmationAlertBox(String message) {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.initStyle(StageStyle.UTILITY);
@@ -177,8 +177,32 @@ public class OrderInfoController {
         alert.showAndWait();
         return alert;
     }
+    public String warningAlertBox(String message){
+        alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        ButtonType buttonDelete = new ButtonType("Delete");
+        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonDelete,buttonCancel);
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == buttonDelete){
+            return "Delete";
+        }
+        return "Cancel";
+    }
 
-    private void informationAlertBox(String message){
+    public void errorAlertBox(String message) {
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("ERROR");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public void informationAlertBox(String message){
         alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("INFORMATION");
@@ -186,4 +210,5 @@ public class OrderInfoController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

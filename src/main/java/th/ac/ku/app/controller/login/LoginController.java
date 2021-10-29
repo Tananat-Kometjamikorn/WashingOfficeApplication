@@ -16,8 +16,8 @@ import th.ac.ku.app.controller.hq.HqPageController;
 import th.ac.ku.app.service.AccountManager;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
 
-import java.applet.AppletContext;
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class LoginController {
@@ -53,7 +53,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if(username.equals("") || password.equals("")){
-            notFillAllBlank();
+            errorAlertBox("Please fill all blanks");
         }else{
             if (this.roleToggleGroup.getSelectedToggle().equals(this.branchBtn)) {
                 Button b = (Button) event.getSource();
@@ -69,7 +69,7 @@ public class LoginController {
                     branch.setServiceAPI(serviceAPI);
                     stage.show();
                 } catch (IllegalArgumentException e) {
-                    noAccountAlertBox(e.getMessage());
+                    errorAlertBox(e.getMessage());
                 }
             }
             else if (this.roleToggleGroup.getSelectedToggle().equals(this.headQuarterBtn)) {
@@ -86,14 +86,38 @@ public class LoginController {
                     hq.setServiceAPI(serviceAPI);
                     stage.show();
                 } catch (IllegalArgumentException e) {
-                    noAccountAlertBox(e.getMessage());
+                    errorAlertBox(e.getMessage());
                 }
             }
         }
-
     }
     //alert
-    private void noAccountAlertBox(String message){
+    public Alert confirmationAlertBox(String message) {
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+        return alert;
+    }
+    public String warningAlertBox(String message){
+        alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        ButtonType buttonDelete = new ButtonType("Delete");
+        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonDelete,buttonCancel);
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == buttonDelete){
+            return "Delete";
+        }
+        return "Cancel";
+    }
+
+    public void errorAlertBox(String message) {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("ERROR");
@@ -101,12 +125,13 @@ public class LoginController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    private void notFillAllBlank(){
-        alert = new Alert(Alert.AlertType.ERROR);
+
+    public void informationAlertBox(String message){
+        alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle("ERROR");
+        alert.setTitle("INFORMATION");
         alert.setHeaderText(null);
-        alert.setContentText("Please fill all blank fields");
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }

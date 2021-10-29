@@ -55,7 +55,7 @@ public class CreateBillService{
         addContent3(document);
         document.add(new Paragraph("\n"));
         document.close();
-        System.out.println("Pdf created");
+        System.out.println("Bill created");
     }
 
     private void addContent1(Document document) throws IOException {
