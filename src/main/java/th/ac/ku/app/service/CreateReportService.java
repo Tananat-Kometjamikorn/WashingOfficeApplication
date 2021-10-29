@@ -36,10 +36,11 @@ public class CreateReportService {
 
 
     public void createReport(Stage stage) throws IOException {
+        String[] splitDate = date.split("/");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Report");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
-        fileChooser.setInitialFileName("Report_Date_"+date);
+        fileChooser.setInitialFileName("Report-Date-"+splitDate[0]+"-"+splitDate[1]+"-"+splitDate[2]);
         File file = fileChooser.showSaveDialog(stage);
         String path = file.getAbsolutePath();
 
