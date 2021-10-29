@@ -12,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
@@ -34,7 +33,7 @@ public class HqPageController {
     @FXML private TableColumn<Object, Object> dateCol;
     @FXML private TableColumn<Object, Object> closedOrderIdCol;
     @FXML private TableColumn<Object, Object> closedCustomerNameCol;
-    @FXML private TableColumn<Object, Object> quantityCol;
+    @FXML private TableColumn<Object, Object> closedDateCol;
     @FXML private Label hqNameLabel1,hqNameLabel2,hqNameLabel3;
 
     private AccountManager accountManager;
@@ -102,7 +101,7 @@ public class HqPageController {
     public void showClosedOrderList(){
         closedOrderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         closedCustomerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("clothQuantity"));
+        closedDateCol.setCellValueFactory(new PropertyValueFactory<>("closedDate"));
     }
 
     @FXML

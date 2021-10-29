@@ -49,7 +49,7 @@
                      <columns>
                         <TableColumn fx:id="closedOrderIdCol" prefWidth="180.0" resizable="false" text="OrderID" />
                         <TableColumn fx:id="closedCustomerNameCol" prefWidth="459.0" resizable="false" text="Customer Name" />
-                        <TableColumn fx:id="quantityCol" prefWidth="180.0" resizable="false" text="Quantity" />
+                        <TableColumn fx:id="closedDateCol" prefWidth="180.0" resizable="false" text="Closed Date" />
                      </columns>
                   </TableView>
                   <Button fx:id="showClosedInfoBtn" layoutX="430.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" prefHeight="42.0" prefWidth="170.0" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO">

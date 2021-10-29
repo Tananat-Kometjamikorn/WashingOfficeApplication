@@ -7,7 +7,16 @@ public class OrderInfo {
     private String branchName;
     private String customerPhone;
     private Cloth cloth;
-    private OrderBill orderBill;
+
+    public String getClosedDate() {
+        return closedDate;
+    }
+
+    public void setClosedDate(String closedDate) {
+        this.closedDate = closedDate;
+    }
+
+    private String closedDate;
 
     public int getOrderId() {
         return orderId;
@@ -62,7 +71,7 @@ public class OrderInfo {
                 ", branchName='" + branchName + '\'' +
                 ", customerPhone='" + customerPhone + '\'' +
                 ", cloth=" + cloth.getAllInfo() +
-                ", orderBill=" + orderBill +
+                ", closedDate=" + closedDate +
                 '}';
     }
 }

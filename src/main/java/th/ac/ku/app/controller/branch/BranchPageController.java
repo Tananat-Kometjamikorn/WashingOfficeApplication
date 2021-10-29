@@ -13,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import javafx.stage.StageStyle;
-import th.ac.ku.app.controller.login.LoginController;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
 import th.ac.ku.app.models.Cloth;
 import th.ac.ku.app.models.OrderInfo;
@@ -64,7 +63,7 @@ public class BranchPageController {
     @FXML
     private TableColumn<Object, String> closedCustomerNameCol;
     @FXML
-    private TableColumn<Object, Integer> quantityCol;
+    private TableColumn<Object, String> closedDateCol;
     @FXML
     private Label branchNameLabel1, branchNameLabel2, branchNameLabel3, branchNameLabel4, branchNameLabel5;
 
@@ -216,7 +215,7 @@ public class BranchPageController {
         closedOrderTable.setItems(getClosedOrderInfoObservableList());
         closedOrderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         closedCustomerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("orderInfo"));
+        closedDateCol.setCellValueFactory(new PropertyValueFactory<>("closedDate"));
     }
 
     @FXML

@@ -14,7 +14,8 @@ import th.ac.ku.app.service.CreateBillService;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
 
 import java.io.IOException;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class OrderInfoController {
 
@@ -31,6 +32,8 @@ public class OrderInfoController {
     private WashingOrderServiceAPI serviceAPI;
     private AccountManager accountManager;
     private Alert alert;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    String date = LocalDateTime.now().format(formatter);
 
     @FXML private void initialize(){
         Platform.runLater(() -> {
@@ -80,7 +83,11 @@ public class OrderInfoController {
     @FXML
     public void handleChangeBtnOnAction(ActionEvent event) throws IOException {
         if(confirmationAlertBox("Confirm to change status?").getResult().equals(ButtonType.OK)) {
-            selectedOrder.getCloth().setStatus(statusChoiceBox.getValue());
+            String currentStatus = statusChoiceBox.getValue();
+            selectedOrder.getCloth().setStatus(currentStatus);
+            if(currentStatus.equals("Closed")){
+                selectedOrder.setClosedDate(date);
+            }
             serviceAPI.update(selectedOrder.getOrderId(), selectedOrder);
             setOrderStatusLabel();
             createBillBtn.setDisable(false);
