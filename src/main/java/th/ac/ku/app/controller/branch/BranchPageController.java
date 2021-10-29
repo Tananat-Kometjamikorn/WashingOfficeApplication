@@ -142,6 +142,9 @@ public class BranchPageController {
         orderInfo.setServiceAPI(serviceAPI);
         orderInfo.setSelectedOrder(selectedOrder);
         popup.showAndWait();
+        showOrderList();
+        showCleanedOrderList();
+        showClosedOrderList();
     }
 
     private void selectedOrderInfo(OrderInfo orderInfo) {
@@ -227,6 +230,9 @@ public class BranchPageController {
                 (getClass().getResource("/order_info.fxml"));
         popup.setScene(new Scene(loader.load(), 640, 480));
         OrderInfoController orderInfo = loader.getController();
+        orderInfo.setAccountManager(accountManager);
+        orderInfo.setServiceAPI(serviceAPI);
+        orderInfo.setSelectedOrder(selectedOrder);
         orderInfo.setDisable();
         popup.showAndWait();
     }

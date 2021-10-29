@@ -90,7 +90,7 @@
                         <TableColumn fx:id="closedDateCol" prefWidth="222.0" text="Closed Date" />
                      </columns>
                   </TableView>
-                  <Button fx:id="showClosedInfoBtn" layoutX="250.0" layoutY="580.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO">
+                  <Button fx:id="showClosedInfoBtn" layoutX="428.0" layoutY="582.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO">
                      <font>
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
@@ -105,11 +105,6 @@
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="showReportBtn1" layoutX="600.0" layoutY="580.0" mnemonicParsing="false" onAction="#handleShowClosedInfoBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW REPORT">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
          </content>

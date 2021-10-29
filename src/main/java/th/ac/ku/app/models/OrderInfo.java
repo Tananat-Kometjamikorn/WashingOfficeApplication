@@ -7,6 +7,7 @@ public class OrderInfo {
     private String branchName;
     private String customerPhone;
     private Cloth cloth;
+    private String closedDate;
 
     public String getClosedDate() {
         return closedDate;
@@ -15,8 +16,6 @@ public class OrderInfo {
     public void setClosedDate(String closedDate) {
         this.closedDate = closedDate;
     }
-
-    private String closedDate;
 
     public int getOrderId() {
         return orderId;

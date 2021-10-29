@@ -55,6 +55,11 @@ public class HqPageController {
                     selectedOrderInfo(newValue);
                 }
             });
+            closedOrderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    selectedOrderInfo(newValue);
+                }
+            });
         });
     }
     private void selectedOrderInfo(OrderInfo orderInfo){
@@ -99,6 +104,7 @@ public class HqPageController {
     //Closed Order Page
 
     public void showClosedOrderList(){
+        closedOrderTable.setItems(getClosedOrderInfoObservableList());
         closedOrderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         closedCustomerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         closedDateCol.setCellValueFactory(new PropertyValueFactory<>("closedDate"));
@@ -113,6 +119,9 @@ public class HqPageController {
                 (getClass().getResource("/order_info.fxml"));
         popup.setScene(new Scene(loader.load(), 640, 480));
         OrderInfoController orderInfo = loader.getController();
+        orderInfo.setAccountManager(accountManager);
+        orderInfo.setServiceAPI(serviceAPI);
+        orderInfo.setSelectedOrder(selectedOrder);
         orderInfo.setDisable();
         popup.showAndWait();
     }

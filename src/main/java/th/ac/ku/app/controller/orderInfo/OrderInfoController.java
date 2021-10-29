@@ -5,9 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import th.ac.ku.app.controller.branch.BranchPageController;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
 import th.ac.ku.app.service.CreateBillService;
@@ -90,8 +92,14 @@ public class OrderInfoController {
             }
             serviceAPI.update(selectedOrder.getOrderId(), selectedOrder);
             setOrderStatusLabel();
-            createBillBtn.setDisable(false);
+            if(accountManager.getCurrentBranch() != null) {
+                setStatusTypeListBranch();
+            }else{
+                setStatusTypeListHq();
+            }
         }
+        Stage stage = (Stage) changeBtn.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -116,6 +124,8 @@ public class OrderInfoController {
         if(selectedOrder.getCloth().getStatus().equals("Success")||
                 selectedOrder.getCloth().getStatus().equals("Damaged")){
             statusChoiceBox.setDisable(false);
+            createBillBtn.setVisible(false);
+            createBillBtn.setDisable(true);
             statusChoiceBox.setItems(statusTypeCleaned);
         }
         if(selectedOrder.getCloth().getStatus().equals("No contact response")){
@@ -133,6 +143,16 @@ public class OrderInfoController {
     }
     private void setStatusTypeListHq(){
         statusChoiceBox.setItems(statusTypeListHq);
+        if (selectedOrder.getCloth().getStatus().equals("Sending to hq")){
+            createBillBtn.setVisible(true);
+            createBillBtn.setDisable(true);
+        }else if(selectedOrder.getCloth().getStatus().equals("Success")||
+                selectedOrder.getCloth().getStatus().equals("Damaged")){
+            createBillBtn.setVisible(true);
+            createBillBtn.setDisable(false);
+        }else{
+            setDisable();
+        }
     }
 
     //setter service
