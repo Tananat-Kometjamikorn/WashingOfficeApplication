@@ -9,7 +9,6 @@ import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.CreateReportService;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -74,7 +73,7 @@ public class DatePickerController {
     public int getAllIncome(List<OrderInfo> matched){
         int q = 0;
         for (OrderInfo i : matched){
-            q += i.getOrderBill().getCost();
+            //q += i.getOrderBill().getCost();
         }
         return q;
     }

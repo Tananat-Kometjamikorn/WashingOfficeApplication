@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import th.ac.ku.app.models.Cloth;
+import th.ac.ku.app.models.OrderBill;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
 import th.ac.ku.app.service.CreateBillService;
@@ -89,6 +91,9 @@ public class OrderInfoController {
             if(currentStatus.equals("Closed")){
                 selectedOrder.setClosedDate(date);
             }
+            OrderBill bill = new OrderBill();
+            bill.setCost(20 * selectedOrder.getCloth().getClothQuantity());
+            selectedOrder.setOrderBill(bill);
             serviceAPI.update(selectedOrder.getOrderId(), selectedOrder);
             setOrderStatusLabel();
             if(accountManager.getCurrentBranch() != null) {

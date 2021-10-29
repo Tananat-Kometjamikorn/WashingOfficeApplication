@@ -18,7 +18,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -92,60 +91,94 @@ public class CreateReportService {
     }
 
     private void addContent2(Document document) throws IOException {
+        PdfFont comic1 = PdfFontFactory.createFont(comic);
+        //second content
+        float[] colWidthArray2 = {140,140,140,140};
+        Table secondTable = new Table(colWidthArray2);
+        secondTable.setFont(comic1);
 
+        secondTable.addCell(new Cell(0,4)
+                .add(new Paragraph("Order Summary"))
+                .setBold()
+                .setBorder(Border.NO_BORDER));
+
+        Cell c4 = new Cell();
+        c4.add(new Paragraph("All order quantity"));
+        c4.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c4);
+
+        Cell c5 = new Cell();
+        c5.add(new Paragraph(Integer.toString(allOrderQuantity)));
+        c5.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c5);
+
+        Cell c6 = new Cell();
+        c6.add(new Paragraph("All cloth quantity"));
+        c6.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c6);
+
+        Cell c7 = new Cell();
+        c7.add(new Paragraph(Integer.toString(allClothQuantity)));
+        c7.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c7);
+
+        Cell c8 = new Cell();
+        c8.add(new Paragraph("All success cleaned cloth(es)"));
+        c8.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c8);
+
+        Cell c9 = new Cell();
+        c9.add(new Paragraph(Integer.toString(allSuccessCleaned)));
+        c9.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c9);
+
+        Cell c10 = new Cell();
+        c10.add(new Paragraph("All damaged cloth(es)"));
+        c10.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c10);
+
+        Cell c11 = new Cell();
+        c11.add(new Paragraph(Integer.toString(allClothDamaged)));
+        c11.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c11);
+
+        Cell c12 = new Cell();
+        c12.add(new Paragraph("Total income"));
+        c12.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c12);
+
+        Cell c13 = new Cell();
+        c13.add(new Paragraph(Integer.toString(allIncome)));
+        c13.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c13);
+
+        document.add(secondTable);
     }
 
-
-    public String getDate() {
-        return date;
-    }
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public int getAllOrderQuantity() {
-        return allOrderQuantity;
     }
 
     public void setAllOrderQuantity(int allOrderQuantity) {
         this.allOrderQuantity = allOrderQuantity;
     }
 
-    public int getAllClothQuantity() {
-        return allClothQuantity;
-    }
 
     public void setAllClothQuantity(int allClothQuantity) {
         this.allClothQuantity = allClothQuantity;
-    }
-
-    public int getAllIncome() {
-        return allIncome;
     }
 
     public void setAllIncome(int allIncome) {
         this.allIncome = allIncome;
     }
 
-    public int getAllSuccessCleaned() {
-        return allSuccessCleaned;
-    }
-
     public void setAllSuccessCleaned(int allSuccessCleaned) {
         this.allSuccessCleaned = allSuccessCleaned;
     }
 
-    public int getAllClothDamaged() {
-        return allClothDamaged;
-    }
-
     public void setAllClothDamaged(int allClothDamaged) {
         this.allClothDamaged = allClothDamaged;
-    }
-
-    public Stage getStage() {
-        return stage;
     }
 
     public void setStage(Stage stage) {
