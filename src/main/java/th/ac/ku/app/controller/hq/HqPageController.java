@@ -138,7 +138,7 @@ public class HqPageController {
         FXMLLoader loader = new FXMLLoader
                 (getClass().getResource("/date_picker.fxml"));
         popup.setScene(new Scene(loader.load(), 600, 400));
-        DatePickerController datePickerController = loader.getController();
+        printReportController datePickerController = loader.getController();
         datePickerController.setServiceAPI(serviceAPI);
         popup.showAndWait();
     }

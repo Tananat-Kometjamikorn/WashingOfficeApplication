@@ -91,10 +91,15 @@ public class OrderInfoController {
             if(currentStatus.equals("Closed")){
                 selectedOrder.setClosedDate(date);
             }
-            OrderBill bill = new OrderBill();
-            bill.setCost(20 * selectedOrder.getCloth().getClothQuantity());
-            selectedOrder.setOrderBill(bill);
+
+            if(selectedOrder.getCloth().getStatus().equals("Success") || selectedOrder.getCloth().getStatus().equals("Damaged")){
+                OrderBill bill = new OrderBill();
+                bill.setCost(20 * selectedOrder.getCloth().getClothQuantity());
+                selectedOrder.setOrderBill(bill);
+                selectedOrder.getOrderBill().setCleanStatus(selectedOrder.getCloth().getStatus());
+            }
             serviceAPI.update(selectedOrder.getOrderId(), selectedOrder);
+
             setOrderStatusLabel();
             if(accountManager.getCurrentBranch() != null) {
                 setStatusTypeListBranch();
@@ -116,6 +121,7 @@ public class OrderInfoController {
         billService.setStage(stage);
         billService.createPdf();
         informationAlertBox("Pdf created");
+
     }
 
     private void setStatusTypeListBranch(){

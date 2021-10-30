@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatePickerController {
+public class printReportController {
     @FXML private DatePicker datePicker;
     @FXML private Button printPdfBtn;
 
@@ -73,14 +73,14 @@ public class DatePickerController {
     public int getAllIncome(List<OrderInfo> matched){
         int q = 0;
         for (OrderInfo i : matched){
-            //q += i.getOrderBill().getCost();
+            q += i.getOrderBill().getCost();
         }
         return q;
     }
     public int getAllSuccessCleaned(List<OrderInfo> matched){
         int q = 0;
         for (OrderInfo i : matched){
-            if(i.getCloth().getStatus().equals("Success")){
+            if(i.getOrderBill().getCleanStatus().equals("Success")){
                 q += 1;
             }
         }
@@ -89,7 +89,7 @@ public class DatePickerController {
     public int getAllClothDamaged(List<OrderInfo> matched){
         int q = 0;
         for (OrderInfo i : matched){
-            if(i.getCloth().getStatus().equals("Damaged")){
+            if(i.getOrderBill().getCleanStatus().equals("Damaged")){
                 q += 1;
             }
         }

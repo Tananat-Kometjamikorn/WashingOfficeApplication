@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import th.ac.ku.app.controller.orderInfo.OrderInfoController;
 import th.ac.ku.app.models.Cloth;
+import th.ac.ku.app.models.OrderBill;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
@@ -197,7 +198,11 @@ public class BranchPageController {
             cloth.setClothQuantity(quantity);
             cloth.setStatus("Sending to hq");
 
+            OrderBill orderBill = new OrderBill();
+            orderBill.setCost(0);
+
             orderInfo.setCloth(cloth);
+            orderInfo.setOrderBill(orderBill);
             serviceAPI.create(orderInfo);
 
             clearAddOrderPage();
