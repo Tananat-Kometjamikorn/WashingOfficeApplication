@@ -2,9 +2,11 @@ package th.ac.ku.app.controller.hq;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.CreateReportService;
 import th.ac.ku.app.service.WashingOrderServiceAPI;
@@ -18,6 +20,7 @@ import java.util.List;
 public class printReportController {
     @FXML private DatePicker datePicker;
     @FXML private Button printPdfBtn;
+    private Alert alert;
 
     private WashingOrderServiceAPI serviceAPI;
 
@@ -39,6 +42,7 @@ public class printReportController {
         reportService.setSuccessOrderInfoList(getAllMatchedSuccessClosedOrder());
         reportService.setDamagedOrderInfoList(getAllMatchedDamagedClosedOrder());
         reportService.createReport(stage);
+        informationAlertBox("Pdf created");
     }
 
     public String getSelectDate(){
@@ -128,6 +132,14 @@ public class printReportController {
             }
         }
         return q;
+    }
+    public void informationAlertBox(String message){
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("INFORMATION");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 

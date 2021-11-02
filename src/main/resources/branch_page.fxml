@@ -26,7 +26,7 @@
                         <TableColumn fx:id="statusCol" prefWidth="190.0" resizable="false" text="Status" />
                     </columns>
                   </TableView>
-                  <Button fx:id="infoBtn" layoutX="400.0" layoutY="580.0" mnemonicParsing="false" onAction="#handleShowInfoBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO / EDIT">
+                  <Button fx:id="infoBtn" layoutX="435.0" layoutY="580.0" mnemonicParsing="false" onAction="#handleShowInfoBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="SHOW INFO">
                      <font>
                         <Font name="Comic Sans MS" size="20.0" />
                      </font>

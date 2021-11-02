@@ -31,6 +31,7 @@ public class HqPageController {
     @FXML private TableColumn<Object, Object> orderIdCol;
     @FXML private TableColumn<Object, Object> customerNameCol;
     @FXML private TableColumn<Object, Object> dateCol;
+    @FXML private TableColumn<Object, Object> statusCol;
     @FXML private TableColumn<Object, Object> closedOrderIdCol;
     @FXML private TableColumn<Object, Object> closedCustomerNameCol;
     @FXML private TableColumn<Object, Object> closedDateCol;
@@ -72,6 +73,7 @@ public class HqPageController {
         orderIdCol.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("cloth"));
     }
 
     @FXML
@@ -207,7 +209,9 @@ public class HqPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> notCleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo){
-            if (!i.getCloth().getCurrentStatus().equals("Closed")){
+            if (i.getCloth().getCurrentStatus().equals("Success") ||
+                    i.getCloth().getCurrentStatus().equals("Damaged") ||
+                    i.getCloth().getCurrentStatus().equals("Sending to hq")){
                 notCleaningSuccess.add(i);
             }
         }

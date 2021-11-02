@@ -163,6 +163,16 @@ public class CreateBillService{
         c13.setBorder(Border.NO_BORDER);
         secondTable.addCell(c13);
 
+        Cell c14 = new Cell();
+        c14.add(new Paragraph("Branch"));
+        c14.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c14);
+
+        Cell c15 = new Cell();
+        c15.add(new Paragraph(selectOrderInfo.getBranchName()));
+        c15.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c15);
+
         document.add(secondTable);
     }
 
