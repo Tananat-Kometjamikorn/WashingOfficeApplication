@@ -174,10 +174,14 @@ public class OrderInfoController {
         if (selectedOrder.getCloth().getCurrentStatus().equals("Sending to hq")){
             createBillBtn.setVisible(true);
             createBillBtn.setDisable(true);
+            cleanStatusLabel.setVisible(false);
+            cleanStatusShowLabel.setVisible(false);
         }else if(selectedOrder.getCloth().getCurrentStatus().equals("Success")||
                 selectedOrder.getCloth().getCurrentStatus().equals("Damaged")){
             createBillBtn.setVisible(true);
             createBillBtn.setDisable(false);
+            cleanStatusLabel.setVisible(false);
+            cleanStatusShowLabel.setVisible(false);
         }else{
             setDisable();
         }
