@@ -16,7 +16,7 @@
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
-      <Label layoutX="140.0" layoutY="330.0" minWidth="85.0" prefHeight="28.0" prefWidth="85.0" text="Status" textFill="#0017cf">
+      <Label layoutX="140.0" layoutY="320.0" minWidth="85.0" prefHeight="28.0" prefWidth="85.0" text="Status" textFill="#0017cf">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
@@ -32,8 +32,8 @@
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font></Label>
-      <ChoiceBox fx:id="statusChoiceBox" layoutX="455.0" layoutY="327.0" prefHeight="35.0" prefWidth="165.0" styleClass="buttonS" stylesheets="@css/button.css" />
-      <Button fx:id="changeBtn" layoutX="280.0" layoutY="390.0" minHeight="50.0" minWidth="120.0" mnemonicParsing="false" onAction="#handleChangeBtnOnAction" styleClass="buttonRed" stylesheets="@css/button.css" text="CHANGE">
+      <ChoiceBox fx:id="statusChoiceBox" layoutX="455.0" layoutY="320.0" prefHeight="35.0" prefWidth="165.0" styleClass="buttonS" stylesheets="@css/button.css" />
+      <Button fx:id="changeBtn" layoutX="275.0" layoutY="425.0" minHeight="50.0" minWidth="120.0" mnemonicParsing="false" onAction="#handleChangeBtnOnAction" styleClass="buttonRed" stylesheets="@css/button.css" text="CHANGE">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font>
@@ -73,7 +73,7 @@
             <Font name="Comic Sans MS" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="createBillBtn" layoutX="470.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleCreateBillBtnOnAction" styleClass="buttonGreen" stylesheets="@css/button.css" text="CREATE BILL">
+      <Button fx:id="createBillBtn" layoutX="470.0" layoutY="425.0" mnemonicParsing="false" onAction="#handleCreateBillBtnOnAction" prefHeight="50.0" prefWidth="158.0" styleClass="buttonGreen" stylesheets="@css/button.css" text="CREATE BILL">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font>
@@ -83,7 +83,17 @@
             <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="331.0" prefHeight="28.0" prefWidth="200.0" text="Status" textAlignment="CENTER">
+      <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="225.0" layoutY="320.0" prefHeight="28.0" prefWidth="200.0" text="Status" textAlignment="CENTER">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="cleanStatusShowLabel" layoutX="140.0" layoutY="360.0" minWidth="85.0" prefHeight="28.0" prefWidth="149.0" text="Clean Status" textFill="#0017cf">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="cleanStatusLabel" layoutX="325.0" layoutY="360.0" minWidth="200.0" text="Clean Status">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font>

@@ -23,7 +23,8 @@ public class OrderInfoController {
 
     @FXML private Button changeBtn, createBillBtn;
     @FXML private Label orderIdLabel, customerNameLabel, createDateLabel,
-            staffNameLabel, phoneNumLabel, clothQuantityLabel,statusLabel;
+                        staffNameLabel, phoneNumLabel, clothQuantityLabel,statusLabel,
+                        cleanStatusLabel,cleanStatusShowLabel;
     @FXML private ChoiceBox<String> statusChoiceBox;
 
     private ObservableList<String> statusTypeListHq = FXCollections.observableArrayList("Success", "Damaged");
@@ -45,6 +46,7 @@ public class OrderInfoController {
             staffNameLabel.setText(selectedOrder.getBranchName());
             phoneNumLabel.setText(selectedOrder.getCustomerPhone());
             clothQuantityLabel.setText(Integer.toString(selectedOrder.getCloth().getClothQuantity()));
+
             createBillBtn.setDisable(true);
             setOrderStatusLabel();
             if (accountManager.getCurrentBranch() != null){
@@ -75,6 +77,9 @@ public class OrderInfoController {
     }
 
     public void setDisable(){
+        cleanStatusLabel.setVisible(true);
+        cleanStatusLabel.setText(selectedOrder.getOrderBill().getCleanStatus());
+        cleanStatusShowLabel.setVisible(true);
         statusChoiceBox.setDisable(true);
         changeBtn.setVisible(false);
         changeBtn.setDisable(true);
@@ -133,6 +138,8 @@ public class OrderInfoController {
             createBillBtn.setDisable(true);
             statusChoiceBox.setDisable(true);
             changeBtn.setDisable(true);
+            cleanStatusLabel.setVisible(false);
+            cleanStatusShowLabel.setVisible(false);
         }
         if(selectedOrder.getCloth().getCurrentStatus().equals("Success")||
                 selectedOrder.getCloth().getCurrentStatus().equals("Damaged")){
@@ -140,18 +147,26 @@ public class OrderInfoController {
             createBillBtn.setVisible(false);
             createBillBtn.setDisable(true);
             statusChoiceBox.setItems(statusTypeCleaned);
+            cleanStatusLabel.setVisible(false);
+            cleanStatusShowLabel.setVisible(false);
         }
         if(selectedOrder.getCloth().getCurrentStatus().equals("No contact response")){
             statusChoiceBox.setDisable(false);
             createBillBtn.setVisible(false);
             createBillBtn.setDisable(true);
             statusChoiceBox.setItems(statusTypeNotReady);
+            cleanStatusLabel.setVisible(true);
+            cleanStatusShowLabel.setVisible(true);
+            cleanStatusLabel.setText(selectedOrder.getOrderBill().getCleanStatus());
         }
         if (selectedOrder.getCloth().getCurrentStatus().equals("Ready to pickup")){
             statusChoiceBox.setDisable(false);
             createBillBtn.setVisible(false);
             createBillBtn.setDisable(true);
             statusChoiceBox.setItems(statusTypePicked);
+            cleanStatusLabel.setVisible(true);
+            cleanStatusShowLabel.setVisible(true);
+            cleanStatusLabel.setText(selectedOrder.getOrderBill().getCleanStatus());
         }
     }
     private void setStatusTypeListHq(){
