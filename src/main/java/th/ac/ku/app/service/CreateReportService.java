@@ -16,11 +16,13 @@ import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import th.ac.ku.app.models.OrderInfo;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class CreateReportService {
 
@@ -30,13 +32,13 @@ public class CreateReportService {
     private int allIncome;
     private int allSuccessCleaned;
     private int allClothDamaged;
+    private List<OrderInfo> successOrderInfoList;
+    private List<OrderInfo> damagedOrderInfoList;
 
-    private Stage stage;
     Color myColor = new DeviceRgb(235, 240, 50);
     private final String comic = "font\\COMIC.TTF";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
     LocalDate date1 = LocalDate.now();
-
 
     public void createReport(Stage stage) throws IOException {
         String[] splitDate = date.split("/");
@@ -56,7 +58,10 @@ public class CreateReportService {
         document.add(new Paragraph("\n"));
         addContent2(document);
         document.add(new Paragraph("\n"));
-
+        addContent3(document);
+        document.add(new Paragraph("\n"));
+        addContent4(document);
+        document.add(new Paragraph("\n"));
         document.close();
         System.out.println("Report created");
 
@@ -99,68 +104,180 @@ public class CreateReportService {
     private void addContent2(Document document) throws IOException {
         PdfFont comic1 = PdfFontFactory.createFont(comic);
         //second content
-        float[] colWidthArray2 = {180,140};
-        Table secondTable = new Table(colWidthArray2);
-        secondTable.setFont(comic1);
+        float[] allOrderCol = {100, 200, 100, 100};
+        Table successOrderTable = new Table(allOrderCol);
+        successOrderTable.setFont(comic1);
 
-        secondTable.addCell(new Cell(0,4)
+        successOrderTable.addCell(new Cell(0,4)
+                .add(new Paragraph("All success order"))
+                .setBold()
+                .setBorder(Border.NO_BORDER)
+                .setTextAlignment(TextAlignment.LEFT)
+                .setFontSize(20f));
+        document.add(new Paragraph("\n"));
+
+        successOrderTable.addCell(new Cell()
+                .add(new Paragraph("Order ID")).setBold().setBorder(Border.NO_BORDER)
+                .setBackgroundColor(myColor)
+                .setTextAlignment(TextAlignment.CENTER)
+        );
+        successOrderTable.addCell(new Cell()
+                        .add(new Paragraph("Customer name")).setBold().setBorder(Border.NO_BORDER)
+                .setBackgroundColor(myColor)
+                .setTextAlignment(TextAlignment.CENTER)
+        );
+        successOrderTable.addCell(new Cell()
+                        .add(new Paragraph("Quantity")).setBold().setBorder(Border.NO_BORDER)
+                .setBackgroundColor(myColor)
+                .setTextAlignment(TextAlignment.CENTER)
+        );
+        successOrderTable.addCell(new Cell()
+                        .add(new Paragraph("Income")).setBold().setBorder(Border.NO_BORDER)
+                .setBackgroundColor(myColor)
+                .setTextAlignment(TextAlignment.CENTER));
+
+        for(OrderInfo i : successOrderInfoList){
+            successOrderTable.addCell(new Cell()
+                    .add(new Paragraph(Integer.toString(i.getOrderId())).setTextAlignment(TextAlignment.RIGHT)));
+            successOrderTable.addCell(new Cell()
+                    .add(new Paragraph(i.getCustomerName()).setTextAlignment(TextAlignment.CENTER)));
+            successOrderTable.addCell(new Cell()
+                    .add(new Paragraph(Integer.toString(i.getCloth().getClothQuantity())).setTextAlignment(TextAlignment.RIGHT)));
+            successOrderTable.addCell(new Cell()
+                    .add(new Paragraph(Integer.toString(i.getOrderBill().getCost())).setTextAlignment(TextAlignment.RIGHT)));
+        }
+
+        Cell cell1 = new Cell();
+        cell1.add(new Paragraph(""));
+        cell1.setBorder(Border.NO_BORDER);
+        successOrderTable.addCell(cell1);
+
+        Cell cell2 = new Cell();
+        cell2.add(new Paragraph(""));
+        cell2.setBorder(Border.NO_BORDER);
+        successOrderTable.addCell(cell2);
+
+        Cell cell3 = new Cell();
+        cell3.add(new Paragraph("Total income"));
+        cell3.setBorder(Border.NO_BORDER);
+        cell3.setTextAlignment(TextAlignment.RIGHT);
+        successOrderTable.addCell(cell3);
+
+        Cell cell4 = new Cell();
+        cell4.add(new Paragraph(Integer.toString(allIncome)));
+        cell4.setBorder(Border.NO_BORDER);
+        cell4.setTextAlignment(TextAlignment.RIGHT);
+        successOrderTable.addCell(cell4);
+
+        document.add(successOrderTable);
+    }
+
+    private void addContent3(Document document) throws IOException {
+        PdfFont comic1 = PdfFontFactory.createFont(comic);
+        //second content
+        float[] allOrderCol = {100, 200, 100};
+        Table damagedOrderTable = new Table(allOrderCol);
+        damagedOrderTable.setFont(comic1);
+
+        damagedOrderTable.addCell(new Cell(0,4)
+                .add(new Paragraph("All damaged order"))
+                .setBold()
+                .setBorder(Border.NO_BORDER)
+                .setTextAlignment(TextAlignment.LEFT)
+                .setFontSize(20f));
+        document.add(new Paragraph("\n"));
+
+        damagedOrderTable.addCell(new Cell()
+                .add(new Paragraph("Order ID")).setBold().setBorder(Border.NO_BORDER)
+                .setBackgroundColor(myColor)
+                .setTextAlignment(TextAlignment.CENTER)
+        );
+        damagedOrderTable.addCell(new Cell()
+                .add(new Paragraph("Customer name")).setBold().setBorder(Border.NO_BORDER)
+                .setBackgroundColor(myColor)
+                .setTextAlignment(TextAlignment.CENTER)
+        );
+        damagedOrderTable.addCell(new Cell()
+                .add(new Paragraph("Quantity")).setBold().setBorder(Border.NO_BORDER)
+                .setBackgroundColor(myColor)
+                .setTextAlignment(TextAlignment.CENTER)
+        );
+
+        for(OrderInfo i : damagedOrderInfoList){
+            damagedOrderTable.addCell(new Cell()
+                    .add(new Paragraph(Integer.toString(i.getOrderId())).setTextAlignment(TextAlignment.RIGHT)));
+            damagedOrderTable.addCell(new Cell()
+                    .add(new Paragraph(i.getCustomerName()).setTextAlignment(TextAlignment.CENTER)));
+            damagedOrderTable.addCell(new Cell()
+                    .add(new Paragraph(Integer.toString(i.getCloth().getClothQuantity())).setTextAlignment(TextAlignment.RIGHT)));
+        }
+
+        document.add(damagedOrderTable);
+    }
+
+    private void addContent4(Document document) throws IOException {
+        PdfFont comic1 = PdfFontFactory.createFont(comic);
+        //third content
+        float[] colWidthArray2 = {170,120,140,140};
+        Table summaryTable = new Table(colWidthArray2);
+        summaryTable.setFont(comic1);
+
+        summaryTable.addCell(new Cell(0,4)
                 .add(new Paragraph("Order Summary"))
                 .setBold()
-                .setBorder(Border.NO_BORDER));
+                .setBorder(Border.NO_BORDER)
+                .setFontSize(20f));
 
         Cell c4 = new Cell();
         c4.add(new Paragraph("Total number of orders"));
         c4.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c4);
-
-        Cell c5 = new Cell();
-        c5.add(new Paragraph(Integer.toString(allOrderQuantity)));
-        c5.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c5);
+        c4.setTextAlignment(TextAlignment.CENTER);
+        c4.setBackgroundColor(myColor);
+        summaryTable.addCell(c4);
 
         Cell c6 = new Cell();
         c6.add(new Paragraph("All cloth quantity"));
         c6.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c6);
-
-        Cell c7 = new Cell();
-        c7.add(new Paragraph(Integer.toString(allClothQuantity)));
-        c7.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c7);
+        c6.setTextAlignment(TextAlignment.CENTER);
+        c6.setBackgroundColor(myColor);
+        summaryTable.addCell(c6);
 
         Cell c8 = new Cell();
         c8.add(new Paragraph("All success order"));
         c8.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c8);
-
-        Cell c9 = new Cell();
-        c9.add(new Paragraph(Integer.toString(allSuccessCleaned)));
-        c9.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c9);
+        c8.setTextAlignment(TextAlignment.CENTER);
+        c8.setBackgroundColor(myColor);
+        summaryTable.addCell(c8);
 
         Cell c10 = new Cell();
         c10.add(new Paragraph("All damaged order"));
         c10.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c10);
+        c10.setTextAlignment(TextAlignment.CENTER);
+        c10.setBackgroundColor(myColor);
+        summaryTable.addCell(c10);
+
+        Cell c5 = new Cell();
+        c5.add(new Paragraph(Integer.toString(allOrderQuantity)));
+        c5.setTextAlignment(TextAlignment.RIGHT);
+        summaryTable.addCell(c5);
+
+        Cell c7 = new Cell();
+        c7.add(new Paragraph(Integer.toString(allClothQuantity)));
+        c7.setTextAlignment(TextAlignment.RIGHT);
+        summaryTable.addCell(c7);
+
+        Cell c9 = new Cell();
+        c9.add(new Paragraph(Integer.toString(allSuccessCleaned)));
+        c9.setTextAlignment(TextAlignment.RIGHT);
+        summaryTable.addCell(c9);
 
         Cell c11 = new Cell();
         c11.add(new Paragraph(Integer.toString(allClothDamaged)));
-        c11.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c11);
+        c11.setTextAlignment(TextAlignment.RIGHT);
+        summaryTable.addCell(c11);
 
-        Cell c12 = new Cell();
-        c12.add(new Paragraph("Total income"));
-        c12.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c12);
-
-        Cell c13 = new Cell();
-        c13.add(new Paragraph(Integer.toString(allIncome)));
-        c13.setBorder(Border.NO_BORDER);
-        secondTable.addCell(c13);
-
-        document.add(secondTable);
+        document.add(summaryTable);
     }
-
 
     public void setDate(String date) {
         this.date = date;
@@ -186,4 +303,11 @@ public class CreateReportService {
         this.allClothDamaged = allClothDamaged;
     }
 
+    public void setSuccessOrderInfoList(List<OrderInfo> successOrderInfoList) {
+        this.successOrderInfoList = successOrderInfoList;
+    }
+
+    public void setDamagedOrderInfoList(List<OrderInfo> damagedOrderInfoList) {
+        this.damagedOrderInfoList = damagedOrderInfoList;
+    }
 }

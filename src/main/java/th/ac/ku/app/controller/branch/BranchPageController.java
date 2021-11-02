@@ -163,6 +163,7 @@ public class BranchPageController {
         if (selectedOrder != null) {
             if(warningAlertBox("Sure to delete select order?").equals("Delete")){
                 serviceAPI.delete(selectedOrder.getOrderId());
+                informationAlertBox("Delete order success");
                 showOrderList();
             }
         }

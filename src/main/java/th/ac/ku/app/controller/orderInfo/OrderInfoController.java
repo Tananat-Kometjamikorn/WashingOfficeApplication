@@ -98,6 +98,7 @@ public class OrderInfoController {
                 selectedOrder.getOrderBill().setCleanStatus(selectedOrder.getCloth().getCurrentStatus());
             }
             serviceAPI.update(selectedOrder.getOrderId(), selectedOrder);
+            informationAlertBox("Change status success");
 
             setOrderStatusLabel();
             if(accountManager.getCurrentBranch() != null) {

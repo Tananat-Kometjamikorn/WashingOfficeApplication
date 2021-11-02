@@ -36,6 +36,8 @@ public class printReportController {
         reportService.setAllIncome(getAllIncome(getAllMatchedClosedOrder()));
         reportService.setAllSuccessCleaned(getAllSuccessCleaned(getAllMatchedClosedOrder()));
         reportService.setAllClothDamaged(getAllClothDamaged(getAllMatchedClosedOrder()));
+        reportService.setSuccessOrderInfoList(getAllMatchedSuccessClosedOrder());
+        reportService.setDamagedOrderInfoList(getAllMatchedDamagedClosedOrder());
         reportService.createReport(stage);
     }
 
@@ -58,6 +60,36 @@ public class printReportController {
         }
             return matched;
         }
+
+    public List<OrderInfo> getAllMatchedSuccessClosedOrder() {
+        List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
+        List<OrderInfo> matched = new ArrayList<>();
+        for (OrderInfo i : allOrderInfo) {
+            if (i.getClosedDate() != null) {
+                if (i.getClosedDate().startsWith(getSelectDate()) &&
+                        i.getOrderBill().getCleanStatus().equals("Success")) {
+                    matched.add(i);
+                }
+            }
+        }
+        return matched;
+    }
+
+    public List<OrderInfo> getAllMatchedDamagedClosedOrder() {
+        List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
+        List<OrderInfo> matched = new ArrayList<>();
+        for (OrderInfo i : allOrderInfo) {
+            if (i.getClosedDate() != null) {
+                if (i.getClosedDate().startsWith(getSelectDate()) &&
+                        i.getOrderBill().getCleanStatus().equals("Damaged")) {
+                    matched.add(i);
+                }
+            }
+        }
+        return matched;
+    }
+
+
     public int getAllOrderQuantity(List<OrderInfo> matched){
         int q = 0;
         for (OrderInfo i : matched){
