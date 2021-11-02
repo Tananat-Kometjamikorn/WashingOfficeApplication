@@ -17,7 +17,7 @@
             <Image url="@image/washing-machine.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="loginBtn" layoutX="737.0" layoutY="479.0" mnemonicParsing="false" onAction="#handleLoginBtnOnAction" prefHeight="56.0" prefWidth="105.0" styleClass="buttonGreen" stylesheets="@css/button.css" text="Login">
+      <Button fx:id="loginBtn" layoutX="737.0" layoutY="479.0" mnemonicParsing="false" onAction="#handleLoginBtnOnAction" prefHeight="56.0" prefWidth="105.0" styleClass="buttonPoo" stylesheets="@css/button.css" text="Login">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font>
@@ -32,7 +32,7 @@
             <Font name="Comic Sans MS" size="20.0" />
          </font>
       </PasswordField>
-      <Label alignment="CENTER" layoutX="655.0" layoutY="132.0" text="BILLING SYSTEM" textFill="#fffafa">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="620.0" layoutY="144.0" prefHeight="56.0" prefWidth="360.0" style="-fx-background-color: snow;" stylesheets="@css/bg.css" text="BILLING SYSTEM">
          <font>
             <Font name="Comic Sans MS Bold" size="30.0" />
          </font>
@@ -45,5 +45,10 @@
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font></RadioButton>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="620.0" layoutY="88.0" prefHeight="56.0" prefWidth="360.0" style="-fx-background-color: snow;" stylesheets="@css/bg.css" text="WASHING OFFICE">
+         <font>
+            <Font name="Comic Sans MS Bold" size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

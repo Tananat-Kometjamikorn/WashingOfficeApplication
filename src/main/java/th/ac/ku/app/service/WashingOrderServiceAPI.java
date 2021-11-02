@@ -48,15 +48,6 @@ public class WashingOrderServiceAPI {
         return responseEntity.getBody();
     }
 
-//    public void create(Cloth cloth) {
-//        String url = "http://localhost:8090/cloth";
-//        restTemplate.postForObject(url, cloth, Cloth.class);
-//    }
-
-//    public void updateCloth(Cloth cloth) {
-//        String url = "http://localhost:8090/cloth/" + cloth.getOrderId();
-//        restTemplate.put(url, cloth, Cloth.class);
-//    }
 //----------------------------------------------------------------------------------------------------------------------
     public List<UserHeadQuarter> getAllHeadQuarter(){
         String url = "http://localhost:8090/headQuarter";

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.orderInfo.OrderInfoController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="640.0" styleClass="startImage" stylesheets="@css/bg.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="th.ac.ku.app.controller.orderInfo.OrderInfoController">
    <children>
       <Label layoutX="140.0" layoutY="80.0" minWidth="140.0" text="OrderID" textFill="#0017cf">
          <font>
@@ -83,7 +83,7 @@
             <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="statusLabel" layoutX="231.0" layoutY="331.0" prefHeight="28.0" prefWidth="200.0" text="Status">
+      <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="331.0" prefHeight="28.0" prefWidth="200.0" text="Status" textAlignment="CENTER">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
          </font>

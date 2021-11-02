@@ -27,13 +27,19 @@ public class CreateBillService{
     private OrderInfo selectOrderInfo;
     private Stage stage;
     Color myColor = new DeviceRgb(235, 240, 50);
+    Color redColor = new DeviceRgb(255,0,0);
     private final String comic = "font\\COMIC.TTF";
 
 
     private int totalCost;
 
     public void createPdf() throws IOException{
-        totalCost = selectOrderInfo.getCloth().getClothQuantity() * 20;
+        if (selectOrderInfo.getOrderBill().getCleanStatus().equals("Success")) {
+            totalCost = selectOrderInfo.getCloth().getClothQuantity() * 20;
+        }
+        else{
+            totalCost = 0;
+        }
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Bill");
@@ -54,6 +60,12 @@ public class CreateBillService{
         document.add(new Paragraph("\n"));
         addContent3(document);
         document.add(new Paragraph("\n"));
+        if (selectOrderInfo.getOrderBill().getCleanStatus().equals("Success")) {
+            document.add(new Paragraph("Thank you for using our services"));
+        }
+        else {
+            document.add(new Paragraph("We sincerely apologize for any damage to your clothes"));
+        }
         document.close();
         System.out.println("Bill created");
     }
@@ -79,7 +91,7 @@ public class CreateBillService{
         headTable.addCell(c1);
 
         Cell c2 = new Cell();
-        c2.add(new Paragraph("Washing Office\n555 S.un1\nTel. 0894445747"));
+        c2.add(new Paragraph("Washing Office\n555 hhh\nTel. 0894445747"));
         c2.setFont(comic1);
         c2.setTextAlignment(TextAlignment.RIGHT);
         c2.setMarginTop(30f);
@@ -141,12 +153,22 @@ public class CreateBillService{
         c11.setBorder(Border.NO_BORDER);
         secondTable.addCell(c11);
 
+        Cell c12 = new Cell();
+        c12.add(new Paragraph("Clean Status"));
+        c12.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c12);
+
+        Cell c13 = new Cell();
+        c13.add(new Paragraph(selectOrderInfo.getOrderBill().getCleanStatus()));
+        c13.setBorder(Border.NO_BORDER);
+        secondTable.addCell(c13);
+
         document.add(secondTable);
     }
 
     private void addContent3(Document document) throws IOException {
         PdfFont comic1 = PdfFontFactory.createFont(comic);
-        float[] colwidth = {140,140,140,140};
+        float[] colwidth = {140,100,100,100,120};
         Table table = new Table(colwidth);
         table.setFont(comic1);
         Cell c0 = new Cell();
@@ -165,6 +187,10 @@ public class CreateBillService{
         c3.add(new Paragraph("Cost"));
         c3.setBackgroundColor(myColor);
         table.addCell(c3);
+        Cell c11 = new Cell();
+        c11.add(new Paragraph("note"));
+        c11.setBackgroundColor(myColor);
+        table.addCell(c11);
 
         Cell c4 = new Cell();
         c4.add(new Paragraph("Washing service"));
@@ -176,8 +202,18 @@ public class CreateBillService{
         c6.add(new Paragraph("20"));
         table.addCell(c6);
         Cell c7 = new Cell();
-        c7.add(new Paragraph(Integer.toString(totalCost)));
+
         table.addCell(c7);
+        Cell c13 = new Cell();
+        if (selectOrderInfo.getOrderBill().getCleanStatus().equals("Success")) {
+            c7.add(new Paragraph(Integer.toString(totalCost)));
+            c13.add(new Paragraph(""));
+        }
+        else{
+            c7.add(new Paragraph(Integer.toString(totalCost)).setFontColor(redColor));
+            c13.add((new Paragraph("Cloth damaged")));
+        }
+        table.addCell(c13);
 
         Cell c8 = new Cell();
         c8.add(new Paragraph(""));
@@ -194,12 +230,21 @@ public class CreateBillService{
         c10.setBorder(Border.NO_BORDER);
         c10.setBackgroundColor(myColor);
         table.addCell(c10);
-        Cell c11 = new Cell();
-        c11.add(new Paragraph(""+totalCost));
-        c11.setBorder(Border.NO_BORDER);
-        c11.setBackgroundColor(myColor);
-        table.addCell(c11);
-
+        Cell c12 = new Cell();
+        if (selectOrderInfo.getOrderBill().getCleanStatus().equals("Success")) {
+            c12.add(new Paragraph("" + totalCost));
+        }
+        else {
+            c12.add(new Paragraph("" + totalCost).setFontColor(redColor));
+        }
+        c12.setBorder(Border.NO_BORDER);
+        c12.setBackgroundColor(myColor);
+        table.addCell(c12);
+        Cell c14 = new Cell();
+        c14.add(new Paragraph(""));
+        c14.setBorder(Border.NO_BORDER);
+        c14.setBackgroundColor(myColor);
+        table.addCell(c14);
         document.add(table);
     }
 

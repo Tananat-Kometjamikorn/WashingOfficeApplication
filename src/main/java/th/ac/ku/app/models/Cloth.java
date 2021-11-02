@@ -2,16 +2,16 @@ package th.ac.ku.app.models;
 
 public class Cloth {
 //    private OrderInfo orderInfo;
-    private String status;
+    private String currentStatus;
     private int clothQuantity;
     private int orderId;
 
-    public String getStatus() {
-        return status;
+    public String getCurrentStatus() {
+        return currentStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCurrentStatus(String currentStatus) {
+        this.currentStatus = currentStatus;
     }
 
     public int getClothQuantity() {
@@ -32,11 +32,11 @@ public class Cloth {
 
     @Override
     public String toString() {
-        return status;
+        return currentStatus;
 }
 
     public String getAllInfo() {
-        return "status='" + status + '\'' +
+        return "status='" + currentStatus + '\'' +
                 ", clothQuantity=" + clothQuantity +
                 ", orderId=" + orderId;
     }

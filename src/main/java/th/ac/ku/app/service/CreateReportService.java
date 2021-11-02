@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class CreateReportService {
 
@@ -33,6 +34,8 @@ public class CreateReportService {
     private Stage stage;
     Color myColor = new DeviceRgb(235, 240, 50);
     private final String comic = "font\\COMIC.TTF";
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+    LocalDate date1 = LocalDate.now();
 
 
     public void createReport(Stage stage) throws IOException {
@@ -75,17 +78,19 @@ public class CreateReportService {
         c1.setVerticalAlignment(VerticalAlignment.MIDDLE);
         c1.setMarginTop(30f);
         c1.setMarginBottom(30f);
-        c1.setFontSize(28f);
+        c1.setFontSize(20f);
         c1.setBorder(Border.NO_BORDER);
         headTable.addCell(c1);
 
         Cell c2 = new Cell();
-        c2.add(new Paragraph("Print on "+ LocalDate.now()));
+        c2.add(new Paragraph("Print on "+formatter.format(date1)));
         c2.setFont(comic1);
         c2.setTextAlignment(TextAlignment.RIGHT);
+        c2.setVerticalAlignment(VerticalAlignment.MIDDLE);
         c2.setMarginTop(30f);
         c2.setMarginBottom(30f);
         c2.setMarginRight(10f);
+        c2.setFontSize(20f);
         c2.setBorder(Border.NO_BORDER);
         headTable.addCell(c2);
         document.add(headTable);
@@ -94,7 +99,7 @@ public class CreateReportService {
     private void addContent2(Document document) throws IOException {
         PdfFont comic1 = PdfFontFactory.createFont(comic);
         //second content
-        float[] colWidthArray2 = {140,140,140,140};
+        float[] colWidthArray2 = {180,140};
         Table secondTable = new Table(colWidthArray2);
         secondTable.setFont(comic1);
 
@@ -104,7 +109,7 @@ public class CreateReportService {
                 .setBorder(Border.NO_BORDER));
 
         Cell c4 = new Cell();
-        c4.add(new Paragraph("All order quantity"));
+        c4.add(new Paragraph("Total number of orders"));
         c4.setBorder(Border.NO_BORDER);
         secondTable.addCell(c4);
 
@@ -124,7 +129,7 @@ public class CreateReportService {
         secondTable.addCell(c7);
 
         Cell c8 = new Cell();
-        c8.add(new Paragraph("All success cleaned cloth(es)"));
+        c8.add(new Paragraph("All success order"));
         c8.setBorder(Border.NO_BORDER);
         secondTable.addCell(c8);
 
@@ -134,7 +139,7 @@ public class CreateReportService {
         secondTable.addCell(c9);
 
         Cell c10 = new Cell();
-        c10.add(new Paragraph("All damaged cloth(es)"));
+        c10.add(new Paragraph("All damaged order"));
         c10.setBorder(Border.NO_BORDER);
         secondTable.addCell(c10);
 
@@ -165,7 +170,6 @@ public class CreateReportService {
         this.allOrderQuantity = allOrderQuantity;
     }
 
-
     public void setAllClothQuantity(int allClothQuantity) {
         this.allClothQuantity = allClothQuantity;
     }
@@ -181,12 +185,5 @@ public class CreateReportService {
     public void setAllClothDamaged(int allClothDamaged) {
         this.allClothDamaged = allClothDamaged;
     }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-
-
 
 }

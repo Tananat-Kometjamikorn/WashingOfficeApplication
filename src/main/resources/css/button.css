@@ -1,24 +1,47 @@
+.buttonPoo {
+    -fx-background-color: #D35400;
+    -fx-background-radius: 23px;
+    -fx-text-fill: black;
+}
+.buttonPoo:hover {
+     -fx-background-color: white;
+     -fx-background-radius: 23px;
+     -fx-text-fill: #DC7633;
+     -fx-border-color: #DC7633;
+     -fx-border-radius: 20px;
+     -fx-border-width: 3px;
+}
+.buttonPoo:pressed {
+     -fx-background-color: #C2C5C8;
+     -fx-background-radius: 23px;
+     -fx-text-fill: black;
+     -fx-border-color: #DC7633;
+     -fx-border-radius: 20px;
+     -fx-border-width: 2px;
+}
+
 .buttonGreen {
-    -fx-background-color: #8DF583;
+    -fx-background-color: #45B39D;
     -fx-background-radius: 23px;
     -fx-text-fill: black;
 }
 .buttonGreen:hover {
      -fx-background-color: white;
      -fx-background-radius: 23px;
-     -fx-text-fill: #0A7600;
-     -fx-border-color: #0A7600;
-     -fx-border-radius: 20px;
+     -fx-text-fill: #17A589;
+     -fx-border-color: #17A589;
+     -fx-border-radius: 18px;
      -fx-border-width: 3px;
 }
 .buttonGreen:pressed {
      -fx-background-color: #C2C5C8;
      -fx-background-radius: 23px;
-     -fx-text-fill: #0A7600;
-     -fx-border-color: #0A7600;
-     -fx-border-radius: 20px;
+     -fx-text-fill: black;
+     -fx-border-color: #17A589;
+     -fx-border-radius: 18px;
      -fx-border-width: 2px;
 }
+
 .buttonRed {
     -fx-background-color: #F96868;
     -fx-background-radius: 23px;

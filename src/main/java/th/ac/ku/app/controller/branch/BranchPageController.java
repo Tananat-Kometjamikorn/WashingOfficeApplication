@@ -77,11 +77,11 @@ public class BranchPageController {
     @FXML
     private void initialize() {
         Platform.runLater(() -> {
-            branchNameLabel1.setText(accountManager.getCurrentBranch().getName());
-            branchNameLabel2.setText(accountManager.getCurrentBranch().getName());
-            branchNameLabel3.setText(accountManager.getCurrentBranch().getName());
-            branchNameLabel4.setText(accountManager.getCurrentBranch().getName());
-            branchNameLabel5.setText("hello, " + accountManager.getCurrentBranch().getName());
+            branchNameLabel1.setText("Hello, " + accountManager.getCurrentBranch().getName());
+            branchNameLabel2.setText("Hello, " + accountManager.getCurrentBranch().getName());
+            branchNameLabel3.setText("Hello, " + accountManager.getCurrentBranch().getName());
+            branchNameLabel4.setText("Hello, " + accountManager.getCurrentBranch().getName());
+            branchNameLabel5.setText("Hello, " + accountManager.getCurrentBranch().getName());
             orderTable.setPlaceholder(new Label("Not have new order at this time"));
             orderTable2.setPlaceholder(new Label("Not have cleaned order at this time"));
             closedOrderTable.setPlaceholder(new Label("Not have closed order at this time"));
@@ -132,20 +132,25 @@ public class BranchPageController {
 
     @FXML
     public void handleShowInfoBtnOnAction(ActionEvent event) throws IOException {
-        Stage popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.setResizable(false);
-        FXMLLoader loader = new FXMLLoader
-                (getClass().getResource("/order_info.fxml"));
-        popup.setScene(new Scene(loader.load(), 640, 480));
-        OrderInfoController orderInfo = loader.getController();
-        orderInfo.setAccountManager(accountManager);
-        orderInfo.setServiceAPI(serviceAPI);
-        orderInfo.setSelectedOrder(selectedOrder);
-        popup.showAndWait();
-        showOrderList();
-        showCleanedOrderList();
-        showClosedOrderList();
+        if (selectedOrder!=null) {
+            Stage popup = new Stage();
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setResizable(false);
+            FXMLLoader loader = new FXMLLoader
+                    (getClass().getResource("/order_info.fxml"));
+            popup.setScene(new Scene(loader.load(), 640, 480));
+            OrderInfoController orderInfo = loader.getController();
+            orderInfo.setAccountManager(accountManager);
+            orderInfo.setServiceAPI(serviceAPI);
+            orderInfo.setSelectedOrder(selectedOrder);
+            popup.showAndWait();
+            selectedOrder = null;
+            orderTable.getSelectionModel().clearSelection();
+            showOrderList();
+            showCleanedOrderList();
+            showClosedOrderList();
+
+        }
     }
 
     private void selectedOrderInfo(OrderInfo orderInfo) {
@@ -181,33 +186,41 @@ public class BranchPageController {
 
     @FXML
     public void handleAddOrderBtnOnAction(ActionEvent event) {
-
-        String customerName = customerNameField.getText();
-        String customerPhone = customerPhoneField.getText();
-        int quantity = Integer.parseInt(clothQuantityField.getText());
         String date = LocalDateTime.now().format(formatter);
 
-        if(confirmationAlertBox("Confirm to add order?").getResult().equals(ButtonType.OK)) {
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.setOrderDate(date);
-            orderInfo.setCustomerName(customerName);
-            orderInfo.setCustomerPhone(customerPhone);
-            orderInfo.setBranchName(accountManager.getCurrentBranch().getName());
+        if(!customerNameField.getText().isEmpty() && !customerPhoneField.getText().isEmpty() && !clothQuantityField.getText().isEmpty()) {
+            String customerName = customerNameField.getText();
+            String customerPhone = customerPhoneField.getText();
+            int quantity = Integer.parseInt(clothQuantityField.getText());
+            if (confirmationAlertBox("Confirm to add order?").getResult().equals(ButtonType.OK)) {
+                if (quantity > 0) {
+                    OrderInfo orderInfo = new OrderInfo();
+                    orderInfo.setOrderDate(date);
+                    orderInfo.setCustomerName(customerName);
+                    orderInfo.setCustomerPhone(customerPhone);
+                    orderInfo.setBranchName(accountManager.getCurrentBranch().getName());
 
-            Cloth cloth = new Cloth();
-            cloth.setClothQuantity(quantity);
-            cloth.setStatus("Sending to hq");
+                    Cloth cloth = new Cloth();
+                    cloth.setClothQuantity(quantity);
+                    cloth.setCurrentStatus("Sending to hq");
 
-            OrderBill orderBill = new OrderBill();
-            orderBill.setCost(0);
+                    OrderBill orderBill = new OrderBill();
+                    orderBill.setCost(0);
 
-            orderInfo.setCloth(cloth);
-            orderInfo.setOrderBill(orderBill);
-            serviceAPI.create(orderInfo);
+                    orderInfo.setCloth(cloth);
+                    orderInfo.setOrderBill(orderBill);
+                    serviceAPI.create(orderInfo);
 
-            clearAddOrderPage();
-            showOrderList();
-            informationAlertBox("Add order success");
+                    clearAddOrderPage();
+                    showOrderList();
+                    informationAlertBox("Add order success");
+                } else {
+                    errorAlertBox("Please enter quantity greater than zero");
+                }
+            }
+        }
+        else {
+            errorAlertBox("Please fill all blanks");
         }
     }
 
@@ -228,18 +241,22 @@ public class BranchPageController {
 
     @FXML
     public void handleShowClosedInfoBtnOnAction(ActionEvent event) throws IOException {
-        Stage popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.setResizable(false);
-        FXMLLoader loader = new FXMLLoader
-                (getClass().getResource("/order_info.fxml"));
-        popup.setScene(new Scene(loader.load(), 640, 480));
-        OrderInfoController orderInfo = loader.getController();
-        orderInfo.setAccountManager(accountManager);
-        orderInfo.setServiceAPI(serviceAPI);
-        orderInfo.setSelectedOrder(selectedOrder);
-        orderInfo.setDisable();
-        popup.showAndWait();
+        if (selectedOrder!=null) {
+            Stage popup = new Stage();
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setResizable(false);
+            FXMLLoader loader = new FXMLLoader
+                    (getClass().getResource("/order_info.fxml"));
+            popup.setScene(new Scene(loader.load(), 640, 480));
+            OrderInfoController orderInfo = loader.getController();
+            orderInfo.setAccountManager(accountManager);
+            orderInfo.setServiceAPI(serviceAPI);
+            orderInfo.setSelectedOrder(selectedOrder);
+            orderInfo.setDisable();
+            popup.showAndWait();
+            selectedOrder = null;
+            closedOrderTable.getSelectionModel().clearSelection();
+        }
     }
 
     //Setting Page------------------------------------------------------------------------------------------------------
@@ -290,7 +307,7 @@ public class BranchPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> notCleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo) {
-            if (i.getCloth().getStatus().equals("Sending to hq")) {
+            if (i.getCloth().getCurrentStatus().equals("Sending to hq")) {
                 notCleaningSuccess.add(i);
             }
         }
@@ -301,8 +318,8 @@ public class BranchPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> cleaned = new ArrayList<>();
         for (OrderInfo i : allOrderInfo) {
-            if (i.getCloth().getStatus().equals("Success") || i.getCloth().getStatus().equals("Damaged") ||
-                    i.getCloth().getStatus().equals("No contact response") || i.getCloth().getStatus().equals("Ready to pickup")) {
+            if (i.getCloth().getCurrentStatus().equals("Success") || i.getCloth().getCurrentStatus().equals("Damaged") ||
+                    i.getCloth().getCurrentStatus().equals("No contact response") || i.getCloth().getCurrentStatus().equals("Ready to pickup")) {
                 cleaned.add(i);
             }
         }
@@ -313,7 +330,7 @@ public class BranchPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> cleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo) {
-            if (i.getCloth().getStatus().equals("Closed")) {
+            if (i.getCloth().getCurrentStatus().equals("Closed")) {
                 cleaningSuccess.add(i);
             }
         }

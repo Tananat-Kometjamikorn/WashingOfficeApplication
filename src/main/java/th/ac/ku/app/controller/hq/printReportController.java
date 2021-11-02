@@ -46,16 +46,18 @@ public class printReportController {
         return formattedDate;
     }
 
-    public List<OrderInfo> getAllMatchedClosedOrder(){
+    public List<OrderInfo> getAllMatchedClosedOrder() {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> matched = new ArrayList<>();
         for (OrderInfo i : allOrderInfo) {
-            if (i.getClosedDate().startsWith(getSelectDate())) {
-                matched.add(i);
+            if (i.getClosedDate() != null) {
+                if (i.getClosedDate().startsWith(getSelectDate())) {
+                    matched.add(i);
+                }
             }
         }
-        return matched;
-    }
+            return matched;
+        }
     public int getAllOrderQuantity(List<OrderInfo> matched){
         int q = 0;
         for (OrderInfo i : matched){

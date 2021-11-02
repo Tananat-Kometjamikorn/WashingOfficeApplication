@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import th.ac.ku.app.models.Cloth;
 import th.ac.ku.app.models.OrderBill;
 import th.ac.ku.app.models.OrderInfo;
 import th.ac.ku.app.service.AccountManager;
@@ -58,17 +57,17 @@ public class OrderInfoController {
     }
 
     public void setOrderStatusLabel() {
-        if (selectedOrder.getCloth().getStatus().equals("Sending to hq")) {
+        if (selectedOrder.getCloth().getCurrentStatus().equals("Sending to hq")) {
             statusLabel.setText("Sending to hq");
-        } else if (selectedOrder.getCloth().getStatus().equals("Success")) {
+        } else if (selectedOrder.getCloth().getCurrentStatus().equals("Success")) {
             statusLabel.setText("Success");
-        } else if (selectedOrder.getCloth().getStatus().equals("Damaged")) {
+        } else if (selectedOrder.getCloth().getCurrentStatus().equals("Damaged")) {
             statusLabel.setText("Damaged");
-        } else if (selectedOrder.getCloth().getStatus().equals("Ready to pickup")) {
+        } else if (selectedOrder.getCloth().getCurrentStatus().equals("Ready to pickup")) {
             statusLabel.setText("Ready to pickup");
-        } else if (selectedOrder.getCloth().getStatus().equals("No contact response")) {
+        } else if (selectedOrder.getCloth().getCurrentStatus().equals("No contact response")) {
             statusLabel.setText("No contact response");
-        } else if (selectedOrder.getCloth().getStatus().equals("Closed")) {
+        } else if (selectedOrder.getCloth().getCurrentStatus().equals("Closed")) {
             statusLabel.setText("Closed");
         } else {
             statusLabel.setText("");
@@ -87,16 +86,16 @@ public class OrderInfoController {
     public void handleChangeBtnOnAction(ActionEvent event){
         if(confirmationAlertBox("Confirm to change status?").getResult().equals(ButtonType.OK)) {
             String currentStatus = statusChoiceBox.getValue();
-            selectedOrder.getCloth().setStatus(currentStatus);
+            selectedOrder.getCloth().setCurrentStatus(currentStatus);
             if(currentStatus.equals("Closed")){
                 selectedOrder.setClosedDate(date);
             }
 
-            if(selectedOrder.getCloth().getStatus().equals("Success") || selectedOrder.getCloth().getStatus().equals("Damaged")){
+            if(selectedOrder.getCloth().getCurrentStatus().equals("Success") || selectedOrder.getCloth().getCurrentStatus().equals("Damaged")){
                 OrderBill bill = new OrderBill();
                 bill.setCost(20 * selectedOrder.getCloth().getClothQuantity());
                 selectedOrder.setOrderBill(bill);
-                selectedOrder.getOrderBill().setCleanStatus(selectedOrder.getCloth().getStatus());
+                selectedOrder.getOrderBill().setCleanStatus(selectedOrder.getCloth().getCurrentStatus());
             }
             serviceAPI.update(selectedOrder.getOrderId(), selectedOrder);
 
@@ -107,8 +106,11 @@ public class OrderInfoController {
                 setStatusTypeListHq();
             }
         }
-        Stage stage = (Stage) changeBtn.getScene().getWindow();
-        stage.close();
+        if (accountManager.getCurrentBranch() != null){
+            Stage stage = (Stage) changeBtn.getScene().getWindow();
+            stage.close();
+        }
+
     }
 
     @FXML
@@ -125,26 +127,26 @@ public class OrderInfoController {
     }
 
     private void setStatusTypeListBranch(){
-        if (selectedOrder.getCloth().getStatus().equals("Sending to hq")){
+        if (selectedOrder.getCloth().getCurrentStatus().equals("Sending to hq")){
             createBillBtn.setVisible(false);
             createBillBtn.setDisable(true);
             statusChoiceBox.setDisable(true);
             changeBtn.setDisable(true);
         }
-        if(selectedOrder.getCloth().getStatus().equals("Success")||
-                selectedOrder.getCloth().getStatus().equals("Damaged")){
+        if(selectedOrder.getCloth().getCurrentStatus().equals("Success")||
+                selectedOrder.getCloth().getCurrentStatus().equals("Damaged")){
             statusChoiceBox.setDisable(false);
             createBillBtn.setVisible(false);
             createBillBtn.setDisable(true);
             statusChoiceBox.setItems(statusTypeCleaned);
         }
-        if(selectedOrder.getCloth().getStatus().equals("No contact response")){
+        if(selectedOrder.getCloth().getCurrentStatus().equals("No contact response")){
             statusChoiceBox.setDisable(false);
             createBillBtn.setVisible(false);
             createBillBtn.setDisable(true);
             statusChoiceBox.setItems(statusTypeNotReady);
         }
-        if (selectedOrder.getCloth().getStatus().equals("Ready to pickup")){
+        if (selectedOrder.getCloth().getCurrentStatus().equals("Ready to pickup")){
             statusChoiceBox.setDisable(false);
             createBillBtn.setVisible(false);
             createBillBtn.setDisable(true);
@@ -153,11 +155,11 @@ public class OrderInfoController {
     }
     private void setStatusTypeListHq(){
         statusChoiceBox.setItems(statusTypeListHq);
-        if (selectedOrder.getCloth().getStatus().equals("Sending to hq")){
+        if (selectedOrder.getCloth().getCurrentStatus().equals("Sending to hq")){
             createBillBtn.setVisible(true);
             createBillBtn.setDisable(true);
-        }else if(selectedOrder.getCloth().getStatus().equals("Success")||
-                selectedOrder.getCloth().getStatus().equals("Damaged")){
+        }else if(selectedOrder.getCloth().getCurrentStatus().equals("Success")||
+                selectedOrder.getCloth().getCurrentStatus().equals("Damaged")){
             createBillBtn.setVisible(true);
             createBillBtn.setDisable(false);
         }else{

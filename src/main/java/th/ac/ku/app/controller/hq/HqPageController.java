@@ -45,9 +45,9 @@ public class HqPageController {
 
     @FXML private void initialize(){
         Platform.runLater(() -> {
-            hqNameLabel1.setText(accountManager.getCurrentHeadQuarter().getName());
-            hqNameLabel2.setText(accountManager.getCurrentHeadQuarter().getName());
-            hqNameLabel3.setText(accountManager.getCurrentHeadQuarter().getName());
+            hqNameLabel1.setText("Hello, " + accountManager.getCurrentHeadQuarter().getName());
+            hqNameLabel2.setText("Hello, " + accountManager.getCurrentHeadQuarter().getName());
+            hqNameLabel3.setText("Hello, " + accountManager.getCurrentHeadQuarter().getName());
             showOrderList();
             showClosedOrderList();
             orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -90,17 +90,21 @@ public class HqPageController {
 
     @FXML
     public void handleShowInfoBtnOnAction(ActionEvent event) throws IOException {
-        Stage popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.setResizable(false);
-        FXMLLoader loader = new FXMLLoader
-                (getClass().getResource("/order_info.fxml"));
-        popup.setScene(new Scene(loader.load(), 640, 480));
-        OrderInfoController orderInfo = loader.getController();
-        orderInfo.setServiceAPI(serviceAPI);
-        orderInfo.setAccountManager(accountManager);
-        orderInfo.setSelectedOrder(selectedOrder);
-        popup.showAndWait();
+        if(selectedOrder!=null) {
+            Stage popup = new Stage();
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setResizable(false);
+            FXMLLoader loader = new FXMLLoader
+                    (getClass().getResource("/order_info.fxml"));
+            popup.setScene(new Scene(loader.load(), 640, 480));
+            OrderInfoController orderInfo = loader.getController();
+            orderInfo.setServiceAPI(serviceAPI);
+            orderInfo.setAccountManager(accountManager);
+            orderInfo.setSelectedOrder(selectedOrder);
+            popup.showAndWait();
+            selectedOrder = null;
+            orderTable.getSelectionModel().clearSelection();
+        }
     }
 
     //Closed Order Page
@@ -114,18 +118,22 @@ public class HqPageController {
 
     @FXML
     public void handleShowClosedInfoBtnOnAction(ActionEvent event) throws IOException {
-        Stage popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.setResizable(false);
-        FXMLLoader loader = new FXMLLoader
-                (getClass().getResource("/order_info.fxml"));
-        popup.setScene(new Scene(loader.load(), 640, 480));
-        OrderInfoController orderInfo = loader.getController();
-        orderInfo.setAccountManager(accountManager);
-        orderInfo.setServiceAPI(serviceAPI);
-        orderInfo.setSelectedOrder(selectedOrder);
-        orderInfo.setDisable();
-        popup.showAndWait();
+        if(selectedOrder != null) {
+            Stage popup = new Stage();
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setResizable(false);
+            FXMLLoader loader = new FXMLLoader
+                    (getClass().getResource("/order_info.fxml"));
+            popup.setScene(new Scene(loader.load(), 640, 480));
+            OrderInfoController orderInfo = loader.getController();
+            orderInfo.setAccountManager(accountManager);
+            orderInfo.setServiceAPI(serviceAPI);
+            orderInfo.setSelectedOrder(selectedOrder);
+            orderInfo.setDisable();
+            selectedOrder = null;
+            closedOrderTable.getSelectionModel().clearSelection();
+            popup.showAndWait();
+        }
     }
 
     @FXML
@@ -199,7 +207,7 @@ public class HqPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> notCleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo){
-            if (!i.getCloth().getStatus().equals("Closed")){
+            if (!i.getCloth().getCurrentStatus().equals("Closed")){
                 notCleaningSuccess.add(i);
             }
         }
@@ -210,7 +218,7 @@ public class HqPageController {
         List<OrderInfo> allOrderInfo = serviceAPI.getAllOrderInfo();
         List<OrderInfo> cleaningSuccess = new ArrayList<>();
         for (OrderInfo i : allOrderInfo){
-            if (i.getCloth().getStatus().equals("Closed")){
+            if (i.getCloth().getCurrentStatus().equals("Closed")){
                 cleaningSuccess.add(i);
             }
         }
