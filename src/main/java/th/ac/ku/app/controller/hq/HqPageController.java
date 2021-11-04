@@ -106,6 +106,7 @@ public class HqPageController {
             popup.showAndWait();
             selectedOrder = null;
             orderTable.getSelectionModel().clearSelection();
+            showOrderList();
         }
     }
 

@@ -111,7 +111,8 @@ public class printReportController {
     public int getAllIncome(List<OrderInfo> matched){
         int q = 0;
         for (OrderInfo i : matched){
-            q += i.getOrderBill().getCost();
+            if (i.getOrderBill().getCleanStatus().equals("Success"))
+                q += i.getOrderBill().getCost();
         }
         return q;
     }

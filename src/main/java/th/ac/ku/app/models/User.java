@@ -7,13 +7,14 @@ public class User {
 
 
     public boolean checkAccountLogin(String username , String password) {
-        if (this.username.equals(username) && this.password.equals(password)){
+        if (this.username.equals(username) && this.password.equals(password)) {
             return true;
         }
-        else{
-            throw new IllegalArgumentException("Username or Password incorrect");
+//        else{
+//            throw new IllegalArgumentException("Username or Password incorrect");
+//      }
+        return false;
         }
-    }
 
     public String getUsername() {
         return username;

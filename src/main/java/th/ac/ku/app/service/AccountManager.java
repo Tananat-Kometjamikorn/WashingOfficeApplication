@@ -31,7 +31,7 @@ public class AccountManager {
                     throw new IllegalArgumentException(e.getMessage());
                 }
             }
-            if(currentBranch==null) throw new IllegalArgumentException("We don't have this account");
+            if(currentBranch==null) throw new IllegalArgumentException("Username or Password incorrect");
         }
         else {
             for(UserHeadQuarter headQuarter : headQuarterHashMap.values()){
@@ -46,7 +46,7 @@ public class AccountManager {
                 }
             }
             if(currentHeadQuarter==null) {
-                throw new IllegalArgumentException("We don't have this account");
+                throw new IllegalArgumentException("Username or Password incorrect");
             }
         }
     }
@@ -96,4 +96,5 @@ public class AccountManager {
     public void setHeadQuarterHashMapFromList(List<UserHeadQuarter> headQuarterList){
         this.headQuarterHashMap = headQuarterListToMap(headQuarterList);
     }
+
 }

@@ -61,10 +61,10 @@ public class CreateBillService{
         addContent3(document);
         document.add(new Paragraph("\n"));
         if (selectOrderInfo.getOrderBill().getCleanStatus().equals("Success")) {
-            document.add(new Paragraph("Thank you for using our services"));
+            document.add(new Paragraph("Thank you for using our services."));
         }
         else {
-            document.add(new Paragraph("We sincerely apologize for any damage to your clothes"));
+            document.add(new Paragraph("We sincerely apologize for any damage to your clothes."));
         }
         document.close();
         System.out.println("Bill created");

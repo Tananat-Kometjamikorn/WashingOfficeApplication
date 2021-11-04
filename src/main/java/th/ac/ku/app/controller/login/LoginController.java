@@ -51,7 +51,6 @@ public class LoginController {
     public void handleLoginBtnOnAction(ActionEvent event) throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-
         if(username.equals("") || password.equals("")){
             errorAlertBox("Please fill all blanks");
         }else{
